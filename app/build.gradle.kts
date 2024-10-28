@@ -37,6 +37,10 @@ android {
 }
 
 dependencies {
+    implementation(libs.legacy.support.v4)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.fragment.ktx)
     dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.20")
     implementation(libs.appcompat)
     implementation(libs.material)
