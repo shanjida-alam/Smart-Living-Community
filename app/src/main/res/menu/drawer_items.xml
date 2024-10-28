@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/dashboard"
+        android:id="@+id/itemDashboard"
+        android:title="Dashboard" />
+    <item
+        android:icon="@drawable/person"
+        android:id="@+id/itemManageProfile"
+        android:title="Manage Profile"/>
+    <item
+        android:icon="@drawable/service_request"
+        android:id="@+id/itemServiceRequest"
+        android:title="Service Request"/>
+    <item
+        android:icon="@drawable/manage_event"
+        android:id="@+id/itemManageEvent"
+        android:title="Manage Event"/>
+</menu>

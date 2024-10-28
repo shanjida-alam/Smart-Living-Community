@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/dashboard"
+        android:id="@+id/navDashboard"
+        android:title="Dashboard"/>
+    <item
+        android:icon="@drawable/service_request"
+        android:id="@+id/navServiceRequest"
+        android:title="Service Request"/>
+    <item
+        android:icon="@drawable/manage_event"
+        android:id="@+id/navManageEvent"
+        android:title="Manage Events"/>
+</menu>
