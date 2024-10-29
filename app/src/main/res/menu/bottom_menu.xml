@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/service_request"
+        android:title=""
+        android:icon="@drawable/ic_service_request" />
+    <item
+        android:id="@+id/payment_status"
+        android:title=""
+        android:icon="@drawable/ic_payment_status" />
+    <item
+        android:id="@+id/community_events"
+        android:title=""
+        android:icon="@drawable/ic_community_events" />
+    <item
+        android:id="@+id/parking_request"
+        android:title=""
+        android:icon="@drawable/ic_parking_request" />
+    <item
+        android:id="@+id/community_board"
+        android:title=""
+        android:icon="@drawable/ic_communityboard" />
+</menu>
