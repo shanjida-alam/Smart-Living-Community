@@ -15,6 +15,13 @@ import com.example.smartlivingcommunity.R;
 import com.example.smartlivingcommunity.data.model.RegistrationModel;
 import com.example.smartlivingcommunity.ui.viewmodel.ResidentProfileViewModel;
 
+/**
+ * Fragment representing the resident's profile.
+ *
+ * @author Shanjida Alam
+ * @version 1.0
+ */
+
 public class ResidentProfileView extends Fragment {
     private EditText fullNameEditText, emailEditText, contactNumberEditText, emergencyContactEditText,
             nidEditText, professionEditText, monthlyIncomeEditText, passwordEditText;
@@ -25,10 +32,15 @@ public class ResidentProfileView extends Fragment {
 
     @Nullable
     @Override
+    /**
+     * Inflates the layout for the resident's profile.
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.resident_profile, container, false);
 
-        // Initialize UI elements
+        /**
+         * Initialize UI elements
+         */
         fullNameEditText = view.findViewById(R.id.full_name);
         emailEditText = view.findViewById(R.id.email);
         contactNumberEditText = view.findViewById(R.id.number);
