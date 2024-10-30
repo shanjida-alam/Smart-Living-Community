@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     id("org.jetbrains.dokka") version "1.9.20"
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -38,7 +39,8 @@ android {
 
 dependencies {
 
-//   Adding the dependencies for documentation tools- Dokka
+implementation(libs.firebase.firestore)
+    //   Adding the dependencies for documentation tools- Dokka
     dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.20")
 
     implementation(libs.appcompat)
