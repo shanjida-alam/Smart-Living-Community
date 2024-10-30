@@ -6,10 +6,22 @@ import com.example.smartlivingcommunity.data.model.RegistrationModel;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentReference;
 
+/**
+ * Repository class for resident data
+ *
+ * @author Shanjida Alam
+ * @version 1.0
+ */
 public class ResidentRepository {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final MutableLiveData<RegistrationModel> residentData = new MutableLiveData<>();
 
+    /**
+     * Fetch resident data from Firestore
+     *
+     * @param residentId The ID of the resident
+     * @return LiveData containing the resident data
+     */
     public LiveData<RegistrationModel> getResidentData(String residentId) {
         db.collection("residents").document(residentId).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
@@ -20,6 +32,12 @@ public class ResidentRepository {
         return residentData;
     }
 
+    /**
+     * Update resident data in Firestore
+     *
+     * @param residentId The ID of the resident
+     * @param updatedData The updated resident data
+     */
     public void updateResidentData(String residentId, RegistrationModel updatedData) {
         DocumentReference docRef = db.collection("residents").document(residentId);
         docRef.set(updatedData).addOnSuccessListener(aVoid -> {

@@ -7,6 +7,13 @@ import androidx.lifecycle.ViewModel;
 import com.example.smartlivingcommunity.data.model.RegistrationModel;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * ViewModel for managing resident profile data.
+ *
+ * @author Shanjida Alam
+ * @version 1.0
+ */
+
 public class ResidentProfileViewModel extends ViewModel {
     private final MutableLiveData<RegistrationModel> residentData = new MutableLiveData<>();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -15,6 +22,11 @@ public class ResidentProfileViewModel extends ViewModel {
         return residentData;
     }
 
+    /**
+     * Fetches resident data from Firestore using the provided resident ID.
+     *
+     * @param residentId The ID of the resident to fetch data for.
+     */
     public void fetchResidentData(String residentId) {
         db.collection("residents").document(residentId)
                 .get()
@@ -30,6 +42,12 @@ public class ResidentProfileViewModel extends ViewModel {
                 .addOnFailureListener(e -> Log.e("ResidentProfileViewModel", "Error fetching resident data", e));
     }
 
+    /**
+     * Updates resident data in Firestore.
+     *
+     * @param residentId The ID of the resident to update.
+     * @param updatedResident The updated resident data.
+     */
     public void updateResidentData(String residentId, RegistrationModel updatedResident) {
         db.collection("residents").document(residentId)
                 .set(updatedResident)
