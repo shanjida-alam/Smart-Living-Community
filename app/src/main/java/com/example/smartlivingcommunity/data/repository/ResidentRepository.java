@@ -1,50 +1,31 @@
 package com.example.smartlivingcommunity.data.repository;
 
-import android.util.Log;
-
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import com.example.smartlivingcommunity.data.model.RegistrationModel;
-import com.example.smartlivingcommunity.data.source.RemoteDataSource;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-
-/**
- * Represents a repository for interacting with Firebase Firestore.
- *
- * @author Shanjida
- * @version 1.0
- */
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentReference;
 
 public class ResidentRepository {
-    private final RemoteDataSource remoteDataSource;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final MutableLiveData<RegistrationModel> residentData = new MutableLiveData<>();
 
-    /**
-     * Constructs a new instance of the ResidentRepository.
-     */
-    public ResidentRepository() {
-        remoteDataSource = new RemoteDataSource();
-    }
-
-    /**
-     * Adds a resident to the Firebase Firestore database.
-     * @param registrationModel the resident's registration information.
-     * @param listener a listener to receive the result of the operation.
-     */
-    public void addResident(RegistrationModel registrationModel, OnCompleteListener<Void> listener) {
-        remoteDataSource.addResident(registrationModel, task -> {
-            if (task.isSuccessful()) {
-                Log.d("Firebase", "Document successfully written!");
-            } else {
-                Log.e("Firebase", "Error writing document", task.getException());
+    public LiveData<RegistrationModel> getResidentData(String residentId) {
+        db.collection("residents").document(residentId).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                RegistrationModel resident = documentSnapshot.toObject(RegistrationModel.class);
+                residentData.setValue(resident);
             }
         });
+        return residentData;
     }
 
-    /**
-     * Retrieves a resident from the Firebase Firestore database.
-     * @param email the email of the resident.
-     * @param listener a listener to receive the result of the operation.
-     */
-    public void getResident(String email, OnCompleteListener<RegistrationModel> listener) {
-        remoteDataSource.getResident(email, listener);
+    public void updateResidentData(String residentId, RegistrationModel updatedData) {
+        DocumentReference docRef = db.collection("residents").document(residentId);
+        docRef.set(updatedData).addOnSuccessListener(aVoid -> {
+            // Handle success
+        }).addOnFailureListener(e -> {
+            // Handle failure
+        });
     }
 }

@@ -1,54 +1,39 @@
 package com.example.smartlivingcommunity.ui.viewmodel;
 
+import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.example.smartlivingcommunity.data.model.RegistrationModel;
-import com.example.smartlivingcommunity.data.repository.ResidentRepository;
-import com.google.android.gms.tasks.OnCompleteListener;
-
-/**
- * Represents a ViewModel for managing resident profile data.
- *
- * @author Shanjida
- * @version 1.0
- */
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ResidentProfileViewModel extends ViewModel {
-    private final ResidentRepository repository;
-    private final MutableLiveData<RegistrationModel> residentLiveData = new MutableLiveData<>();
+    private final MutableLiveData<RegistrationModel> residentData = new MutableLiveData<>();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    /**
-     * Constructs a new instance of the ResidentProfileViewModel.
-     */
-    public ResidentProfileViewModel() {
-        repository = new ResidentRepository();
+    public LiveData<RegistrationModel> getResidentData() {
+        return residentData;
     }
 
-    /**
-     * Retrieves resident data based on the provided email.
-     *
-     * @param email the email of the resident.
-     * @return a LiveData object containing the resident data.
-     */
-    public LiveData<RegistrationModel> getResident(String email) {
-        repository.getResident(email, task -> {
-            if (task.isSuccessful()) {
-                residentLiveData.setValue(task.getResult());
-            }
-        });
-        return residentLiveData;
+    public void fetchResidentData(String residentId) {
+        db.collection("residents").document(residentId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        RegistrationModel resident = documentSnapshot.toObject(RegistrationModel.class);
+                        residentData.setValue(resident);
+                        Log.d("ResidentProfileViewModel", "Fetched data successfully: " + resident.toString());
+                    } else {
+                        Log.d("ResidentProfileViewModel", "No document found with ID: " + residentId);
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("ResidentProfileViewModel", "Error fetching resident data", e));
     }
 
-    /**
-     * Adds a new resident to the repository.
-     *
-     * @param registrationModel the resident data to be added.
-     */
-    public void addResident(RegistrationModel registrationModel) {
-        repository.addResident(registrationModel, task -> {
-            // Handle success or failure
-        });
+    public void updateResidentData(String residentId, RegistrationModel updatedResident) {
+        db.collection("residents").document(residentId)
+                .set(updatedResident)
+                .addOnSuccessListener(aVoid -> Log.d("ResidentProfileViewModel", "Resident updated successfully"))
+                .addOnFailureListener(e -> Log.e("ResidentProfileViewModel", "Error updating resident", e));
     }
 }
