@@ -1,12 +1,12 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:padding="16dp">
 
-<!--    Registration Title -->
+    <!--    Registration Title -->
     <TextView
         android:id="@+id/registrationTitle"
         android:layout_width="match_parent"
@@ -18,129 +18,133 @@
         android:layout_marginBottom="24dp"
         android:gravity="center" />
 
-
-    <!-- Name Field -->
-    <com.google.android.material.textfield.TextInputLayout
+    <!-- CardView wrapping the registration form fields -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name">
+        android:layout_margin="15dp"
+        android:elevation="4dp"
+        android:padding="16dp"
+        android:backgroundTint="@android:color/white"
+        app:cardCornerRadius="8dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Email Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/email"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical">
 
-    <!-- Contact Number Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Contact Number">
+            <!-- Input field for Name -->
+            <EditText
+                android:id="@+id/name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:inputType="textPersonName" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/contactNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Input field for Email -->
+            <EditText
+                android:id="@+id/email_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
 
-    <!-- Emergency Contact Number Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Emergency Contact Number">
+            <!-- Input field for Contact Number -->
+            <EditText
+                android:id="@+id/contact_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contact Number"
+                android:inputType="phone"
+                android:maxLength="11" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emergencyContact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Input field for Emergency Contact Number -->
+            <EditText
+                android:id="@+id/emergency_contact_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Emergency Contact Number"
+                android:inputType="phone"
+                android:maxLength="11" />
 
-    <!-- NID or Birth Certificate Number Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="NID or Birth Certificate Number">
+            <!-- Input field for NID or Birth Certificate Number -->
+            <EditText
+                android:id="@+id/nid_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="NID/Birth Certificate Number"
+                android:inputType="number"
+                android:maxLength="13" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/idNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Input field for Profession -->
+            <EditText
+                android:id="@+id/profession_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Profession"
+                android:inputType="text" />
 
-    <!-- Profession Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Profession">
+            <!-- Input field for Monthly Income -->
+            <EditText
+                android:id="@+id/income_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Monthly Income"
+                android:inputType="numberDecimal" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/profession"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Input field for Password -->
+            <EditText
+                android:id="@+id/password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword" />
 
-    <!-- Monthly Income Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Monthly Income">
+            <!-- Input field for Confirm Password -->
+            <EditText
+                android:id="@+id/confirm_password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:inputType="textPassword" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/monthlyIncome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Image Upload Button -->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <!-- Password Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password">
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_margin="20dp"
+                    android:contentDescription="Profile Image"
+                    android:background="@drawable/placeholder_image" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Confirm Password Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Confirm Password">
+                <Button
+                    android:id="@+id/upload_image_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:layout_gravity="right"
+                    android:layout_margin="20dp"
+                    android:text="Upload Image" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/confirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+            </GridLayout>
 
-    <!-- Register Button -->
-<!--    android:backgroundTint="@color/purple_500"-->
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Submit Button -->
     <Button
-        android:id="@+id/registerButton"
+        android:id="@+id/submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_gravity="center"
-        android:text="Register"
-        android:textColor="@android:color/white" />
+        android:text="Submit" />
 </LinearLayout>

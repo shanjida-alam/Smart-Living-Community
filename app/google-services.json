@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "136354092716",
-    "project_id": "livsmart-1b87b",
-    "storage_bucket": "livsmart-1b87b.appspot.com"
+    "project_number": "219118674869",
+    "project_id": "livsmart-f2f5c",
+    "storage_bucket": "livsmart-f2f5c.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:136354092716:android:a532e378288ad0db18b109",
+        "mobilesdk_app_id": "1:219118674869:android:74b6721ee5f4d287baaffc",
         "android_client_info": {
           "package_name": "com.example.smartlivingcommunity"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCNNwt5EKSx3gBreJ1HdVv30L6c_lThNbE"
+          "current_key": "AIzaSyAhD2A1EDIun2GaS3wBwoKlSsNuOrRAXdg"
         }
       ],
       "services": {

@@ -1,33 +1,43 @@
 package com.example.smartlivingcommunity.data.model;
 
+
+/**
+ * Data class representing a resident's registration information.
+ *
+ * @author Hasneen Tamanna Totinee
+ * @version 1.0
+ */
 public class RegistrationModel {
     private String name;
     private String email;
     private String contactNumber;
     private String emergencyContact;
-    private String idNumber;
+    private String nidOrBirthCertificate;
     private String profession;
     private String monthlyIncome;
     private String password;
+    private String imageUrl;
     private String unitCode;
 
-    public RegistrationModel() {} // Required for Firebase
+    //No-argument constructor, required for firebase
+    public RegistrationModel() {}
 
     public RegistrationModel(String name, String email, String contactNumber, String emergencyContact,
-                             String idNumber, String profession, String monthlyIncome, String password, String unitCode) {
+                             String nidOrBirthCertificate, String profession, String monthlyIncome,
+                             String password, String imageUrl, String unitCode) {
         this.name = name;
         this.email = email;
         this.contactNumber = contactNumber;
         this.emergencyContact = emergencyContact;
-        this.idNumber = idNumber;
+        this.nidOrBirthCertificate = nidOrBirthCertificate;
         this.profession = profession;
         this.monthlyIncome = monthlyIncome;
         this.password = password;
+        this.imageUrl = imageUrl;
         this.unitCode = unitCode;
     }
 
-    // Getters and setters
-
+    // Getters and Setters
 
     public String getName() {
         return name;
@@ -61,12 +71,12 @@ public class RegistrationModel {
         this.emergencyContact = emergencyContact;
     }
 
-    public String getIdNumber() {
-        return idNumber;
+    public String getNidOrBirthCertificate() {
+        return nidOrBirthCertificate;
     }
 
-    public void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
+    public void setNidOrBirthCertificate(String nidOrBirthCertificate) {
+        this.nidOrBirthCertificate = nidOrBirthCertificate;
     }
 
     public String getProfession() {
@@ -91,6 +101,14 @@ public class RegistrationModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getUnitCode() {

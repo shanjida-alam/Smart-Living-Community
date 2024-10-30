@@ -3,35 +3,28 @@ package com.example.smartlivingcommunity.ui.viewmodel;
 import androidx.lifecycle.ViewModel;
 import com.example.smartlivingcommunity.data.model.RegistrationModel;
 import com.example.smartlivingcommunity.data.repository.RegistrationRepository;
-import com.example.smartlivingcommunity.utils.EmailUtils;
 
-import java.util.Random;
-
+/**
+ * ViewModel for handling registration data and business logic.
+ *
+ * @author Hasneen Tamanna Totinee
+ * @version 1.0
+ */
 public class RegistrationViewModel extends ViewModel {
-
     private final RegistrationRepository repository;
 
     public RegistrationViewModel() {
         repository = new RegistrationRepository();
     }
 
-    private String generateUnitCode() {
-        int randomNumber = 1000 + new Random().nextInt(9000);
-        char randomLetter = (char) ('A' + new Random().nextInt(26));
-        return "R-" + randomNumber + randomLetter;
-    }
-
-    public void registerUser(String name, String email, String contactNumber, String emergencyContact,
-                             String idNumber, String profession, String monthlyIncome, String password) {
-        String unitCode = generateUnitCode();
-        RegistrationModel user = new RegistrationModel(name, email, contactNumber, emergencyContact, idNumber,
-                profession, monthlyIncome, password, unitCode);
-
-        repository.registerUser(user).addOnSuccessListener(aVoid -> {
-            // Send email on successful registration
-            EmailUtils.sendEmail(email, "Registration Successful", "Your unit code: " + unitCode);
-        }).addOnFailureListener(e -> {
-            // Handle registration failure
-        });
+    /**
+     * Stores the registration model to Firebase and handles callbacks.
+     *
+     * @param model     The registration model with user data
+     * @param onSuccess Callback on successful data storage
+     * @param onFailure Callback on failure during data storage
+     */
+    public void registerResident(RegistrationModel model, Runnable onSuccess, Runnable onFailure) {
+        repository.storeRegistrationData(model, onSuccess, onFailure);
     }
 }
