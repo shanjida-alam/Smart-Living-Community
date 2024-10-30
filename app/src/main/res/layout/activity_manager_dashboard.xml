@@ -1,0 +1,98 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header Title -->
+        <TextView
+            android:id="@+id/headerTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="Dashboard"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:background="@color/blue"
+            android:textSize="30sp" />
+
+        <!-- Welcome Message -->
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="16dp"
+            android:text="Welcome, Manager"
+            android:textColor="@color/darkblue"
+            android:textSize="18sp" />
+
+        <!-- Parking Slot Requests Section -->
+        <TextView
+            android:id="@+id/parkingSlotRequestsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Parking Slot Requests"
+            android:textAlignment="center"
+            android:background="@color/lblue"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/parkingRequestsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="true" />
+
+
+
+        <!-- Complaints Section -->
+        <TextView
+            android:id="@+id/complaintsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Complaints"
+            android:textAlignment="center"
+            android:background="@color/lblue"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/complaintsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="true" />
+
+
+
+        <!-- Upcoming Events Section -->
+        <TextView
+            android:id="@+id/upcomingEventsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Upcoming Events"
+            android:textAlignment="center"
+            android:background="@color/lblue"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="true" />
+
+    </LinearLayout>
+</ScrollView>
