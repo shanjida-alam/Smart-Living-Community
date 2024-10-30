@@ -1,5 +1,7 @@
 package com.example.smartlivingcommunity.data.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.smartlivingcommunity.data.model.RegistrationModel;
@@ -16,6 +18,8 @@ public class ResidentRepository {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final MutableLiveData<RegistrationModel> residentData = new MutableLiveData<>();
 
+
+
     /**
      * Fetch resident data from Firestore
      *
@@ -26,7 +30,11 @@ public class ResidentRepository {
         db.collection("residents").document(residentId).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 RegistrationModel resident = documentSnapshot.toObject(RegistrationModel.class);
+                Log.d("ResidentRepository", "Fetched data successfully: " + resident.toString());
                 residentData.setValue(resident);
+            }
+            else {
+                Log.d("ResidentRepository", "No document found with ID: " + residentId);
             }
         });
         return residentData;
