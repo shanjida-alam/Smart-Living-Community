@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">Smart Living Community</string>
     <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="manager_request_title">Manager Requests</string>
+    <string name="resident_request_title">Resident Requests</string>
+    <string name="request_description_hint">Enter your request details</string>
+    <string name="submit_request">Submit Request</string>
+    <string name="service_request_detail_title">Service Request Details</string>
+    <string name="request_status">Status: Pending</string>
+    <string name="request_description_detail">Description of the service request goes here.</string>
+
+    <string name="request_type_hint">Enter request type</string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
+
+
+

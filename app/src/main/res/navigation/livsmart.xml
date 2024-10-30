@@ -1,0 +1,30 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/residentRequestFragment">
+
+    <fragment
+        android:id="@+id/residentRequestFragment"
+        android:name="com.example.smartlivingcommunity.UI.View.ResidentRequestFragment"
+        tools:layout="@layout/fragment_resident_request" />
+
+    <fragment
+        android:id="@+id/managerRequestFragment"
+        android:name="com.example.smartlivingcommunity.UI.View.ManagerRequestFragment"
+        tools:layout="@layout/fragment_manager_request" />
+
+    <action
+        android:id="@+id/action_residentRequestFragment_to_managerRequestFragment"
+        app:destination="@id/managerRequestFragment" />
+
+    <action
+        android:id="@+id/action_managerRequestFragment_to_residentRequestFragment"
+        app:destination="@id/residentRequestFragment" />
+</navigation>
+
+
+
+
+
+
+
