@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.smartlivingcommunity.data.model.RegistrationModel;
+import com.example.smartlivingcommunity.data.repository.ResidentRepository;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
@@ -18,6 +19,12 @@ public class ResidentProfileViewModel extends ViewModel {
     private final MutableLiveData<RegistrationModel> residentData = new MutableLiveData<>();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    private ResidentRepository repository;
+
+    /**
+     * Retrieves the resident data LiveData.
+     * @return LiveData containing the resident data.
+     */
     public LiveData<RegistrationModel> getResidentData() {
         return residentData;
     }
