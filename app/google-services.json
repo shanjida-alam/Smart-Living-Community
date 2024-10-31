@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "219118674869",
+    "project_id": "livsmart-f2f5c",
+    "storage_bucket": "livsmart-f2f5c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219118674869:android:74b6721ee5f4d287baaffc",
+        "android_client_info": {
+          "package_name": "com.example.smartlivingcommunity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhD2A1EDIun2GaS3wBwoKlSsNuOrRAXdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
