@@ -13,20 +13,19 @@
         android:theme="@style/Theme.SmartLivingCommunity"
         tools:targetApi="31">
 
-        <!-- Changed LoginActivity to be the launcher -->
+        <!-- MainActivity set as launcher activity -->
         <activity
-            android:name=".ui.view.login.LoginActivity"
-            android:exported="true">  <!-- Changed to true -->
-            <intent-filter>           <!-- Added intent-filter here -->
+            android:name=".ui.view.content.MainActivity"
+            android:exported="true">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Removed intent-filter from MainActivity -->
+        <!-- LoginActivity removed or added without launcher intent-filter -->
         <activity
-            android:name=".ui.view.content.MainActivity"
-            android:exported="false" /> <!-- Changed to false -->
+            android:name=".ui.view.login.LoginActivity"
+            android:exported="true"/>
     </application>
-
 </manifest>
