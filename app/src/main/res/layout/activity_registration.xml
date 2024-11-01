@@ -68,13 +68,34 @@
                 android:maxLength="11" />
 
             <!-- Input field for NID or Birth Certificate Number -->
-            <EditText
-                android:id="@+id/nid_edit_text"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="NID/Birth Certificate Number"
-                android:inputType="number"
-                android:maxLength="13" />
+                android:layout_height="wrap_content">
+
+                <!-- EditText for NID/Birth Certificate Number -->
+                <EditText
+                    android:id="@+id/nidOrBirthCertEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="NID/Birth Certificate Number"
+                    android:paddingEnd="40dp"
+                    android:maxLength="13"/>
+
+                <!-- Icon for dropdown, positioned on the right side of the EditText -->
+                <ImageView
+                    android:id="@+id/dropdownIcon"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_arrow_down"
+                    android:contentDescription="Dropdown icon"
+                    android:clickable="true" />
+            </FrameLayout>
+
+
+
+
 
             <!-- Input field for Profession -->
             <EditText
@@ -120,6 +141,7 @@
                     android:layout_gravity="left"
                     android:layout_margin="20dp"
                     android:contentDescription="Profile Image"
+                    android:scaleType="centerCrop"
                     android:background="@drawable/placeholder_image" />
 
 
