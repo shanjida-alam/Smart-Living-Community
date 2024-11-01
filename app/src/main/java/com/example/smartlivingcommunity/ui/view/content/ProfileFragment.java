@@ -6,15 +6,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import com.bumptech.glide.Glide;
 import com.example.smartlivingcommunity.R;
 import com.example.smartlivingcommunity.data.model.ResidentProfileModel;
 import com.example.smartlivingcommunity.ui.viewmodel.ResidentProfileViewModel;
-
 
 public class ProfileFragment extends Fragment {
     private ResidentProfileViewModel residentProfileViewModel;
@@ -68,13 +70,14 @@ public class ProfileFragment extends Fragment {
                     passwordEditText.setText(resident.getPassword());
 
                     // Load the profile image if imageUrl is available
-//                    if (resident.getImageUrl() != null && !resident.getImageUrl().isEmpty()) {
-//                        Glide.with(requireContext())
-//                                .load(resident.getImageUrl())
-//                                .into(profileImageView);
-//                    } else {
-//                        profileImageView.setImageResource(R.drawable.default_profile); // Placeholder image
-//                    }
+                    Log.d("ProfileFragment", "Image URL: " + resident.getImageUrl());
+                    if (resident.getImageUrl() != null && !resident.getImageUrl().isEmpty()) {
+                        Glide.with(requireActivity())
+                                .load(resident.getImageUrl())
+                                .into(profileImageView);
+                    } else {
+                        profileImageView.setImageResource(R.drawable.person); // Placeholder image
+                    }
                 } else {
                     // Handle case where resident data is not found
                     // You could show a message or clear fields if needed
