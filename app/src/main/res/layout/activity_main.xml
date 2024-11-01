@@ -14,11 +14,14 @@
         layout="@layout/activity_main_content"/>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navView"
+        android:id="@+id/drawer_nav_view"
         android:layout_width="270dp"
         android:layout_height="match_parent"
         app:menu="@menu/drawer_items"
         app:headerLayout="@layout/drawer_header"
         android:layout_gravity="start"
+        app:itemIconTint="@color/drawer_item_color_state"
+        app:itemTextColor="@color/drawer_item_color_state"
+        app:itemShapeFillColor="@color/background_tint_color_state"
         />
 </androidx.drawerlayout.widget.DrawerLayout>

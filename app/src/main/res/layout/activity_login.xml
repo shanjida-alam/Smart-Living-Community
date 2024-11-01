@@ -5,6 +5,14 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login Resident"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        />
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
@@ -20,12 +28,14 @@
         android:inputType="textPassword"
         android:layout_marginTop="8dp"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
+        android:backgroundTint="@color/toolbar_bg"
         android:layout_marginTop="16dp"/>
+
 
     <ProgressBar
         android:id="@+id/progressBar"

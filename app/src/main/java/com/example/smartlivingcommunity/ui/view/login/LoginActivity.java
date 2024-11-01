@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartlivingcommunity.R;
 import com.example.smartlivingcommunity.ui.view.content.MainActivity;
-import com.example.smartlivingcommunity.ui.viewmodel.LoginViewModel;
+import com.example.smartlivingcommunity.ui.viewmodel.ResidentLoginViewModel;
 import com.example.smartlivingcommunity.utils.Resource;
 
 /**
@@ -27,7 +27,7 @@ import com.example.smartlivingcommunity.utils.Resource;
 public class LoginActivity extends AppCompatActivity {
 
     /** ViewModel that handles the login logic */
-    private LoginViewModel viewModel;
+    private ResidentLoginViewModel viewModel;
 
     /** EditText for user email input */
     private EditText emailEditText;
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         // Initialize ViewModel
-        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ResidentLoginViewModel.class);
 
         // Set up observers
         viewModel.getLoginResult().observe(this, result -> {

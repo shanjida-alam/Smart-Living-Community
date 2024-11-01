@@ -3,17 +3,21 @@
     <item
         android:icon="@drawable/dashboard"
         android:id="@+id/itemDashboard"
+        android:checkable="true"
         android:title="Dashboard" />
     <item
         android:icon="@drawable/person"
         android:id="@+id/itemManageProfile"
+        android:checkable="true"
         android:title="Manage Profile"/>
     <item
         android:icon="@drawable/service_request"
         android:id="@+id/itemServiceRequest"
+        android:checkable="true"
         android:title="Service Request"/>
     <item
         android:icon="@drawable/manage_event"
         android:id="@+id/itemManageEvent"
+        android:checkable="true"
         android:title="Manage Event"/>
 </menu>

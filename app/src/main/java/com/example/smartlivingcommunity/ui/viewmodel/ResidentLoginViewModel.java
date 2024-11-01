@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.smartlivingcommunity.data.model.LoginModel;
+import com.example.smartlivingcommunity.data.model.ResidentLoginModel;
 import com.example.smartlivingcommunity.utils.Resource;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * ViewModel class that manages user login authentication.
  * Handles login requests, verifies credentials, and updates login status.
  */
-public class LoginViewModel extends ViewModel {
+public class ResidentLoginViewModel extends ViewModel {
 
     /** LiveData holding the login result status and associated message */
     private final MutableLiveData<Resource<Boolean>> loginResult = new MutableLiveData<>();
@@ -56,7 +56,7 @@ public class LoginViewModel extends ViewModel {
 
                         // Retrieve user document and validate password
                         DocumentSnapshot document = task.getResult().getDocuments().get(0);
-                        LoginModel user = document.toObject(LoginModel.class);
+                        ResidentLoginModel user = document.toObject(ResidentLoginModel.class);
 
                         if (user != null && user.getPassword().equals(password)) {
                             loginResult.setValue(Resource.success(true));

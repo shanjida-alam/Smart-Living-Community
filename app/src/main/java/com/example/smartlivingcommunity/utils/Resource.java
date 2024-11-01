@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 /**
  * A generic class representing a resource with a status, data, and message.
  * This class is useful for handling data responses in different states (e.g., success, error, loading),
- * commonly used in ViewModel and LiveData components for effective state management.
  *
  * @param <T> the type of data the resource holds
  */
