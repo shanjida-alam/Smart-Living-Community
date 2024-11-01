@@ -4,8 +4,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Header Title -->
-
     <TextView
         android:id="@+id/headerTitle"
         android:layout_width="match_parent"
@@ -17,11 +15,6 @@
         android:background="@color/blue"
         android:textSize="30dp"
         />
-
-    <!-- Welcome Message -->
-
-    <!-- Card Views for Service Status and Parking Status -->
-
 
     <TextView
         android:id="@+id/welcomeText"
@@ -39,7 +32,6 @@
         android:orientation="horizontal"
         android:layout_marginTop="16dp">
 
-        <!-- Service Status Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -64,7 +56,6 @@
                     android:background="@color/lblue"
                     android:textSize="18sp" />
 
-                <!-- RecyclerView for Service Requests -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/serviceRecyclerView"
                     android:layout_width="match_parent"
@@ -73,7 +64,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Parking Status Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -96,7 +86,6 @@
                     android:background="@color/lblue"
                     android:textSize="18sp" />
 
-                <!-- RecyclerView for Parking Slots -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/parkingRecyclerView"
                     android:layout_width="match_parent"
@@ -106,7 +95,6 @@
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 
-    <!-- Upcoming Events Section -->
     <TextView
         android:id="@+id/upcomingEventsTitle"
         android:layout_width="380dp"
@@ -117,8 +105,6 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20dp" />
-
-    <!-- RecyclerView to display list of events -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventsRecyclerView"

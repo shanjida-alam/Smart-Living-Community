@@ -14,10 +14,23 @@ import com.example.smartlivingcommunity.data.model.Event;
 
 import java.util.List;
 
+/**
+ * Adapter for displaying a list of events in a RecyclerView.
+ * This adapter binds the event data to the views for each item in the list.
+ *
+ * <p>It uses the {@link Event} model to populate the data for each event item.</p>
+ *
+ * @author Saon
+ */
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
     private List<Event> eventList;
 
+    /**
+     * Constructs a new {@code EventAdapter} with the specified list of events.
+     *
+     * @param eventList the list of events to be displayed
+     */
     public EventAdapter(List<Event> eventList) {
         this.eventList = eventList;
     }
@@ -42,10 +55,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         return eventList.size();
     }
 
+    /**
+     * ViewHolder class for holding the views for each event item.
+     */
     public static class EventViewHolder extends RecyclerView.ViewHolder {
         TextView eventName, eventDate, eventLocation;
         Button registerButton;
 
+        /**
+         * Constructs a new {@code EventViewHolder} with the specified item view.
+         *
+         * @param itemView the view for each event item
+         */
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
             eventName = itemView.findViewById(R.id.eventName);

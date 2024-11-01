@@ -13,9 +13,21 @@ import com.example.smartlivingcommunity.data.model.ParkingRequest;
 
 import java.util.List;
 
+/**
+ * Adapter for displaying parking requests in a RecyclerView.
+ *
+ * <p>This adapter binds the list of ParkingRequest objects to the RecyclerView items.</p>
+ *
+ * @author Saon
+ */
 public class ParkingRequestAdapter extends RecyclerView.Adapter<ParkingRequestAdapter.ParkingViewHolder> {
     private List<ParkingRequest> parkingRequests;
 
+    /**
+     * Constructor for ParkingRequestAdapter.
+     *
+     * @param parkingRequests The list of parking requests to display.
+     */
     public ParkingRequestAdapter(List<ParkingRequest> parkingRequests) {
         this.parkingRequests = parkingRequests;
     }

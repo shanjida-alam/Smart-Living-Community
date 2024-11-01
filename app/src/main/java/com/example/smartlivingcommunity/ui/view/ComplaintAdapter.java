@@ -13,9 +13,22 @@ import com.example.smartlivingcommunity.data.model.Complaint;
 
 import java.util.List;
 
+/**
+ * Adapter for displaying a list of complaints in a RecyclerView.
+ * This adapter binds the complaint data to the views for each item in the list.
+ *
+ * <p>It uses the {@link Complaint} model to populate the data for each complaint item.</p>
+ *
+ * @author Saon
+ */
 public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.ComplaintViewHolder> {
     private List<Complaint> complaints;
 
+    /**
+     * Constructs a new {@code ComplaintAdapter} with the specified list of complaints.
+     *
+     * @param complaints the list of complaints to be displayed
+     */
     public ComplaintAdapter(List<Complaint> complaints) {
         this.complaints = complaints;
     }
@@ -40,9 +53,17 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.Comp
         return complaints.size();
     }
 
+    /**
+     * ViewHolder class for holding the views for each complaint item.
+     */
     static class ComplaintViewHolder extends RecyclerView.ViewHolder {
         TextView complaintId, description, submissionDate;
 
+        /**
+         * Constructs a new {@code ComplaintViewHolder} with the specified item view.
+         *
+         * @param itemView the view for each complaint item
+         */
         ComplaintViewHolder(View itemView) {
             super(itemView);
             complaintId = itemView.findViewById(R.id.complaintId);

@@ -12,12 +12,11 @@
             android:id="@+id/headerTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
             android:text="Dashboard"
             android:textAlignment="center"
+            android:textSize="30sp"
             android:textColor="@color/black"
-            android:background="@color/blue"
-            android:textSize="30sp" />
+            android:background="@color/blue" />
 
         <TextView
             android:id="@+id/welcomeText"
@@ -25,60 +24,46 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:padding="16dp"
-            android:text="Welcome, Manager"
-            android:textColor="@color/darkblue"
-            android:textSize="18sp" />
+            android:text="Welcome, Security Officer"
+            android:textSize="18sp"
+            android:textColor="@color/darkblue" />
 
         <TextView
-            android:id="@+id/parkingSlotRequestsTitle"
+            android:id="@+id/parkingListTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Parking Slot Requests"
+            android:text="Parking List"
             android:textAlignment="center"
             android:background="@color/lblue"
+            android:textSize="18sp"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:layout_marginTop="8dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/parkingRequestsRecyclerView"
+            android:id="@+id/parking_list_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:orientation="horizontal"
             android:nestedScrollingEnabled="true" />
 
         <TextView
-            android:id="@+id/complaintsTitle"
+            android:id="@+id/securityLogTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Complaints"
+            android:text="Security Log"
             android:textAlignment="center"
             android:background="@color/lblue"
+            android:textSize="18sp"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:layout_marginTop="16dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/complaintsRecyclerView"
+            android:id="@+id/security_log_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:nestedScrollingEnabled="true" />
-
-        <TextView
-            android:id="@+id/upcomingEventsTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Upcoming Events"
-            android:textAlignment="center"
-            android:background="@color/lblue"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/eventsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
             android:nestedScrollingEnabled="true" />
 
     </LinearLayout>

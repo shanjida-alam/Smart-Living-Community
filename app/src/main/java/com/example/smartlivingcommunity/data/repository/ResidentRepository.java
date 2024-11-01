@@ -8,8 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Repository class that provides data for resident-related features in the dashboard.
+ * Repository class that provides data for resident-related features in the Smart Living Community dashboard.
  * Supplies lists of parking slots, events, and service requests with dummy data for demonstration purposes.
+ *
+ * <p>This repository serves as a data source for the Resident dashboard, enabling the display of
+ * parking slots, community events, and service requests.</p>
+ *
  * @author Saon
  */
 public class ResidentRepository {
@@ -18,7 +22,7 @@ public class ResidentRepository {
      * Returns a list of {@code ParkingSlot} objects, each representing a parking slot's
      * ID, status, and associated vehicle ID.
      *
-     * @return a list of parking slots
+     * @return a list of parking slots available in the community
      */
     public List<ParkingSlot> getParkingSlots() {
         List<ParkingSlot> parkingSlots = new ArrayList<>();
@@ -31,7 +35,7 @@ public class ResidentRepository {
     /**
      * Returns a list of {@code Event} objects, each representing an event's ID, location, date, and name.
      *
-     * @return a list of events
+     * @return a list of upcoming community events
      */
     public List<Event> getEvents() {
         List<Event> events = new ArrayList<>();
@@ -44,7 +48,7 @@ public class ResidentRepository {
      * Returns a list of {@code ServiceRequest} objects, each representing a service request's
      * type, description, and current status.
      *
-     * @return a list of service requests
+     * @return a list of service requests made by residents
      */
     public List<ServiceRequest> getServiceRequests() {
         List<ServiceRequest> serviceRequests = new ArrayList<>();

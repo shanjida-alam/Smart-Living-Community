@@ -16,6 +16,14 @@ import com.example.smartlivingcommunity.ui.viewmodel.ResidentDashboardViewModel;
 
 import java.util.List;
 
+/**
+ * Activity for the Resident Dashboard, displaying events, parking slots, and service requests.
+ *
+ * <p>This activity initializes the ViewModel and sets up RecyclerViews to observe and display
+ * lists of events, parking slots, and service requests.</p>
+ *
+ * @author Saon
+ */
 public class ResidentDashboardActivity extends AppCompatActivity {
     private ResidentDashboardViewModel viewModel;
     private EventAdapter eventAdapter;

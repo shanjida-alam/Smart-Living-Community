@@ -1,27 +1,21 @@
 package com.example.smartlivingcommunity.data.model;
 
 /**
- * Represents a parking slot within the resident dashboard system, detailing the slot ID,
- * current status, and associated vehicle ID.
+ * Represents a parking slot within the Smart Living Community resident dashboard system,
+ * detailing the slot ID, current status, and associated vehicle ID.
+ *
  * @author Saon
  */
 public class ParkingSlot {
-
-    /** Unique identifier for the parking slot */
     private String slotID;
-
-    /** Current status of the parking slot (e.g., "occupied", "available") */
     private String status;
-
-    /** ID of the vehicle occupying the slot, if any */
     private String vehicleID;
-
     /**
      * Constructs a new {@code ParkingSlot} with specified details including slot ID, status, and vehicle ID.
      *
      * @param slotID    the unique identifier for the parking slot
-     * @param status    the current status of the parking slot
-     * @param vehicleID the ID of the vehicle occupying the slot, if any
+     * @param status    the current status of the parking slot (e.g., available, occupied)
+     * @param vehicleID the ID of the vehicle occupying the slot, or {@code null} if the slot is vacant
      */
     public ParkingSlot(String slotID, String status, String vehicleID) {
         this.slotID = slotID;

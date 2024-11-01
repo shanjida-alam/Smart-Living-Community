@@ -13,10 +13,21 @@ import com.example.smartlivingcommunity.data.model.ParkingSlot;
 
 import java.util.List;
 
+/**
+ * Adapter for displaying parking slots in a RecyclerView.
+ *
+ * <p>This adapter binds the list of ParkingSlot objects to the RecyclerView items.</p>
+ *
+ * @author Saon
+ */
 public class ParkingSlotAdapter extends RecyclerView.Adapter<ParkingSlotAdapter.ParkingSlotViewHolder> {
     private List<ParkingSlot> parkingSlots;
 
-    // Constructor to initialize the parking slots list
+    /**
+     * Constructor to initialize the parking slots list.
+     *
+     * @param parkingSlots The list of parking slots to display.
+     */
     public ParkingSlotAdapter(List<ParkingSlot> parkingSlots) {
         this.parkingSlots = parkingSlots;
     }
@@ -42,7 +53,11 @@ public class ParkingSlotAdapter extends RecyclerView.Adapter<ParkingSlotAdapter.
         return parkingSlots != null ? parkingSlots.size() : 0;
     }
 
-    // Method to update parking slot data and refresh the list
+    /**
+     * Method to update parking slot data and refresh the list.
+     *
+     * @param parkingSlots The new list of parking slots to display.
+     */
     public void setParkingSlots(List<ParkingSlot> parkingSlots) {
         this.parkingSlots = parkingSlots;
         notifyDataSetChanged();

@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * ViewModel for the Resident Dashboard, managing and preparing data related to parking slots, events,
  * and service requests for display in the UI.
+ *
  * @author Saon
  */
 public class ResidentDashboardViewModel extends ViewModel {

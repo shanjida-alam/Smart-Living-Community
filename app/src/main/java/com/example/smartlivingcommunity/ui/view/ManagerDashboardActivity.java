@@ -1,5 +1,6 @@
 package com.example.smartlivingcommunity.ui.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +15,15 @@ import com.example.smartlivingcommunity.data.model.Event;
 import com.example.smartlivingcommunity.data.model.ParkingRequest;
 import com.example.smartlivingcommunity.ui.viewmodel.ManagerDashboardViewModel;
 
-
 import java.util.List;
 
+/**
+ * Activity that displays the Manager Dashboard, showing events, parking requests, and complaints.
+ *
+ * <p>This activity sets up the ViewModel and initializes RecyclerViews to display the respective data.</p>
+ *
+ * @author Saon
+ */
 public class ManagerDashboardActivity extends AppCompatActivity {
     private ManagerDashboardViewModel managerDashboardViewModel;
     private EventAdapter eventAdapter;

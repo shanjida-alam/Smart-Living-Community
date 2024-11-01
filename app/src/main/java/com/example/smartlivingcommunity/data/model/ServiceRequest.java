@@ -1,27 +1,25 @@
 package com.example.smartlivingcommunity.data.model;
 
 /**
- * Represents a service request within the  dashboard system, detailing the type
- * of service requested, a description of the request, and its current status.
+ * Represents a service request within the Smart Living Community dashboard system,
+ * detailing the type of service requested, a description of the request, and its current status.
+ *
+ * <p>This class provides information on the service requested by residents, including
+ * the request type, a description of the service, and the status of the request.</p>
+ *
  * @author Saon
  */
 public class ServiceRequest {
-
-    /** Type of the service requested (e.g., "plumbing", "electrical") */
     private String serviceType;
-
-    /** Description providing details of the service request */
     private String description;
-
-    /** Current status of the service request (e.g., "pending", "completed") */
     private String status;
 
     /**
      * Constructs a new {@code ServiceRequest} with specified details including service type, description, and status.
      *
-     * @param serviceType the type of service requested
+     * @param serviceType the type of service requested, such as maintenance or support
      * @param description a detailed description of the service request
-     * @param status      the current status of the request
+     * @param status      the current status of the request (e.g., pending, in progress, completed)
      */
     public ServiceRequest(String serviceType, String description, String status) {
         this.serviceType = serviceType;
