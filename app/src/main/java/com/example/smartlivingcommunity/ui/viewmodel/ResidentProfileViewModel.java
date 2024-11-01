@@ -1,64 +1,43 @@
 package com.example.smartlivingcommunity.ui.viewmodel;
 
-import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.example.smartlivingcommunity.data.model.RegistrationModel;
-import com.example.smartlivingcommunity.data.repository.ResidentRepository;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-/**
- * ViewModel for managing resident profile data.
- *
- * @author Shanjida Alam
- * @version 1.0
- */
+import com.example.smartlivingcommunity.data.model.ResidentProfileModel;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class ResidentProfileViewModel extends ViewModel {
-    private final MutableLiveData<RegistrationModel> residentData = new MutableLiveData<>();
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final MutableLiveData<ResidentProfileModel> residentLiveData = new MutableLiveData<>();
+    private final FirebaseFirestore db;
 
-    private ResidentRepository repository;
-
-    /**
-     * Retrieves the resident data LiveData.
-     * @return LiveData containing the resident data.
-     */
-    public LiveData<RegistrationModel> getResidentData() {
-        return residentData;
+    public ResidentProfileViewModel() {
+        db = FirebaseFirestore.getInstance();
     }
 
-    /**
-     * Fetches resident data from Firestore using the provided resident ID.
-     *
-     * @param residentId The ID of the resident to fetch data for.
-     */
-    public void fetchResidentData(String residentId) {
-        db.collection("residents").document(residentId)
+    public LiveData<ResidentProfileModel> getResidentLiveData() {
+        return residentLiveData;
+    }
+
+    public void fetchResidentDataByUnitCode(String unitCode) {
+        db.collection("residents")
+                .whereEqualTo("unitCode", unitCode)
                 .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        RegistrationModel resident = documentSnapshot.toObject(RegistrationModel.class);
-                        residentData.setValue(resident);
-                        Log.d("ResidentProfileViewModel", "Fetched data successfully: " + resident.toString());
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        QuerySnapshot snapshot = task.getResult();
+                        DocumentSnapshot document = snapshot.getDocuments().get(0);
+                        ResidentProfileModel resident = document.toObject(ResidentProfileModel.class);
+                        residentLiveData.setValue(resident);
                     } else {
-                        Log.d("ResidentProfileViewModel", "No document found with ID: " + residentId);
+                        // Handle the case where no document matches the unitCode
+                        residentLiveData.setValue(null);
                     }
-                })
-                .addOnFailureListener(e -> Log.e("ResidentProfileViewModel", "Error fetching resident data", e));
-    }
-
-    /**
-     * Updates resident data in Firestore.
-     *
-     * @param residentId The ID of the resident to update.
-     * @param updatedResident The updated resident data.
-     */
-    public void updateResidentData(String residentId, RegistrationModel updatedResident) {
-        db.collection("residents").document(residentId)
-                .set(updatedResident)
-                .addOnSuccessListener(aVoid -> Log.d("ResidentProfileViewModel", "Resident updated successfully"))
-                .addOnFailureListener(e -> Log.e("ResidentProfileViewModel", "Error updating resident", e));
+                });
     }
 }
+

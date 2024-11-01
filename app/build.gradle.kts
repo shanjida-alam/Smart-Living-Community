@@ -39,7 +39,10 @@ android {
 
 dependencies {
 
-implementation(libs.firebase.firestore)
+
+
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database)
     //   Adding the dependencies for documentation tools- Dokka
     dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.20")
 

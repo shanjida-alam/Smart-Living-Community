@@ -1,13 +1,6 @@
 package com.example.smartlivingcommunity.data.model;
 
-
-/**
- * Data class representing a resident's registration information.
- *
- * @author Hasneen Tamanna Totinee
- * @version 1.0
- */
-public class RegistrationModel {
+public class ResidentProfileModel {
     private String name;
     private String email;
     private String contactNumber;
@@ -17,14 +10,13 @@ public class RegistrationModel {
     private String monthlyIncome;
     private String password;
     private String imageUrl;
-    private String unitCode;
 
     //No-argument constructor, required for firebase
-    public RegistrationModel() {}
+    public ResidentProfileModel() {}
 
-    public RegistrationModel(String name, String email, String contactNumber, String emergencyContact,
-                             String nidOrBirthCertificate, String profession, String monthlyIncome,
-                             String password, String imageUrl, String unitCode) {
+    public ResidentProfileModel(String name, String email, String contactNumber, String emergencyContact,
+                                String nidOrBirthCertificate, String profession, String monthlyIncome,
+                                String password, String imageUrl) {
         this.name = name;
         this.email = email;
         this.contactNumber = contactNumber;
@@ -34,7 +26,6 @@ public class RegistrationModel {
         this.monthlyIncome = monthlyIncome;
         this.password = password;
         this.imageUrl = imageUrl;
-        this.unitCode = unitCode;
     }
 
     // Getters and Setters
@@ -109,13 +100,5 @@ public class RegistrationModel {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public String getUnitCode() {
-        return unitCode;
-    }
-
-    public void setUnitCode(String unitCode) {
-        this.unitCode = unitCode;
     }
 }
