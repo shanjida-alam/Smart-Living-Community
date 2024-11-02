@@ -1,14 +1,20 @@
 package com.example.smartlivingcommunity.ui.view.login;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartlivingcommunity.R;
@@ -46,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
     /** Button to initiate account creation */
     private Button createAccountButton;
 
+    /** Flag to track password visibility */
+    private boolean passwordVisible = false;
     /**
      * Called when the activity is first created. Sets up the view, initializes components,
      * and configures ViewModel observers and click listeners.
@@ -102,6 +110,17 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this,RegistrationActivity.class);
             startActivity(intent);
         });
+
+        // Add this to handle the click event
+        passwordEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // You can leave this empty if you don't need additional click handling
+            }
+        });
+
+        setupPasswordToggle();
+
     }
 
     /**
@@ -125,4 +144,55 @@ public class LoginActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupPasswordToggle() {
+        Drawable showPasswordIcon = ContextCompat.getDrawable(this, R.drawable.ic_visibility);
+        Drawable hidePasswordIcon = ContextCompat.getDrawable(this, R.drawable.ic_visibility_off);
+
+        // Set the initial compound drawable
+        passwordEditText.setCompoundDrawablesWithIntrinsicBounds(null, null, showPasswordIcon, null);
+
+        passwordEditText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() != MotionEvent.ACTION_UP) {
+                    return false;
+                }
+
+                // Check if touch was on the right drawable (eye icon)
+                if (event.getRawX() >= (passwordEditText.getRight() -
+                        passwordEditText.getCompoundDrawables()[2].getBounds().width() -
+                        passwordEditText.getPaddingEnd())) {
+
+                    // Toggle password visibility
+                    passwordVisible = !passwordVisible;
+
+                    // Update password visibility
+                    passwordEditText.setInputType(
+                            passwordVisible ?
+                                    (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) :
+                                    (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
+                    );
+
+                    // Update the icon
+                    passwordEditText.setCompoundDrawablesWithIntrinsicBounds(
+                            null, null,
+                            passwordVisible ? hidePasswordIcon : showPasswordIcon,
+                            null
+                    );
+
+                    // Move cursor to the end
+                    passwordEditText.setSelection(passwordEditText.getText().length());
+
+                    // Perform click for accessibility
+                    v.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+
 }

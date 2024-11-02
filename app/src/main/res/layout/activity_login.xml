@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"
+        android:drawableEnd="@drawable/ic_visibility_off"
         android:layout_marginTop="8dp"/>
 
     <com.google.android.material.button.MaterialButton
@@ -35,15 +36,6 @@
         android:text="Login"
         android:backgroundTint="@color/toolbar_bg"
         android:layout_marginTop="16dp"/>
-
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:visibility="gone"/>
 
     <!-- Create Account Button -->
     <com.google.android.material.button.MaterialButton
@@ -62,5 +54,13 @@
         android:layout_gravity="center"
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"/>
 
 </LinearLayout>
