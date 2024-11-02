@@ -63,4 +63,18 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.0")
     annotationProcessor("androidx.room:room-compiler:2.6.0")
 
+    // JUnit for general unit testing
+    testImplementation ("junit:junit:4.13.2")
+
+    // Mockito for mocking objects
+    testImplementation ("org.mockito:mockito-core:3.12.4")
+    testImplementation ("org.mockito:mockito-inline:3.12.4")
+
+    // Core Testing library for AndroidX (includes InstantTaskExecutorRule)
+    testImplementation ("androidx.arch.core:core-testing:2.1.0")
+
+    // Lifecycle LiveData Testing (optional, but useful for LiveData testing)
+    testImplementation ("androidx.lifecycle:lifecycle-livedata-core-ktx:2.5.1")
+
+
 }
