@@ -29,6 +29,6 @@
         android:layout_height="wrap_content"
         android:text="Register"
         android:textColorLink="#B62C2C"
-        android:backgroundTint="@color/black"/>
+        android:backgroundTint="@color/redish_tint"/>
 
 </LinearLayout>
