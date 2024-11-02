@@ -85,4 +85,8 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
 
+//    fetching image url from firebase
+    implementation("com.github.bumptech.glide:glide:4.15.0") // Check for the latest version
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.0") // For annotation processing
+
 }
