@@ -27,6 +27,11 @@ public class RegistrationViewModel extends ViewModel {
         repository = new RegistrationRepository();
     }
 
+    /** Constructor for testing (allows dependency injection) */
+    public RegistrationViewModel(RegistrationRepository repository) {
+        this.repository = repository;
+    }
+
     /**
      * Handles the registration process for a user, including checking for duplicate emails and
      * storing the registration data in Firebase Firestore.

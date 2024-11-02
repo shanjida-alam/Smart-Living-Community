@@ -63,4 +63,10 @@ dependencies {
     implementation("com.sun.mail:android-activation:1.6.7")
     implementation("androidx.cardview:cardview:1.0.0")
 
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:4.3.1")
+    testImplementation ("org.mockito:mockito-inline:4.6.1")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("com.google.android.gms:play-services-tasks:18.0.1")
+
 }
