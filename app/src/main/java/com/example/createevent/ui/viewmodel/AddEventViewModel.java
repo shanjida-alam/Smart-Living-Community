@@ -3,15 +3,14 @@ package com.example.createevent.ui.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.example.createevent.data.repository.EventRepository;
 import com.example.createevent.data.model.EventDataModel;
+import com.example.createevent.data.repository.EventRepository;
 
 /**
  * ViewModel for managing event data in the Add Event feature.
  * This ViewModel communicates with the EventRepository for data operations
  * and maintains LiveData objects for observing data changes in the UI.
- * @author Irtifa Haider
+ * @author Irtifa
  */
 public class AddEventViewModel extends ViewModel {
 
@@ -20,101 +19,24 @@ public class AddEventViewModel extends ViewModel {
     private final MutableLiveData<String> description = new MutableLiveData<>();
     private final MutableLiveData<String> time = new MutableLiveData<>();
     private final MutableLiveData<String> location = new MutableLiveData<>();
-    private final MutableLiveData<String> imageUrl = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isSaved = new MutableLiveData<>(false);
 
-    /**
-     * Initializes the ViewModel and its dependencies.
-     */
-    public AddEventViewModel() {
-        eventRepository = new EventRepository(); // Initializes the EventRepository
+    public AddEventViewModel(EventRepository eventRepository) {
+        this.eventRepository = new EventRepository(); // Initializes the EventRepository
     }
 
-    // Getters for LiveData, used to observe data changes in the UI
-
-    /**
-     * @return LiveData for the event title.
-     */
-    public LiveData<String> getTitle() {
-        return title;
-    }
-
-    /**
-     * @return LiveData for the event description.
-     */
-    public LiveData<String> getDescription() {
-        return description;
-    }
-
-    /**
-     * @return LiveData for the event time.
-     */
-    public LiveData<String> getTime() {
-        return time;
-    }
-
-    /**
-     * @return LiveData for the event location.
-     */
-    public LiveData<String> getLocation() {
-        return location;
-    }
-
-    /**
-     * @return LiveData for the event image URL.
-     */
-    public LiveData<String> getImageUrl() {
-        return imageUrl;
-    }
-
-    /**
-     * @return LiveData for the save status of the event.
-     */
-    public LiveData<Boolean> isSaved() {
-        return isSaved;
-    }
+    // Getters for LiveData
+    public LiveData<String> getTitle() { return title; }
+    public LiveData<String> getDescription() { return description; }
+    public LiveData<String> getTime() { return time; }
+    public LiveData<String> getLocation() { return location; }
+    public LiveData<Boolean> isSaved() { return isSaved; }
 
     // Setters for updating event data in LiveData
-
-    /**
-     * Sets the event title.
-     * @param title The title of the event.
-     */
-    public void setTitle(String title) {
-        this.title.setValue(title);
-    }
-
-    /**
-     * Sets the event description.
-     * @param description The description of the event.
-     */
-    public void setDescription(String description) {
-        this.description.setValue(description);
-    }
-
-    /**
-     * Sets the event time.
-     * @param time The time of the event.
-     */
-    public void setTime(String time) {
-        this.time.setValue(time);
-    }
-
-    /**
-     * Sets the event location.
-     * @param location The location of the event.
-     */
-    public void setLocation(String location) {
-        this.location.setValue(location);
-    }
-
-    /**
-     * Sets the event image URL.
-     * @param url The URL of the event image.
-     */
-    public void setImageUrl(String url) {
-        this.imageUrl.setValue(url);
-    }
+    public void setTitle(String title) { this.title.setValue(title); }
+    public void setDescription(String description) { this.description.setValue(description); }
+    public void setTime(String time) { this.time.setValue(time); }
+    public void setLocation(String location) { this.location.setValue(location); }
 
     /**
      * Saves the event data using the EventRepository.
@@ -132,8 +54,8 @@ public class AddEventViewModel extends ViewModel {
                     location.getValue()
             );
 
-            // Save the event and update the isSaved LiveData
-            eventRepository.saveEvent(newEvent, imageUrl.getValue(), success -> isSaved.setValue(success));
+            // Pass event data to repository
+            eventRepository.saveEvent(newEvent, success -> isSaved.setValue(success));
         }
     }
 }

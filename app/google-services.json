@@ -2,6 +2,7 @@
   "project_info": {
     "project_number": "219118674869",
     "project_id": "livsmart-f2f5c",
+    "firebase_url": "https://livsmart-f2f5c-default-rtdb.firebaseio.com/",  
     "storage_bucket": "livsmart-f2f5c.firebasestorage.app"
   },
   "client": [

@@ -1,78 +1,83 @@
 package com.example.createevent.data.repository;
 
-import android.net.Uri;
-
+import androidx.annotation.NonNull;
 import com.example.createevent.data.model.EventDataModel;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
- * Repository class for handling event data with Firebase Database and Firebase Storage.
- * Provides methods for saving, updating, and deleting events.
- * @author Irtifa Haider
+ * Repository class for handling event data operations in Firebase.
+ * Provides methods for adding, updating, and deleting events from Firebase Firestore.
+ * This class interacts with Firebase Firestore and serves as a data layer for the application's ViewModel.
+ *
+ * @author Irtifa
  */
 public class EventRepository {
 
-    // Reference to the Firebase Database node for events
-    private final DatabaseReference databaseReference;
-
-    // Reference to the Firebase Storage location for event images
-    private final StorageReference storageReference;
+    private final CollectionReference eventsCollection;
 
     /**
-     * Constructor for initializing Firebase Database and Storage references.
+     * Initializes the EventRepository, setting up references to the Firebase Firestore
+     * collection for event data storage.
      */
     public EventRepository() {
-        databaseReference = FirebaseDatabase.getInstance().getReference("Events");
-        storageReference = FirebaseStorage.getInstance().getReference("Event Images");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        eventsCollection = db.collection("events");
     }
 
     /**
-     * Deletes an event from Firebase Database and its associated image from Firebase Storage.
+     * Saves an event to Firestore.
      *
-     * @param key      The unique key of the event to be deleted in the database.
-     * @param imageUri The URI of the image associated with the event.
-     * @param callback The callback interface to handle the completion of the delete operation.
+     * @param eventDataModel The event data to save.
+     * @param callback       A callback to notify the result of the save operation.
      */
-    public void deleteEvent(String key, Uri imageUri, OnEventCallback callback) {
-        storageReference.child(imageUri.getLastPathSegment()).delete().addOnSuccessListener(aVoid ->
-                databaseReference.child(key).removeValue()
-                        .addOnCompleteListener(task -> callback.onComplete(task.isSuccessful())));
+    public void saveEvent(EventDataModel eventDataModel, OnEventCallback callback) {
+        eventsCollection.add(eventDataModel)
+                .addOnSuccessListener(documentReference -> callback.onCallback(true))
+                .addOnFailureListener(e -> callback.onCallback(false));
     }
 
     /**
-     * Saves a new event to Firebase Database and uploads its image to Firebase Storage.
+     * Updates an existing event in Firestore.
      *
-     * @param newEvent The event data model containing details of the event.
-     * @param imageUrl The URL of the image associated with the event.
-     * @param callback The callback to handle the success or failure of the save operation.
+     * @param key            The document ID of the event to update.
+     * @param eventDataModel The updated event data.
+     * @param callback       A callback to notify the result of the update operation.
      */
-    public void saveEvent(EventDataModel newEvent, String imageUrl, OnEventCallback callback) {
-        // Implementation to save event to Firebase with the imageUrl, if available
+    public void updateEvent(String key, EventDataModel eventDataModel, OnEventCallback callback) {
+        if (key == null || key.isEmpty()) {
+            callback.onCallback(false);
+            return;
+        }
+
+        eventsCollection.document(key)
+                .set(eventDataModel)
+                .addOnCompleteListener(task -> callback.onCallback(task.isSuccessful()))
+                .addOnFailureListener(e -> callback.onCallback(false));
     }
 
     /**
-     * Updates an existing event in Firebase Database with new data.
+     * Deletes an event from Firestore.
      *
-     * @param key        The unique key of the event to be updated.
-     * @param eventData  The updated event data model.
-     * @param callback   The callback to handle the success or failure of the update operation.
+     * @param key      The document ID of the event to delete.
+     * @param callback A callback to notify the result of the delete operation.
      */
-    public void updateEvent(String key, EventDataModel eventData, OnEventCallback callback) {
-        // Implementation to update the event in Firebase with the provided eventData
+    public void deleteEvent(@NonNull String key, OnEventCallback callback) {
+        if (key == null || key.isEmpty()) {
+            callback.onCallback(false);
+            return;
+        }
+
+        eventsCollection.document(key)
+                .delete()
+                .addOnSuccessListener(aVoid -> callback.onCallback(true))
+                .addOnFailureListener(e -> callback.onCallback(false));
     }
 
     /**
-     * Callback interface for handling asynchronous operations on events.
+     * Interface for callback to handle asynchronous event operations.
      */
     public interface OnEventCallback {
-        /**
-         * Called when an operation (save, delete, or update) is completed.
-         *
-         * @param success True if the operation was successful, false otherwise.
-         */
-        void onComplete(boolean success);
+        void onCallback(boolean success);
     }
 }

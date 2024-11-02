@@ -1,7 +1,11 @@
 package com.example.createevent.data.model;
 
 /**
- * Represents an Event data model with details about an event such as title, description, time, location, and key.
+ * Represents an Event data model with details about an event.
+ * Includes information such as title, description, time, location, key, and image URL.
+ * This model is used for storing and retrieving event data from Firebase.
+ *
+ * @author Irtifa
  */
 public class EventDataModel {
 
@@ -11,11 +15,11 @@ public class EventDataModel {
     private String eventLocation; // The location where the event is held
     private String key; // Unique key identifier for the event in the database
 
+
     /**
      * Default constructor for EventDataModel.
      */
-    public EventDataModel() {
-    }
+    public EventDataModel() {}
 
     /**
      * Parameterized constructor for creating an EventDataModel with specific details.
@@ -31,6 +35,8 @@ public class EventDataModel {
         this.eventTime = eventTime;
         this.eventLocation = eventLocation;
     }
+
+    // Getters and setters
 
     /**
      * Gets the unique key identifier for the event.
@@ -73,7 +79,7 @@ public class EventDataModel {
      *
      * @return The time of the event.
      */
-    public String dataTime() {
+    public String getEventTime() {
         return eventTime;
     }
 
@@ -85,4 +91,6 @@ public class EventDataModel {
     public String getEventLocation() {
         return eventLocation;
     }
+
+
 }

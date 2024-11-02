@@ -22,7 +22,7 @@ import java.util.Calendar;
 /**
  * Activity class for uploading a new event.
  * Provides a form to input event details and saves them to Firebase Database.
- * @author Irtifa Haider
+ * @author Irtifa
  */
 public class UploadEventView extends AppCompatActivity {
 

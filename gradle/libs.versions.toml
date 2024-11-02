@@ -11,6 +11,9 @@ constraintlayout = "2.2.0"
 firebaseDatabase = "21.0.0"
 googleGmsGoogleServices = "4.4.2"
 firebaseStorage = "21.0.1"
+firebaseFirestore = "24.5.0"
+navigation = "2.6.0" # Add navigation version
+dokka = "1.9.20" # Dokka version
 kotlin = "1.9.24"
 
 [libraries]
@@ -24,9 +27,12 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+dokka-android = { id = "org.jetbrains.dokka", version.ref = "dokka" }

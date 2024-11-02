@@ -13,7 +13,7 @@ import com.example.createevent.R;
 /**
  * Activity class for adding a new event.
  * Handles the layout and UI setup for adding event details.
- * @author Irtifa Haider
+ * @author Irtifa
  */
 public class AddEventView extends AppCompatActivity {
 

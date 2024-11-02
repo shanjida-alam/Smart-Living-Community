@@ -1,7 +1,6 @@
 package com.example.createevent.ui.viewmodel;
 
 import android.app.Application;
-import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
@@ -12,7 +11,17 @@ import com.example.createevent.data.model.EventDataModel;
  * ViewModel for uploading new events in the Upload Event view.
  * Manages event data uploads through the EventRepository and exposes
  * LiveData for observing the upload status.
- * @author Irtifa Haider
+ *
+ * This ViewModel separates the UI from data operations, enabling easier testing and
+ * lifecycle awareness when uploading events to Firebase.
+ *
+ * @see EventRepository
+ * @see EventDataModel
+ *
+ * @see androidx.lifecycle.ViewModel
+ * @see MutableLiveData
+ *
+ * @author Irtifa
  */
 public class UploadEventViewModel extends AndroidViewModel {
 
@@ -28,13 +37,4 @@ public class UploadEventViewModel extends AndroidViewModel {
         eventRepository = new EventRepository();
     }
 
-    /**
-     * Uploads a new event to the repository.
-     * @param eventData The event data model to upload.
-     * @param imageUri The URI of the event's associated image (optional).
-     */
-    public void uploadEvent(EventDataModel eventData, Uri imageUri) {
-        // Calls the repository to upload the event and updates uploadStatus
-        eventRepository.saveEvent(eventData, imageUri, success -> uploadStatus.postValue(success));
-    }
 }

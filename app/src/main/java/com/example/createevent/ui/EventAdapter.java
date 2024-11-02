@@ -43,7 +43,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         // Set text views based on event data
         holder.titleView.setText(eventData.getEventTitle());
         holder.descriptionView.setText(eventData.getEventDesc());
-        holder.timeView.setText(eventData.dataTime());
+        holder.timeView.setText(eventData.getEventTime());  // Changed to getEventTime()
         holder.locationView.setText(eventData.getEventLocation());
 
         // Set click listener for card
@@ -51,7 +51,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             Intent intent = new Intent(context, EventDetailsView.class);
             intent.putExtra("Title", eventData.getEventTitle());
             intent.putExtra("Description", eventData.getEventDesc());
-            intent.putExtra("Time", eventData.dataTime());
+            intent.putExtra("Time", eventData.getEventTime());  // Changed to getEventTime()
             intent.putExtra("Location", eventData.getEventLocation());
             intent.putExtra("Key", eventData.getKey());
             context.startActivity(intent);
@@ -70,7 +70,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
     public void searchEventDataList(ArrayList<EventDataModel> searchList) {
-
+        this.eventList = searchList;
+        notifyDataSetChanged();
     }
 
     // ViewHolder for event items

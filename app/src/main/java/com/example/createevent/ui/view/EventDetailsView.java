@@ -9,16 +9,13 @@ import android.widget.Toast;
 
 import com.example.createevent.R;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * Activity class for displaying and managing the details of a specific event.
  * Provides options to view, edit, and delete event details.
- * @author Irtifa Haider
+ * @author Irtifa
  */
 public class EventDetailsView extends AppCompatActivity {
 
@@ -26,7 +23,6 @@ public class EventDetailsView extends AppCompatActivity {
     private TextView detailDesc, detailTitle, detailTime, detailLocation;
     private FloatingActionButton deleteButton, editButton;
     private String key = "";
-    private StorageReference storageReference;
 
     /**
      * Called when the activity is first created.
@@ -56,9 +52,6 @@ public class EventDetailsView extends AppCompatActivity {
             detailTime.setText(bundle.getString("Time"));
             detailLocation.setText(bundle.getString("Location"));
             key = bundle.getString("Key");
-
-            // Initialize storage reference for the event image (if available)
-            storageReference = FirebaseStorage.getInstance().getReference().child("event_images/" + key);
         }
 
         // Set up delete button to handle event deletion
@@ -79,22 +72,24 @@ public class EventDetailsView extends AppCompatActivity {
     }
 
     /**
-     * Deletes the event from the database and storage.
-     * Removes the image from Firebase Storage and deletes the event data from the Firebase Database.
+     * Deletes the event from the Firestore database.
      */
     private void deleteEvent() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Android Tutorials");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        // Delete the image from storage and remove the database entry
-        storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                reference.child(key).removeValue();
-                Toast.makeText(EventDetailsView.this, "Deleted", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-            }
-        });
+        // Delete the document in Firestore using the key as the document ID
+        db.collection("events").document(key).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(EventDetailsView.this, "Event Deleted", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(EventDetailsView.this, "Failed to delete event", Toast.LENGTH_SHORT).show();
+                });
     }
 
     /**

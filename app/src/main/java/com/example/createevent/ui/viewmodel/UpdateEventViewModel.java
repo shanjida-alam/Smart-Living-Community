@@ -1,41 +1,37 @@
 package com.example.createevent.ui.viewmodel;
 
 import android.app.Application;
-import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import com.example.createevent.data.repository.EventRepository;
 import com.example.createevent.data.model.EventDataModel;
+import com.example.createevent.data.repository.EventRepository;
 
 /**
  * ViewModel for updating events in the Update Event view.
  * Manages event data updates through the EventRepository and exposes
  * LiveData for observing the update status.
- * @author Irtifa Haider
+ * This version does not handle image updates as per the current requirements.
+ * @version 1.1
+ * @since 1.0
  */
 public class UpdateEventViewModel extends AndroidViewModel {
 
-    private final EventRepository eventRepository; // Repository for event data operations
-    public MutableLiveData<Boolean> updateStatus = new MutableLiveData<>(); // LiveData to track update status
+    private final EventRepository eventRepository;
+    public MutableLiveData<Boolean> updateStatus = new MutableLiveData<>();
 
-    /**
-     * Constructor for UpdateEventViewModel, initializing the repository.
-     * @param application The application context.
-     */
     public UpdateEventViewModel(@NonNull Application application) {
         super(application);
         eventRepository = new EventRepository();
     }
 
     /**
-     * Updates an existing event in the repository.
-     * @param key The key of the event to update.
-     * @param eventData The updated event data model.
-     * @param imageUri The URI of the event's associated image (optional).
+     * Updates an existing event in the repository without an image.
+     *
+     * @param key The unique identifier for the event to be updated.
+     * @param eventData The updated data of the event.
      */
-    public void updateEvent(String key, EventDataModel eventData, Uri imageUri) {
-        // Calls the repository to update the event and updates updateStatus
-        eventRepository.updateEvent(key, eventData, imageUri, success -> updateStatus.postValue(success));
+    public void updateEvent(String key, EventDataModel eventData) {
+        eventRepository.updateEvent(key, eventData, success -> updateStatus.postValue(success));
     }
 }
