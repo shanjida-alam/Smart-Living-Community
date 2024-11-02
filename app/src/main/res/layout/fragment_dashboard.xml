@@ -11,7 +11,7 @@
         android:layout_marginTop="8dp"
         android:padding="16dp"
         android:text="Welcome, Resident"
-        android:textColor="@color/redish_tint"
+        android:textColor="@color/toolbar_bg"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -32,17 +32,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="12dp">
 
                 <TextView
                     android:id="@+id/serviceStatusTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="146dp"
                     android:layout_height="wrap_content"
+                    android:background="@color/toolbar_bg"
+                    android:padding="2dp"
                     android:text="Service Status"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:background="@color/redish_tint"
-                    android:textSize="18sp" />
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+
+                    />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/serviceRecyclerView"
@@ -62,16 +65,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="12dp">
 
                 <TextView
                     android:id="@+id/parkingStatusTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="138dp"
                     android:layout_height="wrap_content"
+                    android:background="@color/toolbar_bg"
+                    android:padding="2dp"
                     android:text="Parking Status"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:background="@color/redish_tint"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -88,10 +92,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/redish_tint"
+        android:background="@color/toolbar_bg"
+        android:padding="4dp"
         android:text="Upcoming Events"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
