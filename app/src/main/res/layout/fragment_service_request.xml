@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.content.ServiceRequestFragment">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <EditText
+        android:id="@+id/editTextDescription"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="30dp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:text="Service Request Fragment" />
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        android:minHeight="48dp"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp" />
+    <Spinner
+        android:id="@+id/spinnerRequestType"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/editTextUrgency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Urgency (High/Medium/Low)"
+        android:minHeight="48dp"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit Request"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        android:minHeight="48dp" />
+</LinearLayout>
+
+
+

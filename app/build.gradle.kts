@@ -66,6 +66,7 @@ dependencies {
     val nav_version = "2.5.3" // Use the latest version
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation ("androidx.core:core:1.7.0")
 
 
 }
