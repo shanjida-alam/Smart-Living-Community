@@ -88,5 +88,10 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
+    testImplementation("org.mockito:mockito-core:4.12.4")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-android:4.8.0")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("org.mockito:mockito-inline:5.2.0")
 
 }

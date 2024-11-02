@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * ViewModel class that manages user login authentication.
  * Handles login requests, verifies credentials, and updates login status.
  */
-public class ResidentLoginViewModel extends ViewModel {
+public abstract class ResidentLoginViewModel extends ViewModel {
 
     /** LiveData holding the login result status and associated message */
     private final MutableLiveData<Resource<Boolean>> loginResult = new MutableLiveData<>();
@@ -68,4 +68,6 @@ public class ResidentLoginViewModel extends ViewModel {
                     }
                 });
     }
+
+    protected abstract FirebaseFirestore getFirebaseInstance();
 }
