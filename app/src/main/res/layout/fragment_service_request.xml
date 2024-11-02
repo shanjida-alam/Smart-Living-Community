@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+LinearLayout is used as the root layout, providing a vertical orientation
+for stacking UI elements one below the other.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
-
+    <!--
+    EditText for entering the description of the service request.
+    - id: editTextDescription
+    - layout_width: Match parent width to fill the container.
+    - layout_height: Wrap content height to fit the content.
+    - hint: Placeholder text when the field is empty.
+    - inputType: Allows multi-line text input.
+    - minHeight: Sets the minimum height to provide adequate space for input.
+    - padding: Inner padding for better text positioning.
+    - layout_marginBottom: Bottom margin to space it from the next element.
+    -->
     <EditText
         android:id="@+id/editTextDescription"
         android:layout_width="match_parent"
@@ -15,6 +29,15 @@
         android:minHeight="48dp"
         android:padding="16dp"
         android:layout_marginBottom="16dp" />
+
+    <!--
+    Spinner for selecting the type of service request.
+    - id: spinnerRequestType
+    - layout_width: Match parent width to fill the container.
+    - layout_height: Fixed height to ensure consistent appearance.
+    - padding: Inner padding for better item visibility.
+    - layout_marginBottom: Bottom margin to space it from the next element.
+    -->
     <Spinner
         android:id="@+id/spinnerRequestType"
         android:layout_width="match_parent"
@@ -22,6 +45,16 @@
         android:padding="16dp"
         android:layout_marginBottom="16dp" />
 
+    <!--
+    EditText for specifying the urgency level of the service request.
+    - id: editTextUrgency
+    - layout_width: Match parent width to fill the container.
+    - layout_height: Wrap content height to fit the content.
+    - hint: Placeholder text to guide user input.
+    - minHeight: Sets the minimum height for better usability.
+    - padding: Inner padding for better text positioning.
+    - layout_marginBottom: Bottom margin to space it from the next element.
+    -->
     <EditText
         android:id="@+id/editTextUrgency"
         android:layout_width="match_parent"
@@ -31,6 +64,31 @@
         android:padding="16dp"
         android:layout_marginBottom="16dp" />
 
+    <!--
+    TextView for displaying the submission timestamp after a request is made.
+    - id: textViewTimestamp
+    - layout_width: Match parent width to fill the container.
+    - layout_height: Wrap content height to fit the content.
+    - visibility: Initially set to 'gone' to hide it until a request is submitted.
+    - text: Default text indicating where the timestamp will appear.
+    -->
+    <TextView
+        android:id="@+id/textViewTimestamp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="Timestamp will appear here"/>
+
+    <!--
+    Button for submitting the service request.
+    - id: buttonSubmit
+    - layout_width: Match parent width to fill the container.
+    - layout_height: Wrap content height to fit the button text.
+    - text: The text displayed on the button.
+    - padding: Inner padding for better button appearance.
+    - layout_marginTop: Top margin to space it from the previous element.
+    - minHeight: Sets a minimum height for usability.
+    -->
     <Button
         android:id="@+id/buttonSubmit"
         android:layout_width="match_parent"
@@ -40,6 +98,7 @@
         android:layout_marginTop="16dp"
         android:minHeight="48dp" />
 </LinearLayout>
+
 
 
 
