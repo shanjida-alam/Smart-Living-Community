@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.smartlivingcommunity.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout frameLayout;
     BottomNavigationView bottomNavigationView;
     NavigationView drawerNavigationView;
-
+    TextView toolbarTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         frameLayout = findViewById(R.id.fragment_container);
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
         drawerNavigationView = findViewById(R.id.drawer_nav_view);
+        toolbarTitle = findViewById(R.id.toolbarTitle);
 
         drawerToggle.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -65,12 +67,15 @@ public class MainActivity extends AppCompatActivity {
 
                 if (itemId == R.id.navDashboard) {
                     fragmentTransaction.replace(R.id.fragment_container, new DashboardFragment());
+                    setToolbarTitle("Dashboard");
                     drawerNavigationView.setCheckedItem(R.id.itemDashboard); // Sync with drawer
                 } else if (itemId == R.id.navServiceRequest) {
                     fragmentTransaction.replace(R.id.fragment_container, new ServiceRequestFragment());
+                    setToolbarTitle("Service Request");
                     drawerNavigationView.setCheckedItem(R.id.itemServiceRequest); // Sync with drawer
                 } else if (itemId == R.id.navManageEvent) {
                     fragmentTransaction.replace(R.id.fragment_container, new ManageEventFragment());
+                    setToolbarTitle("Manage Events");
                     drawerNavigationView.setCheckedItem(R.id.itemManageEvent); // Sync with drawer
                 }
 
@@ -90,14 +95,18 @@ public class MainActivity extends AppCompatActivity {
 
                 if (itemId == R.id.itemDashboard) {
                     fragmentTransaction.replace(R.id.fragment_container, new DashboardFragment());
+                    setToolbarTitle("Dashboard");
                     bottomNavigationView.setSelectedItemId(R.id.navDashboard); // Sync with bottom nav
                 } else if (itemId == R.id.itemManageProfile) {
+                    setToolbarTitle("Manage Profile");
                     fragmentTransaction.replace(R.id.fragment_container, new ProfileFragment());
                 } else if (itemId == R.id.itemServiceRequest) {
                     fragmentTransaction.replace(R.id.fragment_container, new ServiceRequestFragment());
+                    setToolbarTitle("Service Request");
                     bottomNavigationView.setSelectedItemId(R.id.navServiceRequest); // Sync with bottom nav
                 } else if (itemId == R.id.itemManageEvent) {
                     fragmentTransaction.replace(R.id.fragment_container, new ManageEventFragment());
+                    setToolbarTitle("Manage Events");
                     bottomNavigationView.setSelectedItemId(R.id.navManageEvent); // Sync with bottom nav
                 }
 
@@ -106,5 +115,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    // Helper method to set the toolbar title
+    private void setToolbarTitle(String title) {
+        toolbarTitle.setText(title);
     }
 }
