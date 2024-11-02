@@ -3,14 +3,15 @@ package com.example.smartlivingcommunity.ui.view.content;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.smartlivingcommunity.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -18,32 +19,38 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DrawerLayout drawerLayout;
-    private BottomNavigationView bottomNavigationView;
-    private NavigationView drawerNavigationView;
-
+    DrawerLayout drawerLayout;
+    ImageButton drawerToggle;
+    FrameLayout frameLayout;
+    BottomNavigationView bottomNavigationView;
+    NavigationView drawerNavigationView;
+    TextView toolbarTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+        drawerToggle = findViewById(R.id.drawerToggle);
+        frameLayout = findViewById(R.id.fragment_container);
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
         drawerNavigationView = findViewById(R.id.drawer_nav_view);
+        toolbarTitle = findViewById(R.id.toolbarTitle);
 
-        // Set up navigation to open the drawer
-        ImageButton drawerToggle = findViewById(R.id.drawerToggle);
         drawerToggle.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 drawerLayout.open();
             }
         });
 
-        // Load ProfileFragment (or DashboardFragment) by default
-        if (savedInstanceState == null) { // Only load the fragment if activity is created for the first time
-            loadFragment(new ProfileFragment());
-            bottomNavigationView.setSelectedItemId(R.id.navDashboard); // Adjust as needed
-            drawerNavigationView.setCheckedItem(R.id.itemDashboard);  // Adjust as needed
+        // Load DashboardFragment by default
+        if (savedInstanceState == null) { // Ensures it only loads once on app start
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, new DashboardFragment());
+            fragmentTransaction.commit();
+            bottomNavigationView.setSelectedItemId(R.id.navDashboard); // Set the bottom navigation to Dashboard
+            drawerNavigationView.setCheckedItem(R.id.itemDashboard); // Set the drawer navigation to Dashboard
         }
 
         setupBottomNavigation();
@@ -54,23 +61,25 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment = null;
                 int itemId = item.getItemId();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                 if (itemId == R.id.navDashboard) {
-                    selectedFragment = new DashboardFragment();
+                    fragmentTransaction.replace(R.id.fragment_container, new DashboardFragment());
+                    setToolbarTitle("Dashboard");
                     drawerNavigationView.setCheckedItem(R.id.itemDashboard); // Sync with drawer
                 } else if (itemId == R.id.navServiceRequest) {
-                    selectedFragment = new ServiceRequestFragment();
+                    fragmentTransaction.replace(R.id.fragment_container, new ServiceRequestFragment());
+                    setToolbarTitle("Service Request");
                     drawerNavigationView.setCheckedItem(R.id.itemServiceRequest); // Sync with drawer
                 } else if (itemId == R.id.navManageEvent) {
-                    selectedFragment = new ManageEventFragment();
+                    fragmentTransaction.replace(R.id.fragment_container, new ManageEventFragment());
+                    setToolbarTitle("Manage Events");
                     drawerNavigationView.setCheckedItem(R.id.itemManageEvent); // Sync with drawer
                 }
 
-                if (selectedFragment != null) {
-                    loadFragment(selectedFragment);
-                }
+                fragmentTransaction.commit();
                 return true;
             }
         });
@@ -80,35 +89,36 @@ public class MainActivity extends AppCompatActivity {
         drawerNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment = null;
                 int itemId = item.getItemId();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                 if (itemId == R.id.itemDashboard) {
-                    selectedFragment = new DashboardFragment();
+                    fragmentTransaction.replace(R.id.fragment_container, new DashboardFragment());
+                    setToolbarTitle("Dashboard");
                     bottomNavigationView.setSelectedItemId(R.id.navDashboard); // Sync with bottom nav
                 } else if (itemId == R.id.itemManageProfile) {
-                    selectedFragment = new ProfileFragment();
+                    setToolbarTitle("Manage Profile");
+                    fragmentTransaction.replace(R.id.fragment_container, new ProfileFragment());
                 } else if (itemId == R.id.itemServiceRequest) {
-                    selectedFragment = new ServiceRequestFragment();
+                    fragmentTransaction.replace(R.id.fragment_container, new ServiceRequestFragment());
+                    setToolbarTitle("Service Request");
                     bottomNavigationView.setSelectedItemId(R.id.navServiceRequest); // Sync with bottom nav
                 } else if (itemId == R.id.itemManageEvent) {
-                    selectedFragment = new ManageEventFragment();
+                    fragmentTransaction.replace(R.id.fragment_container, new ManageEventFragment());
+                    setToolbarTitle("Manage Events");
                     bottomNavigationView.setSelectedItemId(R.id.navManageEvent); // Sync with bottom nav
                 }
 
-                if (selectedFragment != null) {
-                    loadFragment(selectedFragment);
-                }
+                fragmentTransaction.commit();
                 drawerLayout.close();
                 return true;
             }
         });
     }
 
-    private void loadFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
+    // Helper method to set the toolbar title
+    private void setToolbarTitle(String title) {
+        toolbarTitle.setText(title);
     }
 }
