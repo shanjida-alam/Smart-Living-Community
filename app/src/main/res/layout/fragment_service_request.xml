@@ -89,11 +89,12 @@ for stacking UI elements one below the other.
     - layout_marginTop: Top margin to space it from the previous element.
     - minHeight: Sets a minimum height for usability.
     -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Submit Request"
+        android:backgroundTint="@color/toolbar_bg"
         android:padding="16dp"
         android:layout_marginTop="16dp"
         android:minHeight="48dp" />
