@@ -1,11 +1,14 @@
 pluginManagement {
     repositories {
-        google()
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
         gradlePluginPortal()
-    }
-    plugins {
-        id("com.google.gms.google-services") version "4.4.2" // Ensure version is specified
     }
 }
 
@@ -17,5 +20,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Smart Living Community"
+rootProject.name = "CreateEvent"
 include(":app")
