@@ -16,6 +16,8 @@ import com.example.smartlivingcommunity.ui.view.content.MainActivity;
 import com.example.smartlivingcommunity.ui.viewmodel.ResidentLoginViewModel;
 import com.example.smartlivingcommunity.utils.Resource;
 
+import com.example.smartlivingcommunity.ui.view.registration.RegistrationActivity;
+
 /**
  * Activity responsible for handling user login.
  * <p>
@@ -41,6 +43,9 @@ public class LoginActivity extends AppCompatActivity {
     /** ProgressBar to indicate loading status */
     private ProgressBar progressBar;
 
+    /** Button to initiate account creation */
+    private Button createAccountButton;
+
     /**
      * Called when the activity is first created. Sets up the view, initializes components,
      * and configures ViewModel observers and click listeners.
@@ -58,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
         progressBar = findViewById(R.id.progressBar);
+        createAccountButton = findViewById(R.id.createAccountButton);
 
         // Initialize ViewModel
         viewModel = new ViewModelProvider(this).get(ResidentLoginViewModel.class);
@@ -89,6 +95,12 @@ public class LoginActivity extends AppCompatActivity {
             if (validateInput(email, password)) {
                 viewModel.login(email, password);
             }
+        });
+
+        //Set up click listener for create account button
+        createAccountButton.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this,RegistrationActivity.class);
+            startActivity(intent);
         });
     }
 
