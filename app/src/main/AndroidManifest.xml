@@ -12,7 +12,7 @@
         android:theme="@style/Theme.SmartLivingCommunity"
         tools:targetApi="31">
         <activity
-            android:name=".ui.view.SecurityDashboardActivity"
+            android:name=".ui.view.SecretaryDashboardActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

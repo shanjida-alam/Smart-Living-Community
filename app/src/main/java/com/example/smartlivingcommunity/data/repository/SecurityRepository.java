@@ -48,11 +48,11 @@ public class SecurityRepository {
     // Loads dummy data for security logs
     private void loadSecurityLogs() {
         List<SecurityLog> logs = new ArrayList<>();
-        logs.add(new SecurityLog("John Doe", "2024-10-30", "2024-10-30", "08:00 AM", "06:00 PM"));
-        logs.add(new SecurityLog("Jane Smith", "2024-10-30", "2024-10-30", "09:00 AM", "05:00 PM"));
-        logs.add(new SecurityLog("Michael Brown", "2024-10-30", "2024-10-30", "07:30 AM", "04:30 PM"));
-        logs.add(new SecurityLog("Emily Clark", "2024-10-31", "2024-10-31", "10:00 AM", "07:00 PM"));
-        logs.add(new SecurityLog("Chris Wilson", "2024-10-31", "2024-10-31", "11:00 AM", "08:00 PM"));
+        logs.add(new SecurityLog("Tanvir Hossain", "2024-10-30", "2024-10-30", "08:00 AM", "06:00 PM"));
+        logs.add(new SecurityLog("Jubayer Khan", "2024-10-30", "2024-10-30", "09:00 AM", "05:00 PM"));
+        logs.add(new SecurityLog("Shanjida Alam", "2024-10-30", "2024-10-30", "07:30 AM", "04:30 PM"));
+        logs.add(new SecurityLog("Solaimi Hamid", "2024-10-31", "2024-10-31", "10:00 AM", "07:00 PM"));
+        logs.add(new SecurityLog("Irtifa Ahona", "2024-10-31", "2024-10-31", "11:00 AM", "08:00 PM"));
 
         securityLogsLiveData.setValue(logs);
     }
