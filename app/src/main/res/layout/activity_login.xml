@@ -45,4 +45,22 @@
         android:layout_marginTop="16dp"
         android:visibility="gone"/>
 
+    <!-- Create Account Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/createAccountButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Account"
+        android:backgroundTint="@color/toolbar_bg"
+        android:layout_marginTop="8dp"/>
+
+    <!-- "Don't have an account?" TextView -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account? Click on Create Account"
+        android:layout_gravity="center"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"/>
+
 </LinearLayout>

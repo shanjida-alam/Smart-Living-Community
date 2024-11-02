@@ -35,17 +35,18 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    packaging {
+        resources {
+            excludes += "META-INF/NOTICE.md"
+            excludes += "META-INF/LICENSE.md"
+        }
+    }
 }
 
 dependencies {
-
-
-
+    implementation(libs.navigation.fragment.ktx)
     implementation(libs.firebase.firestore)
-    implementation(libs.firebase.database)
-    //   Adding the dependencies for documentation tools- Dokka
-    dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.20")
-
+    dokkaPlugin(libs.android.documentation.plugin)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -54,6 +55,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    implementation("de.hdodenhof:circleimageview:3.1.0")
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata:2.6.1")
@@ -66,7 +68,21 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
-    implementation ("com.github.bumptech.glide:glide:4.12.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
+
+    // Navigation component
+    val nav_version = "2.5.3" // Use the latest version
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    implementation("com.sun.mail:android-mail:1.6.7")
+    implementation("com.sun.mail:android-activation:1.6.7")
+
+    implementation("androidx.cardview:cardview:1.0.0")
+
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
 
 }
