@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Profile Image -->
+<!--         Profile Image -->
         <ImageView
             android:id="@+id/profile_image"
             android:layout_width="80dp"
@@ -36,7 +36,7 @@
             android:scaleType="centerCrop"
             android:background="@drawable/circle_background" />
 
-        <!-- Edit Icon on Profile Image -->
+<!--         Edit Icon on Profile Image -->
         <ImageView
             android:id="@+id/edit_profile_image"
             android:layout_width="24dp"
@@ -46,6 +46,11 @@
             android:src="@drawable/baseline_edit_24"
             app:layout_constraintBottom_toBottomOf="@id/profile_image"
             app:layout_constraintEnd_toEndOf="@id/profile_image" />
+
+
+
+
+
 
         <!-- Full Name -->
         <TextView
@@ -259,7 +264,7 @@
 
         <!-- Edit Button -->
         <Button
-            android:id="@+id/btn_back_to_home"
+            android:id="@+id/btn_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Edit"
@@ -279,7 +284,7 @@
             android:layout_marginTop="32dp"
             android:backgroundTint="@color/toolbar_bg"
             android:textColor="#FFFFFF"
-            app:layout_constraintTop_toBottomOf="@id/btn_back_to_home"
+            app:layout_constraintTop_toBottomOf="@id/btn_edit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

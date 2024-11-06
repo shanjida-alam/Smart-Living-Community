@@ -7,19 +7,57 @@ package com.example.smartlivingcommunity.data.model;
  * @version 1.0
  */
 public class ResidentProfileModel {
+    /**
+     * The user's name
+     */
     private String name;
+    /**
+     * The user's email address
+     */
     private String email;
+    /**
+     * The user's contact number
+     */
     private String contactNumber;
+    /**
+     * The user's emergency contact number
+     */
     private String emergencyContact;
+    /**
+     * The user's National ID or Birth Certificate number
+     */
     private String nidOrBirthCertificate;
+    /**
+     * The user's profession
+     */
     private String profession;
+    /**
+     * The user's monthly income
+     */
     private String monthlyIncome;
+    /**
+     * The user's password
+     */
     private String password;
+    /**
+     * The URL of the user's profile image
+     */
     private String imageUrl;
+    /**
+     * The user's unit code
+     */
+    private String unitCode;
+    /**
+     * The user's role
+     */
+    private String userRole;
+    /**
+     * The user's additional unit code for multiple rules
+     */
+    private String additionalUnitCode;
 
     /**
      * No-argument constructor for ResidentProfileModel.
-     *
      */
     public ResidentProfileModel() {}
 
@@ -35,10 +73,14 @@ public class ResidentProfileModel {
      * @param monthlyIncome the monthly income of the user
      * @param password the password of the user
      * @param imageUrl the URL of the user's profile image
+     * @param unitCode the unit code of the user
+     * @param userRole the role of the user
+     * @param additionalUnitCode the additional unit code of the user
      */
     public ResidentProfileModel(String name, String email, String contactNumber, String emergencyContact,
                                 String nidOrBirthCertificate, String profession, String monthlyIncome,
-                                String password, String imageUrl) {
+                                String password, String imageUrl, String unitCode, String userRole,
+                                String additionalUnitCode) {
         this.name = name;
         this.email = email;
         this.contactNumber = contactNumber;
@@ -48,10 +90,13 @@ public class ResidentProfileModel {
         this.monthlyIncome = monthlyIncome;
         this.password = password;
         this.imageUrl = imageUrl;
+        this.unitCode = unitCode;
+        this.userRole = userRole;
+        this.additionalUnitCode = additionalUnitCode;
     }
 
     /**
-     * Getter method for the name of the user.
+     * Getter method for returning the name of the user.
      *
      * @return the name of the user
      */
@@ -60,16 +105,16 @@ public class ResidentProfileModel {
     }
 
     /**
-     * Setter method for the name of the user.
+     * Set the name of the user
      *
-     * @param name the new name of the user
+     * @param name the name of the user
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Getter method for the email address of the user.
+     * Getter method for returning the email address of the user.
      *
      * @return the email address of the user
      */
@@ -78,16 +123,16 @@ public class ResidentProfileModel {
     }
 
     /**
-     * Setter method for the email address of the user.
+     * Set the email address of the user
      *
-     * @param email the new email address of the user
+     * @param email the email address of the user
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
-     * Getter method for the contact number of the user.
+     * Getter method for returning the contact number of the user.
      *
      * @return the contact number of the user
      */
@@ -96,16 +141,16 @@ public class ResidentProfileModel {
     }
 
     /**
-     * Setter method for the contact number of the user.
+     * Set the contact number of the user
      *
-     * @param contactNumber the new contact number of the user
+     * @param contactNumber the contact number of the user
      */
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
 
     /**
-     * Getter method for the emergency contact number of the user.
+     * Getter method for returning the emergency contact number of the user.
      *
      * @return the emergency contact number of the user
      */
@@ -114,16 +159,16 @@ public class ResidentProfileModel {
     }
 
     /**
-     * Setter method for the emergency contact number of the user.
+     * Set the emergency contact number of the user
      *
-     * @param emergencyContact the new emergency contact number of the user
+     * @param emergencyContact the emergency contact number of the user
      */
     public void setEmergencyContact(String emergencyContact) {
         this.emergencyContact = emergencyContact;
     }
 
     /**
-     * Getter method for the National ID or Birth Certificate number of the user.
+     * Getter method for returning the National ID or Birth Certificate number of the user.
      *
      * @return the National ID or Birth Certificate number of the user
      */
@@ -132,16 +177,16 @@ public class ResidentProfileModel {
     }
 
     /**
-     * Setter method for the National ID or Birth Certificate number of the user.
+     * Set the National ID or Birth Certificate number of the user
      *
-     * @param nidOrBirthCertificate the new National ID or Birth Certificate number of the user
+     * @param nidOrBirthCertificate the National ID or Birth Certificate number of the user
      */
     public void setNidOrBirthCertificate(String nidOrBirthCertificate) {
         this.nidOrBirthCertificate = nidOrBirthCertificate;
     }
 
     /**
-     * Getter method for the profession of the user.
+     * Getter method for returning the profession of the user.
      *
      * @return the profession of the user
      */
@@ -150,16 +195,16 @@ public class ResidentProfileModel {
     }
 
     /**
-     * Setter method for the profession of the user.
+     * Set the profession of the user
      *
-     * @param profession the new profession of the user
+     * @param profession the profession of the user
      */
     public void setProfession(String profession) {
         this.profession = profession;
     }
 
     /**
-     * Getter method for the monthly income of the user.
+     * Getter method for returning the monthly income of the user.
      *
      * @return the monthly income of the user
      */
@@ -168,16 +213,16 @@ public class ResidentProfileModel {
     }
 
     /**
-     * Setter method for the monthly income of the user.
+     * Set the monthly income of the user
      *
-     * @param monthlyIncome the new monthly income of the user
+     * @param monthlyIncome the monthly income of the user
      */
     public void setMonthlyIncome(String monthlyIncome) {
         this.monthlyIncome = monthlyIncome;
     }
 
     /**
-     * Getter method for the password of the user
+     * Getter method for returning the password of the user.
      *
      * @return the password of the user
      */
@@ -185,17 +230,12 @@ public class ResidentProfileModel {
         return password;
     }
 
-    /**
-     * Setter method for the password of the user
-     *
-     * @param password the new password of the user
-     */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * Getter method for the URL of the user's profile image.
+     * Getter method for returning the URL of the user's profile image.
      *
      * @return the URL of the user's profile image
      */
@@ -204,11 +244,65 @@ public class ResidentProfileModel {
     }
 
     /**
-     * Setter method for the URL of the user's profile image.
+     * Set the URL of the user's profile image
      *
-     * @param imageUrl the new URL of the user's profile image
+     * @param imageUrl the URL of the user's profile image
      */
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    /**
+     * Getter method for returning the unit code of the user.
+     *
+     * @return the unit code of the user
+     */
+    public String getUnitCode() {
+        return unitCode;
+    }
+
+    /**
+     * Set the unit code of the user
+     *
+     * @param unitCode the unit code of the user
+     */
+    public void setUnitCode(String unitCode) {
+        this.unitCode = unitCode;
+    }
+
+    /**
+     * Getter method for returning the role of the user.
+     *
+     * @return the role of the user
+     */
+    public String getUserRole() {
+        return userRole;
+    }
+
+    /**
+     * Set the role of the user
+     *
+     * @param userRole the role of the user
+     */
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
+    /**
+     * Getter method for returning the additionalUnitcode of the user
+     *
+     * @return the additionalUnitCode of the user
+     */
+    public String getAdditionalUnitCode() {
+        return additionalUnitCode;
+    }
+
+    /**
+     * Set the additionalUnitCode of the user
+     *
+     * @param additionalUnitCode of the user
+     */
+    public void setAdditionalUnitCode(String additionalUnitCode) {
+        this.additionalUnitCode = additionalUnitCode;
     }
 }

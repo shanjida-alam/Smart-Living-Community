@@ -1,88 +1,88 @@
 package com.example.smartlivingcommunity.ui.view.content;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import com.bumptech.glide.Glide;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.smartlivingcommunity.R;
 import com.example.smartlivingcommunity.data.model.ResidentProfileModel;
 import com.example.smartlivingcommunity.ui.viewmodel.ResidentProfileViewModel;
 
 /**
- * Profile Fragment View responsible for displaying and updating resident profile information.
+ * ProfileFragment responsible for displaying and managing user profile information.
  *
  * <p>
- *     This fragment retrieves resident profile data using the {@link ResidentProfileViewModel}
- *     This fragment also updated the UI components with the retrieved data.
+ *  This activity initializes ResidentProfile components and interacts with the ResidentProfileViewModel
+ *  to perform ResidentProfile-related actions and display results.
  * </p>
- *
- * @author Shanjida Alam
- * @version 1.0
  */
 public class ProfileFragment extends Fragment {
-
     /**
-     * ViewModel for managing resident profile data.
+     * ResidentProfileViewModel that handles the profile information logic.
      */
-    private ResidentProfileViewModel residentProfileViewModel;
+    private ResidentProfileViewModel viewModel;
 
     /**
-     * UI components for displaying and updating resident profile information.
+     * EditText for editing user name
      */
-    private EditText nameEditText, emailEditText, contactNumberEditText, emergencyContactEditText,
-            nidEditText, professionEditText, monthlyIncomeEditText, passwordEditText;
-
+    private EditText nameField;
     /**
-     * ImageView for displaying the resident's profile image.
+     * EditText for editing user email
      */
-    private ImageView profileImageView;
+    private EditText emailField;
+    /**
+     * EditText for editing user contact number
+     */
+    private EditText contactNumberField;
+    /**
+     * EditText for editing user emergency contact number
+     */
+    private EditText emergencyContactField;
+    /**
+     * EditText for editing user nid or birth certificate number
+     */
+    private EditText nidField;
+    /**
+     * EditText for editing user profession
+     */
+    private EditText professionField;
+    /**
+     * EditText for editing user monthly income
+     */
+    private EditText monthlyIncomeField;
+    /**
+     * EditText for editing user password
+     */
+    private EditText passwordField;
+    /**
+     * Button to enable editing of profile information
+     */
+    private Button editButton;
+    /**
+     * Button to save changes made to the profile
+     */
+    private Button saveButton;
 
     /**
-     * Called to have the fragment instantiate its user interface view.
+     * Called when the activity is first created. Sets up the view, initializes components,
+     * and configures ViewModel observers and click listeners.
      *
-     * @param inflater The LayoutInflater object that can be used to inflate
-     * any views in the fragment,
-     * @param container If non-null, this is the parent view that the fragment's
-     * UI should be attached to.  The fragment should not add the view itself,
-     * but this can be used to generate the LayoutParams of the view.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     * from a previous saved state as given here.
-     *
-     * @return the View for the fragment's UI, or null.
+     * @param savedInstanceState if non-null, this activity is being re-initialized
+     *                           after previously being shut down
      */
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        /**
-         * Inflate the layout for this fragment
-         */
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        /**
-         * Initialize UI components from the inflated view
-         */
-        nameEditText = view.findViewById(R.id.full_name);
-        emailEditText = view.findViewById(R.id.email);
-        contactNumberEditText = view.findViewById(R.id.number);
-        emergencyContactEditText = view.findViewById(R.id.emergency_number);
-        nidEditText = view.findViewById(R.id.nid);
-        professionEditText = view.findViewById(R.id.profession);
-        monthlyIncomeEditText = view.findViewById(R.id.monthly_income);
-        passwordEditText = view.findViewById(R.id.password);
-        profileImageView = view.findViewById(R.id.profile_image);
-
-        return view;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     /**
@@ -96,52 +96,170 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         /**
-         * Fetch resident data by unit code
+         * Initialize the ViewModel
          */
-        String unitCode = "R-B0KF"; // Example unit code; replace it with a dynamic value if needed
+        viewModel = new ViewModelProvider(this).get(ResidentProfileViewModel.class);
 
         /**
-         * Initialize ViewModel
+         * Initialize views
          */
-        residentProfileViewModel = new ViewModelProvider(this).get(ResidentProfileViewModel.class);
-        residentProfileViewModel.fetchResidentDataByUnitCode(unitCode);
+        initializeViews(view);
+        setupObservers();
+        setupClickListeners();
 
         /**
-         * Observe the resident data changes and update UI components
+         * Fetch user profile data using the unitCode
          */
-        residentProfileViewModel.getResidentLiveData().observe(getViewLifecycleOwner(), new Observer<ResidentProfileModel>() {
-            @Override
-            public void onChanged(ResidentProfileModel resident) {
-                if (resident != null) {
-                    /**
-                     * Update UI components with resident data
-                     */
-                    nameEditText.setText(resident.getName());
-                    emailEditText.setText(resident.getEmail());
-                    contactNumberEditText.setText(resident.getContactNumber());
-                    emergencyContactEditText.setText(resident.getEmergencyContact());
-                    nidEditText.setText(resident.getNidOrBirthCertificate());
-                    professionEditText.setText(resident.getProfession());
-                    monthlyIncomeEditText.setText(resident.getMonthlyIncome());
-                    passwordEditText.setText(resident.getPassword());
+        String unitCode = "A-H5XS"; // Replace with actual unitCode
+        viewModel.fetchUserProfile(unitCode);
 
-                    /**
-                     * Load and display the resident's profile image
-                     */
-                    Log.d("ProfileFragment", "Image URL: " + resident.getImageUrl());
-                    if (resident.getImageUrl() != null && !resident.getImageUrl().isEmpty()) {
-                        Glide.with(requireActivity())
-                                .load(resident.getImageUrl())
-                                .into(profileImageView);
-                    } else {
-                        profileImageView.setImageResource(R.drawable.person); // Placeholder image
-                    }
-                } else {
-                    /**
-                     * Handle the case where resident data is null
-                     */
-                }
+        /**
+         * Observe error messages
+         */
+        viewModel.getErrorMessage().observe(getViewLifecycleOwner(), error -> {
+            if (error != null && !error.isEmpty()) {
+                Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
             }
         });
+
+        /**
+         * Observe loading state
+         */
+        viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
+                /**
+                 * Disable editing and save buttons when loading
+                 */
+                editButton.setEnabled(false);
+                saveButton.setEnabled(false);
+            } else {
+                /**
+                 * Enable editing and save buttons when not loading
+                 */
+                editButton.setEnabled(true);
+                saveButton.setEnabled(true);
+            }
+        });
+    }
+
+    /**
+     * Initializes the views used in the fragment.
+     *
+     * @param view The root view of the fragment.
+     */
+    private void initializeViews(View view) {
+        nameField = view.findViewById(R.id.full_name);
+        emailField = view.findViewById(R.id.email);
+        contactNumberField = view.findViewById(R.id.number);
+        emergencyContactField = view.findViewById(R.id.emergency_number);
+        nidField = view.findViewById(R.id.nid);
+        professionField = view.findViewById(R.id.profession);
+        monthlyIncomeField = view.findViewById(R.id.monthly_income);
+        passwordField = view.findViewById(R.id.password);
+        editButton = view.findViewById(R.id.btn_edit);
+        saveButton = view.findViewById(R.id.btn_save_changes);
+    }
+
+    /**
+     * Sets up observers for ViewModel data changes.
+     */
+    private void setupObservers() {
+        viewModel.getIsEditing().observe(getViewLifecycleOwner(), isEditing -> {
+            enableEditing(isEditing);
+            saveButton.setVisibility(isEditing ? View.VISIBLE : View.GONE);
+            editButton.setVisibility(isEditing ? View.GONE : View.VISIBLE);
+        });
+
+        /**
+         * Observe profile data changes
+         */
+        viewModel.getProfileData().observe(getViewLifecycleOwner(), profile -> {
+            if (profile != null) {
+                /**
+                 * Populate EditText fields with profile data
+                 */
+                populateFields(profile);
+            }
+        });
+    }
+
+    /**
+     * Sets up click listeners for the edit and save buttons.
+     */
+    private void setupClickListeners() {
+        /**
+         * Set click listeners for the edit button
+         */
+        editButton.setOnClickListener(v -> viewModel.enableEditing());
+        /**
+         * Set click listener for the save button
+         */
+        saveButton.setOnClickListener(v -> {
+            /**
+             * Get the current profile data and update it with new values from EditText fields
+             */
+            ResidentProfileModel currentProfile = viewModel.getProfileData().getValue();
+            if (currentProfile != null) {
+                /**
+                 * Update the profile with new values from EditText fields
+                 */
+                updateProfileFromFields(currentProfile);
+                /**
+                 * Save the updated profile to the database
+                 */
+                viewModel.saveUserProfile();
+            }
+        });
+    }
+
+    /**
+     * Populates the EditText fields with the provided profile data.
+     *
+     * @param profile The profile data to be displayed in the EditText fields.
+     */
+    private void populateFields(ResidentProfileModel profile) {
+        /**
+         * Set the text of EditText fields with the corresponding profile data
+         */
+        nameField.setText(profile.getName());
+        emailField.setText(profile.getEmail());
+        contactNumberField.setText(profile.getContactNumber());
+        emergencyContactField.setText(profile.getEmergencyContact());
+        nidField.setText(profile.getNidOrBirthCertificate());
+        professionField.setText(profile.getProfession());
+        monthlyIncomeField.setText(profile.getMonthlyIncome());
+        passwordField.setText(profile.getPassword());
+    }
+
+    /**
+     * Update the EditText fields when click the save button
+     *
+     * @param profile The profile data to be displayed in the EditText fields.
+     */
+    private void updateProfileFromFields(ResidentProfileModel profile) {
+        profile.setName(nameField.getText().toString().trim());
+        profile.setEmail(emailField.getText().toString().trim());
+        profile.setContactNumber(contactNumberField.getText().toString().trim());
+        profile.setEmergencyContact(emergencyContactField.getText().toString().trim());
+        profile.setNidOrBirthCertificate(nidField.getText().toString().trim());
+        profile.setProfession(professionField.getText().toString().trim());
+        profile.setMonthlyIncome(monthlyIncomeField.getText().toString().trim());
+        profile.setPassword(passwordField.getText().toString().trim());
+    }
+
+    /**
+     * Enables or disables editing of profile information.
+     *
+     * @param enable True to enable editing, false to disable.
+     */
+    private void enableEditing(boolean enable) {
+        nameField.setEnabled(enable);
+        emailField.setEnabled(enable);
+        contactNumberField.setEnabled(enable);
+        emergencyContactField.setEnabled(enable);
+        nidField.setEnabled(enable);
+        professionField.setEnabled(enable);
+        monthlyIncomeField.setEnabled(enable);
+        passwordField.setEnabled(enable);
     }
 }
