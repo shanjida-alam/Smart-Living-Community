@@ -94,4 +94,8 @@ dependencies {
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("org.mockito:mockito-inline:5.2.0")
 
+//    fetching image url from firebase
+    implementation("com.github.bumptech.glide:glide:4.15.0") // Check for the latest version
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.0") // For annotation processing
+
 }
