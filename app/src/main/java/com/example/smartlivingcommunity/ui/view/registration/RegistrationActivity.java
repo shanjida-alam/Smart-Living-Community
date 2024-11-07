@@ -95,6 +95,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         passwordEditText.getText().toString(),
                         imageUri.toString(),
                         primaryUnitCode,
+                        additionalUnitCode,
                         userRole
                 );
 
