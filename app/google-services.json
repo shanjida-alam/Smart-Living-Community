@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "106801265023",
+    "project_id": "create-bill-app",
+    "storage_bucket": "create-bill-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:106801265023:android:c3f16d828416b64d86824a",
+        "android_client_info": {
+          "package_name": "com.example.createbill"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMYIxKxGkXVeUJb3HLNfY_cWGZDgOv1GY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
