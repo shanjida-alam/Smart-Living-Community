@@ -1,4 +1,4 @@
-package com.example.smartlivingcommunity.ui.view.bulletin;
+package com.example.smartlivingcommunity.ui.view.board;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -13,26 +13,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.smartlivingcommunity.R;
-import com.example.smartlivingcommunity.ui.viewmodel.BulletinBoardViewModel;
+import com.example.smartlivingcommunity.ui.viewmodel.CreateAnnouncementViewModel;
 
-public class BulletinBoardView extends Fragment {
+public class CreateAnnouncementView extends Fragment {
 
-    private BulletinBoardViewModel mViewModel;
+    private CreateAnnouncementViewModel mViewModel;
 
-    public static BulletinBoardView newInstance() {
-        return new BulletinBoardView();
+    public static CreateAnnouncementView newInstance() {
+        return new CreateAnnouncementView();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_bulletin_board_view, container, false);
+        return inflater.inflate(R.layout.fragment_create_announcement, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(BulletinBoardViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(CreateAnnouncementViewModel.class);
         // TODO: Use the ViewModel
     }
 

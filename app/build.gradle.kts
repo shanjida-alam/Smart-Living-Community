@@ -46,6 +46,9 @@ android {
 dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.firebase.firestore)
+    implementation(libs.legacy.support.v4)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
     dokkaPlugin(libs.android.documentation.plugin)
     implementation(libs.appcompat)
     implementation(libs.material)
