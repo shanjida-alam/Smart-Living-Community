@@ -116,21 +116,36 @@ public class CreateBillViewModelTest {
     // Test case 5: Calculate Total Bill
     @Test
     public void calculateTotalBill_correctlyCalculatesSum() {
-        // Input: Water = 100, Gas = 150, Electricity = 200, WiFi = 50, ServiceFee = 200
-        CreateBillModel model = new CreateBillModel();
-        model.setWaterBill(100);
-        model.setGasBill(150);
-        model.setElectricityBill(200);
-        model.setWifiBill(50);
-        model.setServiceFee(200);
+        String documentID = "uenv5PSMx34C43jHEefc";
 
-        // Execute
-        double expectedTotalBill = 100 + 150 + 200 + 50 + 200;
-        model.calculateTotalBill();
+        // Mocking expected fetched data for the document
+        double waterBill = 700;
+        double gasBill = 600;
+        double electricityBill = 5000;
+        double wifiBill = 500;
+        double serviceFee = 300;
+        CreateBillModel expectedModel = new CreateBillModel(waterBill, gasBill, electricityBill, wifiBill, serviceFee);
+        MutableLiveData<CreateBillModel> liveData = new MutableLiveData<>(expectedModel);
 
-        // Expected Output: Total bill = 700
-        assertEquals(expectedTotalBill, model.getTotalBill(), 0.01);
+        // Mock the repository to return the above data when fetchBillData is called
+        when(repository.fetchBillData(documentID)).thenReturn(liveData);
+
+        // Execute: Fetch the bill data using the ViewModel
+        viewModel.fetchBillData(documentID);
+
+        // Wait for the fetched data to be available in the ViewModel
+        CreateBillModel result = viewModel.getBillData().getValue();
+
+        // Calculate the expected total bill based on fetched data
+        double expectedTotalBill = waterBill + gasBill + electricityBill + wifiBill + serviceFee;
+
+        // Assert that the total bill in the fetched model is correct
+        assertNotNull(result);
+        result.calculateTotalBill(); // Ensure total calculation is triggered
+        assertEquals(expectedTotalBill, result.getTotalBill(), 0.01);
     }
+
+
 }
 
 
