@@ -98,5 +98,9 @@ dependencies {
     testImplementation ("androidx.arch.core:core-testing:2.1.0")
     testImplementation ("com.google.truth:truth:1.1.3")
 
+    testImplementation ("androidx.arch.core:core-testing:2.2.0")
+    testImplementation ("org.mockito:mockito-core:3.+")
+    testImplementation ("androidx.test.ext:junit:1.1.5")
+
 }
 

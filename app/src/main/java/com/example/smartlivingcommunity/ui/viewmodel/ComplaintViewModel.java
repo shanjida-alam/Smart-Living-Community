@@ -6,39 +6,59 @@ import androidx.lifecycle.ViewModel;
 import com.example.smartlivingcommunity.data.model.ComplaintModel;
 import com.example.smartlivingcommunity.data.repository.ComplaintRepository;
 
+import java.util.List;
+
+// ComplaintViewModel.java
+// ComplaintViewModel.java
 public class ComplaintViewModel extends ViewModel {
     private final ComplaintRepository repository;
-    private final MutableLiveData<Boolean> isComplaintSaved = new MutableLiveData<>();
-    private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
     public ComplaintViewModel(ComplaintRepository repository) {
         this.repository = repository;
     }
 
-    public ComplaintViewModel(ComplaintRepository mockRepository, ComplaintRepository repository) {
-        this.repository = repository;
+    public LiveData<Boolean> submitComplaint(ComplaintModel complaint) {
+        if (!isValid(complaint)) {
+            MutableLiveData<Boolean> result = new MutableLiveData<>();
+            result.setValue(false);
+            return result;
+        }
+        return repository.submitComplaint(complaint);
     }
 
-    public LiveData<Boolean> getIsComplaintSaved() {
-        return isComplaintSaved;
-    }
+    private boolean isValid(ComplaintModel complaint) {
+        if (complaint == null) {
+            return false;
+        }
+        if (complaint.getUnitCode() == null || complaint.getUnitCode().trim().isEmpty()) {
+            return false;
+        }
+        if (complaint.getUserName() == null || complaint.getUserName().trim().isEmpty()) {
+            return false;
+        }
+        if (complaint.getUserRole() == null || complaint.getUserRole().trim().isEmpty()) {
+            return false;
+        }
+        if (complaint.getPhoneNumber() == null || !complaint.getPhoneNumber().matches("\\d{10}")) return false;
 
-    public LiveData<String> getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void submitComplaint(ComplaintModel complaint) {
-        if (complaint == null || complaint.getComplaintDescription().isEmpty()) {
-            errorMessage.setValue("Invalid input");
-            return;
+        if (complaint.getComplaintDescription() == null ||
+                complaint.getComplaintDescription().trim().isEmpty() ||
+                complaint.getComplaintDescription().length() > 1000) {
+            return false;
         }
 
-        repository.addComplaint(complaint).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                isComplaintSaved.setValue(true);
-            } else {
-                errorMessage.setValue("Failed to save complaint");
-            }
-        });
+        // Email validation
+        String email = complaint.getEmailAddress();
+        if (email == null || email.trim().isEmpty()) {
+            return false;
+        }
+
+        // Email format validation using regex
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        if (!email.matches(emailRegex)) {
+            return false;
+        }
+
+        return true;
     }
 }
