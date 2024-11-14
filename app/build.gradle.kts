@@ -16,6 +16,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -46,6 +47,8 @@ android {
 dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.firebase.firestore)
+    implementation("com.google.firebase:firebase-database-ktx")
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     dokkaPlugin(libs.android.documentation.plugin)
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -89,5 +92,25 @@ dependencies {
 //    fetching image url from firebase
     implementation("com.github.bumptech.glide:glide:4.15.0") // Check for the latest version
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.0") // For annotation processing
+
+    //mokito dependencies
+    testImplementation ("junit:junit:4.13.2")
+    androidTestImplementation ("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
+    testImplementation ("org.mockito:mockito-core:3.12.4")
+    androidTestImplementation ("org.mockito:mockito-android:3.12.4")
+
+    implementation ("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
+    implementation ("androidx.recyclerview:recyclerview:1.3.0")
+
+
+        // AndroidX Test Core and Rules
+        testImplementation ("androidx.arch.core:core-testing:2.2.0")
+        testImplementation ("androidx.test:core:1.5.0")
+        testImplementation ("androidx.test:rules:1.5.0")
+
+        testImplementation ("org.mockito:mockito-core:4.1.0")
+        testImplementation ("org.mockito:mockito-inline:4.1.0")
+
 
 }
