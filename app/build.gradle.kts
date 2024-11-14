@@ -92,12 +92,11 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.0") // Check for the latest version
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.0") // For annotation processing
 
-    //mokito dependencies
     testImplementation ("junit:junit:4.13.2")
-    androidTestImplementation ("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
     testImplementation ("org.mockito:mockito-core:3.12.4")
-    androidTestImplementation ("org.mockito:mockito-android:3.12.4")
+    testImplementation ("org.mockito:mockito-inline:3.12.4")
+    testImplementation ("androidx.arch.core:core-testing:2.1.0")
+    testImplementation ("com.google.truth:truth:1.1.3")
 
 }
 

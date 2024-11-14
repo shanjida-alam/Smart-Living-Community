@@ -12,12 +12,13 @@ public class ComplaintModel {
 
     public ComplaintModel() {}
 
-    public ComplaintModel(String complaintId, String unitCode, String userName, String userRole, String phoneNumber, String complaintDescription) {
+    public ComplaintModel(String complaintId, String unitCode, String userName, String userRole, String phoneNumber, String emailAddress, String complaintDescription) {
         this.complaintId = complaintId;
         this.unitCode = unitCode;
         this.userName = userName;
         this.userRole = userRole;
         this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
         this.complaintDescription = complaintDescription;
     }
 
