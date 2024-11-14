@@ -2,6 +2,7 @@ package com.example.smartlivingcommunity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -46,7 +47,7 @@ public class ComplaintViewModelTest {
     public void submitComplaint_withValidData_shouldSucceed() {
         // Setup
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "A101", "John Doe",
+                 "A101", "John Doe",
                 "Resident", "1234567890", "john@gmail.com", "Test complaint"
         );
 
@@ -73,7 +74,7 @@ public class ComplaintViewModelTest {
     public void submitComplaint_withEmptyUnitCode_shouldFail() {
         // Setup
         ComplaintModel complaint = new ComplaintModel();
-        complaint.setComplaintId("COMP001");
+//        complaint.setComplaintId("COMP001");
         complaint.setUnitCode("");
         complaint.setUserName("John Doe");
         complaint.setUserRole("Resident");
@@ -92,7 +93,7 @@ public class ComplaintViewModelTest {
     @Test
     public void submitComplaint_withEmptyDescription_shouldFail() {
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "A101", "John Doe",
+                "A101", "John Doe",
                 "Resident", "1234567890", "john@gmail.com", ""
         );
 
@@ -105,7 +106,7 @@ public class ComplaintViewModelTest {
     @Test
     public void submitComplaint_withInvalidPhoneNumber_shouldFail() {
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "A101", "John Doe",
+                "A101", "John Doe",
                 "Resident", "123", "john@gmail.com", "Test complaint"
         );
 
@@ -118,7 +119,7 @@ public class ComplaintViewModelTest {
     @Test
     public void submitComplaint_withEmptyUserName_shouldFail() {
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "A101", "",
+                 "A101", "",
                 "Resident", "1234567890","john@gmail.com", "Test complaint"
         );
 
@@ -131,7 +132,7 @@ public class ComplaintViewModelTest {
     @Test
     public void submitComplaint_withEmptyUserRole_shouldFail() {
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "A101", "John Doe",
+                 "A101", "John Doe",
                 "", "1234567890", "john@gmail.com","Test complaint"
         );
 
@@ -151,7 +152,7 @@ public class ComplaintViewModelTest {
     @Test
     public void submitComplaint_withEmptyEmailAddress_shouldFail() {
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "A101", "John Doe",
+                 "A101", "John Doe",
                 "Resident", "1234567890","", "Test complaint"
         );
         complaint.setEmailAddress("");
@@ -163,7 +164,7 @@ public class ComplaintViewModelTest {
     @Test
     public void submitComplaint_withInvalidEmailFormat_shouldFail() {
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "A101", "John Doe",
+                 "A101", "John Doe",
                 "Resident", "1234567890", "johnmail.com", "Test complaint"
         );
         complaint.setEmailAddress("invalid.email");
@@ -176,7 +177,7 @@ public class ComplaintViewModelTest {
     public void submitComplaint_withDescriptionTooLong_shouldFail() {
         String longDescription = String.join("", Collections.nCopies(1001, "a")); // Creates 1001 character string
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "A101", "John Doe",
+                 "A101", "John Doe",
                 "Resident", "1234567890", "john@gmail.com", longDescription
         );
 
@@ -187,7 +188,7 @@ public class ComplaintViewModelTest {
     @Test
     public void submitComplaint_withMultipleErrors_shouldFail() {
         ComplaintModel complaint = new ComplaintModel(
-                "", "", "",
+                 "", "",
                 "", "123", "", ""
         );
 
@@ -198,7 +199,7 @@ public class ComplaintViewModelTest {
     @Test
     public void submitComplaint_withSpecialCharactersInName_shouldSucceed() {
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "A101", "John O'Doe-Smith",
+                 "A101", "John O'Doe-Smith",
                 "Resident", "1234567890", "john@gmail.com", "Test complaint"
         );
 
@@ -221,7 +222,7 @@ public class ComplaintViewModelTest {
     @Test
     public void submitComplaint_withMinimumLengthDescription_shouldSucceed() {
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "A101", "John Doe",
+                 "A101", "John Doe",
                 "Resident", "1234567890", "john@gmail.com", "Brief"
         );
 
@@ -244,7 +245,7 @@ public class ComplaintViewModelTest {
     @Test
     public void submitComplaint_withWhitespaceInFields_shouldFail() {
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", " ", "John Doe",
+                 " ", "John Doe",
                 "Resident", "1234567890", "john@gmail.com", " "
         );
 
@@ -257,7 +258,7 @@ public class ComplaintViewModelTest {
     public void submitComplaint_withMaximumLengthDescription_shouldSucceed() {
         String maxDescription = String.join("", Collections.nCopies(1000, "a"));
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "A101", "John Doe",
+                 "A101", "John Doe",
                 "Resident", "1234567890", "john@gmail.com", maxDescription
         );
 
@@ -282,7 +283,7 @@ public class ComplaintViewModelTest {
 
         for (String role : validRoles) {
             ComplaintModel complaint = new ComplaintModel(
-                    "COMP001", "A101", "John Doe",
+                     "A101", "John Doe",
                     role, "1234567890", "john@gmail.com", "Test complaint"
             );
 
@@ -298,7 +299,7 @@ public class ComplaintViewModelTest {
     @Test
     public void submitComplaint_withNonExistentUnitInFirebase_shouldFail() {
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "X999", "John Doe",
+                 "X999", "John Doe",
                 "Resident", "1234567890", "john@gmail.com", "Test complaint"
         );
 
@@ -312,7 +313,7 @@ public class ComplaintViewModelTest {
     @Test
     public void submitComplaint_withValidFirebaseUnit_shouldSucceed() {
         ComplaintModel complaint = new ComplaintModel(
-                "COMP001", "M-Q1NO", "John Doe",
+                 "M-Q1NO", "John Doe",
                 "Resident", "1234567890", "john@gmail.com", "Test complaint"
         );
 
@@ -323,5 +324,22 @@ public class ComplaintViewModelTest {
 
         LiveData<Boolean> result = viewModel.submitComplaint(complaint);
         assertEquals(true, result.getValue());
+    }
+
+    @Test
+    public void submitComplaint_shouldGenerateUniqueId() {
+        ComplaintModel complaint1 = new ComplaintModel(
+                "A101", "John Doe", "Resident",
+                "1234567890", "john@gmail.com", "Test"
+        );
+
+        ComplaintModel complaint2 = new ComplaintModel(
+                "A101", "John Doe", "Resident",
+                "1234567890", "john@gmail.com", "Test"
+        );
+
+        assertNotEquals(complaint1.getComplaintId(), complaint2.getComplaintId());
+        assertTrue(complaint1.getComplaintId().startsWith("COMP"));
+        assertTrue(complaint2.getComplaintId().startsWith("COMP"));
     }
 }

@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:hint="Name of the Resident"
-            app:boxStrokeColor="#FFFFFF"
+            app:boxStrokeColor="@color/black"
             app:hintTextColor="#FFFFFF">
 
             <com.google.android.material.textfield.TextInputEditText
