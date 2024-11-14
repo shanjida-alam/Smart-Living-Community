@@ -47,12 +47,20 @@ public class ComplaintViewModelTest {
         // Setup
         ComplaintModel complaint = new ComplaintModel(
                 "COMP001", "A101", "John Doe",
-                "Resident", "1234567890","john@gmail.com", "Test complaint"
+                "Resident", "1234567890", "john@gmail.com", "Test complaint"
         );
 
-        MutableLiveData<Boolean> liveData = new MutableLiveData<>();
-        liveData.setValue(true);
-        when(repository.submitComplaint(any(ComplaintModel.class))).thenReturn(liveData);
+        // Mock Firebase unit code verification
+        MutableLiveData<Boolean> verificationResult = new MutableLiveData<>();
+        verificationResult.setValue(true);
+        when(repository.verifyUnitCodeInFirebase("A101", "john@gmail.com"))
+                .thenReturn(verificationResult);
+
+        // Mock complaint submission
+        MutableLiveData<Boolean> submissionResult = new MutableLiveData<>();
+        submissionResult.setValue(true);
+        when(repository.submitComplaint(any(ComplaintModel.class)))
+                .thenReturn(submissionResult);
 
         // Execute
         LiveData<Boolean> result = viewModel.submitComplaint(complaint);
@@ -194,9 +202,17 @@ public class ComplaintViewModelTest {
                 "Resident", "1234567890", "john@gmail.com", "Test complaint"
         );
 
+        // Mock Firebase unit code verification
+        MutableLiveData<Boolean> verificationResult = new MutableLiveData<>();
+        verificationResult.setValue(true);
+        when(repository.verifyUnitCodeInFirebase("A101", "john@gmail.com"))
+                .thenReturn(verificationResult);
+
+        // Mock complaint submission
         MutableLiveData<Boolean> liveData = new MutableLiveData<>();
         liveData.setValue(true);
-        when(repository.submitComplaint(any(ComplaintModel.class))).thenReturn(liveData);
+        when(repository.submitComplaint(any(ComplaintModel.class)))
+                .thenReturn(liveData);
 
         LiveData<Boolean> result = viewModel.submitComplaint(complaint);
         assertEquals(true, result.getValue());
@@ -209,9 +225,17 @@ public class ComplaintViewModelTest {
                 "Resident", "1234567890", "john@gmail.com", "Brief"
         );
 
-        MutableLiveData<Boolean> liveData = new MutableLiveData<>();
-        liveData.setValue(true);
-        when(repository.submitComplaint(any(ComplaintModel.class))).thenReturn(liveData);
+        // Mock Firebase verification
+        MutableLiveData<Boolean> verificationResult = new MutableLiveData<>();
+        verificationResult.setValue(true);
+        when(repository.verifyUnitCodeInFirebase("A101", "john@gmail.com"))
+                .thenReturn(verificationResult);
+
+        // Mock complaint submission
+        MutableLiveData<Boolean> submissionResult = new MutableLiveData<>();
+        submissionResult.setValue(true);
+        when(repository.submitComplaint(any(ComplaintModel.class)))
+                .thenReturn(submissionResult);
 
         LiveData<Boolean> result = viewModel.submitComplaint(complaint);
         assertEquals(true, result.getValue());
@@ -237,9 +261,16 @@ public class ComplaintViewModelTest {
                 "Resident", "1234567890", "john@gmail.com", maxDescription
         );
 
-        MutableLiveData<Boolean> liveData = new MutableLiveData<>();
-        liveData.setValue(true);
-        when(repository.submitComplaint(any(ComplaintModel.class))).thenReturn(liveData);
+        // Mock both the verification and submission
+        MutableLiveData<Boolean> verificationResult = new MutableLiveData<>();
+        verificationResult.setValue(true);
+        when(repository.verifyUnitCodeInFirebase("A101", "john@gmail.com"))
+                .thenReturn(verificationResult);
+
+        MutableLiveData<Boolean> submissionResult = new MutableLiveData<>();
+        submissionResult.setValue(true);
+        when(repository.submitComplaint(any(ComplaintModel.class)))
+                .thenReturn(submissionResult);
 
         LiveData<Boolean> result = viewModel.submitComplaint(complaint);
         assertEquals(true, result.getValue());
@@ -262,5 +293,35 @@ public class ComplaintViewModelTest {
             LiveData<Boolean> result = viewModel.submitComplaint(complaint);
             assertEquals(true, result.getValue());
         }
+    }
+
+    @Test
+    public void submitComplaint_withNonExistentUnitInFirebase_shouldFail() {
+        ComplaintModel complaint = new ComplaintModel(
+                "COMP001", "X999", "John Doe",
+                "Resident", "1234567890", "john@gmail.com", "Test complaint"
+        );
+
+        when(repository.verifyUnitCodeInFirebase("X999", "john@gmail.com"))
+                .thenReturn(new MutableLiveData<>(false));
+
+        LiveData<Boolean> result = viewModel.submitComplaint(complaint);
+        assertEquals(false, result.getValue());
+    }
+
+    @Test
+    public void submitComplaint_withValidFirebaseUnit_shouldSucceed() {
+        ComplaintModel complaint = new ComplaintModel(
+                "COMP001", "M-Q1NO", "John Doe",
+                "Resident", "1234567890", "john@gmail.com", "Test complaint"
+        );
+
+        when(repository.verifyUnitCodeInFirebase("M-Q1NO", "john@gmail.com"))
+                .thenReturn(new MutableLiveData<>(true));
+        when(repository.submitComplaint(any(ComplaintModel.class)))
+                .thenReturn(new MutableLiveData<>(true));
+
+        LiveData<Boolean> result = viewModel.submitComplaint(complaint);
+        assertEquals(true, result.getValue());
     }
 }

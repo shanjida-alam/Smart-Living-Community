@@ -11,5 +11,8 @@ import java.util.List;
 public interface ComplaintRepository {
     LiveData<Boolean> submitComplaint(ComplaintModel complaint);
 
+    boolean verifyUnitCodeOwnership(String unitCode, String emailAddress);
+
+    LiveData<Boolean> verifyUnitCodeInFirebase(String unitCode, String email);
     LiveData<List<ComplaintModel>> getComplaints();
 }

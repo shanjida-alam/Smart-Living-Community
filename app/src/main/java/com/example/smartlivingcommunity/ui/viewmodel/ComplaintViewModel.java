@@ -18,11 +18,27 @@ public class ComplaintViewModel extends ViewModel {
     }
 
     public LiveData<Boolean> submitComplaint(ComplaintModel complaint) {
+        MutableLiveData<Boolean> result = new MutableLiveData<>();
+
+        // First check basic validation
         if (!isValid(complaint)) {
-            MutableLiveData<Boolean> result = new MutableLiveData<>();
             result.setValue(false);
             return result;
         }
+
+        // For Residents, verify unit code ownership
+        if ("Resident".equals(complaint.getUserRole())) {
+            LiveData<Boolean> verificationResult = repository.verifyUnitCodeInFirebase(
+                    complaint.getUnitCode(),
+                    complaint.getEmailAddress()
+            );
+
+            if (Boolean.FALSE.equals(verificationResult.getValue())) {
+                result.setValue(false);
+                return result;
+            }
+        }
+
         return repository.submitComplaint(complaint);
     }
 
