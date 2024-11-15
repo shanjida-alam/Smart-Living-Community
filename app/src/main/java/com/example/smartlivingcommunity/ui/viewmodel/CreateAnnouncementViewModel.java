@@ -3,9 +3,11 @@ package com.example.smartlivingcommunity.ui.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
 import com.example.smartlivingcommunity.data.model.AnnouncementModel;
 import com.example.smartlivingcommunity.domain.model.Result;
 import com.example.smartlivingcommunity.domain.repository.AnnouncementRepository;
+
 import java.util.Date;
 
 public class CreateAnnouncementViewModel extends ViewModel {
@@ -62,6 +64,7 @@ public class CreateAnnouncementViewModel extends ViewModel {
         } catch (Exception e) {
             createResult.setValue(new Result.Error("Failed to create announcement"));
         } finally {
+            // Set loading state to false after the operation is complete
             isLoading.setValue(false);
         }
     }

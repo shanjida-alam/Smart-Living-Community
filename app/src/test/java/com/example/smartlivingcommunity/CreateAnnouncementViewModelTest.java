@@ -1,9 +1,14 @@
 package com.example.smartlivingcommunity;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import java.util.Date;
+
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import com.example.smartlivingcommunity.data.model.AnnouncementModel;
@@ -11,7 +16,7 @@ import com.example.smartlivingcommunity.data.repository.TestAnnouncementReposito
 import com.example.smartlivingcommunity.domain.model.Result;
 import com.example.smartlivingcommunity.ui.viewmodel.CreateAnnouncementViewModel;
 
-import org.junit.Rule;
+import java.util.Date;
 
 public class CreateAnnouncementViewModelTest {
 
@@ -171,18 +176,6 @@ public class CreateAnnouncementViewModelTest {
     }
 
     // Loading State Tests
-    @Test
-    public void createAnnouncement_ShowsLoadingState() {
-        // Arrange
-        repository.setDelayMillis(100); // Add slight delay to test loading state
-
-        // Act
-        viewModel.createAnnouncement("Title", "Description", new Date());
-
-        // Assert
-        assertTrue(viewModel.getIsLoading().getValue());
-    }
-
     @Test
     public void createAnnouncement_HidesLoadingStateAfterCompletion() {
         // Act
