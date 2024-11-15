@@ -85,7 +85,18 @@
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonShowMonthlyBill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Monthly Bill"
+        android:backgroundTint="@color/toolbar_bg"
+        android:padding="16dp"
+        android:layout_margin="20dp"
+        android:minHeight="48dp" />
 
     <TextView
         android:id="@+id/upcomingEventsTitle"
