@@ -32,6 +32,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    testOptions {
+        unitTests {
+            all {
+                isIncludeAndroidResources = true
+                isReturnDefaultValues = true
+            }
+        }
+    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -48,13 +56,14 @@ android {
 
 dependencies {
     implementation(libs.navigation.fragment.ktx)
-    implementation(libs.firebase.firestore)
+    implementation(libs.recyclerview)
+    implementation(libs.firebase.auth)
+    implementation(libs.gridlayout)
     dokkaPlugin(libs.android.documentation.plugin)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
@@ -88,14 +97,32 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
-    testImplementation("org.mockito:mockito-core:4.12.4")
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-android:4.8.0")
-    testImplementation("androidx.arch.core:core-testing:2.1.0")
-    testImplementation("org.mockito:mockito-inline:5.2.0")
 
+    // Firebase Firestore for database testing (ensures Firestore integration works as expected)
+    androidTestImplementation("com.google.firebase:firebase-firestore:24.0.0")
+
+    // Google Tasks for Task API (used in Firebase query operations)
+    androidTestImplementation("com.google.android.gms:play-services-tasks:18.0.2")
 //    fetching image url from firebase
     implementation("com.github.bumptech.glide:glide:4.15.0") // Check for the latest version
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.0") // For annotation processing
+
+
+
+    // Testing Dependancies
+    // Testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("org.mockito:mockito-inline:5.2.0")
+
+    // Android Testing
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("org.mockito:mockito-android:5.7.0")
+    androidTestImplementation("com.google.truth:truth:1.1.5")
+    androidTestImplementation("com.google.android.gms:play-services-tasks:18.0.2")
+
 
 }

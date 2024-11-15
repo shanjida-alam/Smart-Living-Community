@@ -16,6 +16,11 @@
         android:checkable="true"
         android:title="Service Request"/>
     <item
+        android:icon="@drawable/parking"
+        android:id="@+id/itemManageParking"
+        android:checkable="true"
+        android:title="Manage Parking" />
+    <item
         android:icon="@drawable/manage_event"
         android:id="@+id/itemManageEvent"
         android:checkable="true"

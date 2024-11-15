@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="vehicle_types">
+        <item>Car</item>
+        <item>Motorcycle</item>
+    </string-array>
+
+    <string-array name="time_slots">
+        <item>9:00 AM - 10:00 AM</item>
+        <item>10:00 AM - 11:00 AM</item>
+        <item>11:00 AM - 12:00 PM</item>
+        <!-- Add more time slots as needed -->
+    </string-array>
+</resources>
