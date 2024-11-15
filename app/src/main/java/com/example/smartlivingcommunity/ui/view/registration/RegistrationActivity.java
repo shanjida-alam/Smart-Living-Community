@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.smartlivingcommunity.data.model.RegistrationModel;
 import com.example.smartlivingcommunity.ui.viewmodel.RegistrationViewModel;
 import com.example.smartlivingcommunity.utils.EmailSenderUtils;
 import com.example.smartlivingcommunity.R;

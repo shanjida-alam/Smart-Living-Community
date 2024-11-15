@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartlivingcommunity.R;
-import com.example.smartlivingcommunity.data.model.ResidentEvent;
 
 import java.util.List;
 

@@ -1,8 +1,6 @@
 package com.example.smartlivingcommunity.ui.viewmodel;
 
 import androidx.lifecycle.ViewModel;
-import com.example.smartlivingcommunity.data.model.RegistrationModel;
-import com.example.smartlivingcommunity.data.repository.RegistrationRepository;
 
 /**
  * ViewModel class for managing registration-related data and business logic.

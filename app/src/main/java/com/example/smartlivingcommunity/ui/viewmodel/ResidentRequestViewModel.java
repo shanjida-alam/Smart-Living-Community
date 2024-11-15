@@ -3,7 +3,6 @@ package com.example.smartlivingcommunity.ui.viewmodel;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
-import com.example.smartlivingcommunity.data.model.ServiceRequestModel;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.android.gms.tasks.OnFailureListener;

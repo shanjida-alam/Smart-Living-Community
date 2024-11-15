@@ -14,9 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartlivingcommunity.R;
-import com.example.smartlivingcommunity.data.model.ResidentEvent;
-import com.example.smartlivingcommunity.data.model.ResidentParkingSlot;
-import com.example.smartlivingcommunity.data.model.ResidentServiceRequest;
 import com.example.smartlivingcommunity.ui.viewmodel.DashboardViewModel;
 
 

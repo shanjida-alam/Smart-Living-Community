@@ -3,9 +3,6 @@ package com.example.smartlivingcommunity.ui.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.example.smartlivingcommunity.data.model.ResidentEvent;
-import com.example.smartlivingcommunity.data.model.ResidentParkingSlot;
-import com.example.smartlivingcommunity.data.model.ResidentServiceRequest;
 
 import java.util.List;
 

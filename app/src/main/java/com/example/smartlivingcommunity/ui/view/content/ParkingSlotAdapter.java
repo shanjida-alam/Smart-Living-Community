@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartlivingcommunity.R;
-import com.example.smartlivingcommunity.data.model.ResidentParkingSlot;
 
 import java.util.List;
 

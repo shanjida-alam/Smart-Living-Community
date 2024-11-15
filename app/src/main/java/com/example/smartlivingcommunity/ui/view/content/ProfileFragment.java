@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartlivingcommunity.R;
-import com.example.smartlivingcommunity.data.model.ResidentProfileModel;
 import com.example.smartlivingcommunity.ui.viewmodel.ResidentProfileViewModel;
 
 /**
