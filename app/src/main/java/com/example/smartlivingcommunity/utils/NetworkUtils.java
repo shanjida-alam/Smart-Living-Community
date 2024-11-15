@@ -1,9 +1,9 @@
-// NetworkUtils.java
+// com/example/smartlivingcommunity/utils/NetworkUtils.java
 package com.example.smartlivingcommunity.utils;
 
 public class NetworkUtils {
     public boolean isNetworkAvailable() {
-        // Implementation to check network connectivity
+        // Simplified for testing purposes
         return true;
     }
 }

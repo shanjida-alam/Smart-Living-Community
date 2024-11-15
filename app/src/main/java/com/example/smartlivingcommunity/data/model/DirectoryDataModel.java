@@ -1,12 +1,10 @@
-// DirectoryDataModel.java
 package com.example.smartlivingcommunity.data.model;
 
 public class DirectoryDataModel {
-    private String id;
-    private String name;
-    private String unit;
-    private String role;
-    private String contact;
+    private final String id;
+    private final String name;
+    private final String unit;
+    private final String role;
 
     public DirectoryDataModel(String id, String name, String unit, String role) {
         this.id = id;
@@ -15,13 +13,21 @@ public class DirectoryDataModel {
         this.role = role;
     }
 
-    // Getters and setters
     public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
     public String getUnit() { return unit; }
-    public void setUnit(String unit) { this.unit = unit; }
     public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DirectoryDataModel that = (DirectoryDataModel) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }
