@@ -20,4 +20,10 @@
         android:id="@+id/itemManageEvent"
         android:checkable="true"
         android:title="Manage Event"/>
+    <item
+        android:icon="@drawable/directory"
+        android:id="@+id/directory_menu"
+        android:checkable="true"
+        android:title="Manage Directory"/>
+
 </menu>

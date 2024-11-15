@@ -1,8 +1,10 @@
 package com.example.smartlivingcommunity.data.repository;
 
 import com.example.smartlivingcommunity.data.model.DirectoryDataModel;
+
 import java.util.List;
 
+// DirectoryRepository.java
 public interface DirectoryRepository {
     List<DirectoryDataModel> getAllEntries();
     List<DirectoryDataModel> searchByName(String name);

@@ -104,13 +104,13 @@ dependencies {
     implementation ("androidx.recyclerview:recyclerview:1.3.0")
 
 
-        // AndroidX Test Core and Rules
-        testImplementation ("androidx.arch.core:core-testing:2.2.0")
-        testImplementation ("androidx.test:core:1.5.0")
-        testImplementation ("androidx.test:rules:1.5.0")
+    // AndroidX Test Core and Rules
+    testImplementation ("androidx.arch.core:core-testing:2.2.0")
+    testImplementation ("androidx.test:core:1.5.0")
+    testImplementation ("androidx.test:rules:1.5.0")
 
-        testImplementation ("org.mockito:mockito-core:4.1.0")
-        testImplementation ("org.mockito:mockito-inline:4.1.0")
+    testImplementation ("org.mockito:mockito-core:4.1.0")
+    testImplementation ("org.mockito:mockito-inline:4.1.0")
 
 
 }

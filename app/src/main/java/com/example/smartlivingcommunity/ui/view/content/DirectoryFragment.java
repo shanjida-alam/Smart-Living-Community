@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartlivingcommunity.R;
-import com.example.smartlivingcommunity.ui.view.content.DirectoryAdapter;
 import com.example.smartlivingcommunity.ui.viewmodel.DirectoryViewModel;
 import com.google.android.material.chip.ChipGroup;
 import androidx.appcompat.widget.SearchView;
@@ -79,14 +78,15 @@ public class DirectoryFragment extends Fragment {
     }
 
     private void setupFilterChips() {
-        filterChipGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.chipAll) {
+        filterChipGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            if (checkedIds.contains(R.id.chipAll)) {
                 viewModel.loadDirectory();
-            } else if (checkedId == R.id.chipResident) {
+            } else if (checkedIds.contains(R.id.chipResident)) {
                 viewModel.filterByRole("resident");
-            } else if (checkedId == R.id.chipSecurity) {
+            } else if (checkedIds.contains(R.id.chipSecurity)) {
                 viewModel.filterByRole("security");
             }
         });
     }
+
 }

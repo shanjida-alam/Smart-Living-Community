@@ -33,8 +33,7 @@
         android:layout_height="wrap_content"
         android:text="Resident"
         android:textColor="@color/white"
-        android:textSize="13sp"
-        />
+        android:textSize="13sp"/>
 
 
 

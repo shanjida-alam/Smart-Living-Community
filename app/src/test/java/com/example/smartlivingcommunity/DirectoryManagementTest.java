@@ -50,9 +50,7 @@ public class DirectoryManagementTest implements AutoCloseable {
     @After
     public void tearDown() throws Exception {
         mockCloseable.close();
-        if (directoryObserver != null) {
-            viewModel.getDirectoryEntries().removeObserver(directoryObserver);
-        }
+        viewModel.getDirectoryEntries().removeObserver(directoryObserver);
     }
 
     @Test

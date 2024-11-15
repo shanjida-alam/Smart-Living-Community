@@ -1,66 +1,65 @@
 package com.example.smartlivingcommunity.ui.view.content;
 
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartlivingcommunity.R;
+import com.example.smartlivingcommunity.data.model.DirectoryDataModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DirectoryAdapter#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class DirectoryAdapter extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class DirectoryAdapter extends ListAdapter<DirectoryDataModel, DirectoryAdapter.ViewHolder> {
 
     public DirectoryAdapter() {
-        // Required empty public constructor
+        super(new DirectoryDiffCallback());
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DirectoryAdapter.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DirectoryAdapter newInstance(String param1, String param2) {
-        DirectoryAdapter fragment = new DirectoryAdapter();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_directory_member, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        DirectoryDataModel member = getItem(position);
+        holder.bind(member);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView nameText;
+        private final TextView unitText;
+        private final TextView roleText;
+
+        ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nameText = itemView.findViewById(R.id.memberName);
+            unitText = itemView.findViewById(R.id.memberUnit);
+            roleText = itemView.findViewById(R.id.memberRole);
+        }
+
+        void bind(DirectoryDataModel member) {
+            nameText.setText(member.getName());
+            unitText.setText(member.getUnit());
+            roleText.setText(member.getRole());
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_directory_adapter, container, false);
+    private static class DirectoryDiffCallback extends DiffUtil.ItemCallback<DirectoryDataModel> {
+        @Override
+        public boolean areItemsTheSame(@NonNull DirectoryDataModel oldItem, @NonNull DirectoryDataModel newItem) {
+            return oldItem.getId().equals(newItem.getId());
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull DirectoryDataModel oldItem, @NonNull DirectoryDataModel newItem) {
+            return oldItem.equals(newItem);
+        }
     }
 }
+
