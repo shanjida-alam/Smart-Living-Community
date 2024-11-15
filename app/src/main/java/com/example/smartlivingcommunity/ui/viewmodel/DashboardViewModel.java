@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.smartlivingcommunity.data.model.ResidentEvent;
 import com.example.smartlivingcommunity.data.model.ResidentParkingSlot;
 import com.example.smartlivingcommunity.data.model.ResidentServiceRequest;
-import com.example.smartlivingcommunity.data.repository.ResidentRepository;
+
 import java.util.List;
 
 /**
