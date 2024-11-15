@@ -68,5 +68,6 @@ public class RegistrationViewModel extends ViewModel {
     public void setIsResident(boolean isResident) {
         this.isResident = isResident;
     }
+
 }
 

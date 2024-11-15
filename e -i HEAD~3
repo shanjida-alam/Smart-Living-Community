@@ -1,0 +1,80 @@
+[33m4afb54b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mirtifa-create-Community-Bulletin-Board[m[33m, [m[1;31morigin/irtifa-create-Community-Bulletin-Board[m[33m)[m Modified AnnouncementModel Class
+[33m7140a99[m Added 7 test case successfully and build all the classes neededand deleted some file
+[33m46a32af[m Fixed the fail Case, Pased 18 casses successfully
+[33m53523a6[m Added a failed case for test case
+[33m2be5f01[m Created CreateAnnouncementViewModel and CreateAnnouncementView from CreateAnnouncementViewModelTest
+[33m8ac8c80[m Created Test Case for CreateAnnouncementViewModel
+[33md500bee[m Created a sucecessful Test Case for BulletinBoardModel
+[33mae210b8[m Created a branch for developing the feature: Community Bulletin Board
+[33mb221211[m[33m ([m[1;32mmain[m[33m)[m Merge pull request #6 from shanjida-alam/shanjida-manage-profile
+[33m37ee82d[m deleted the unnecessary res
+[33m6cf91b4[m[33m ([m[1;31morigin/shanjida-manage-profile[m[33m)[m generated documentation_shanjida
+[33m65b696f[m Merge pull request #5 from shanjida-alam/Solaimi-manage-service-request
+[33mc5ad365[m Merge branch 'main' into Solaimi-manage-service-request
+[33mdec9bd6[m added eye icon to show password & fixed progress bar position
+[33mafdfa19[m Completed Submit request Feature
+[33m8ea85c9[m Merge pull request #4 from shanjida-alam/saon-dashboard-v3
+[33m3997bc0[m update UI
+[33m0729c1f[m Updated Service request
+[33mb89244f[m update colou andui design
+[33m4517037[m update button colour
+[33m2e16747[m Merge remote-tracking branch 'origin/main' into shanjida-manage-profile
+[33mf59084b[m Merge pull request #3 from shanjida-alam/totinee
+[33mc4c50fe[m Updated main project locally,added registrationActivity by HT
+[33m62d38d5[m remove the resident_profile.xml file_shanjida
+[33m0ab9859[m check that after logging the app is redirected to the dashboard and other componenets_shanjida
+[33m36af20d[m Merge remote-tracking branch 'origin/main' into shanjida-manage-profile
+[33mbcebb9a[m added a README file
+[33m5985150[m redirect from login to dashboard
+[33m1cef7d9[m add resident dashboard
+[33m1ce233e[m successfully fetch the image_shanjida
+[33mc65e16c[m Merge branch 'shanjida-manage-profile' of https://github.com/shanjida-alam/Smart-Living-Community into shanjida-manage-profile
+[33m0960763[m successfully added the navigation components_shanjida
+[33m8ad95bb[m successfully show the data in the Resident Profile interface- shanjida
+[33m2657368[m update the documentation_shanjida
+[33m957cf16[m generated documentation_shanjida
+[33m4974b58[m update the resident profile_shanjida
+[33me5445d5[m complete the resident profile page_shanjida
+[33mc04c9e4[m added dependencies for the MVVM architecture
+[33m6985287[m remove the resources file- shanjida
+[33m2a89f17[m initial set up- Shanjida
+[33ma3056d2[m successfully show the data in the Resident Profile interface- shanjida
+[33m05dca45[m add login with app template
+[33m88ad80d[m[33m ([m[1;31morigin/master[m[33m)[m Add login with app template
+[33m3a82f90[m Added the branch with login-ui-1 by jubaer
+[33m2151272[m update the documentation_shanjida
+[33mff5326e[m generated documentation_shanjida
+[33m4b83c81[m update the resident profile_shanjida
+[33m4e48b42[m complete the resident profile page_shanjida
+[33m2c6fbfd[m added dependencies for the MVVM architecture
+[33mbdeee92[m remove the resources file- shanjida
+[33mc5042dd[m initial set up- Shanjida
+[33mc2031e8[m Merge pull request #2 from shanjida-alam/ci-pipeline
+[33m5d9aff4[m[33m ([m[1;31morigin/ci-pipeline[m[33m)[m Fixed the bugs in MainActivity.java
+[33m4a54cbc[m added some bugs
+[33m5e637aa[m Merge pull request #1 from shanjida-alam/ci-pipeline
+[33mf950b40[m Fixed issues with kotlin compilation
+[33med1e496[m some changes
+[33m5ffa2da[m Initial commit
+[33mcdf3d70[m updated permission
+[33mcdda2cc[m Update ci-pipeline.yml
+[33m2fbe93e[m Create ci-pipeline.yml
+[33m1b9c1af[m Added 1st Continuous Integration testing with Circle CI
+[33md93d49b[m Added 1st Report on Unit Testing
+[33m29d6728[m DFD Level-1 and Level-2 for Smart Living Community
+[33m2464b86[m Initial DB Schema for Smart Community Living
+[33mb871f71[m Added Chosen Coding Standards updated PDF to resources
+[33m87ad9fa[m Delete resources/Coding Standard.pdf
+[33m07a5e06[m Added Chosen Coding Standards PDF to resources
+[33m9ff62a4[m added SRS
+[33m764d61d[m Add files via upload
+[33m7239075[m Delete resources/Coding Standard 02.pdf
+[33m6a6d5ec[m Add files via upload
+[33m6a9f430[m Rename Documentation_Tools___Dokka (2).pdf to Documentation_Tools___Dokka.pdf
+[33md4211d8[m Add files via upload
+[33m429c147[m addind the Documentation tool sphinx file
+[33m156076d[m Modify
+[33m44d5370[m updated
+[33md04f3ca[m Add files via upload
+[33m1b0ae03[m[33m ([m[1;31morigin/development[m[33m)[m coding standard 3
+[33m3a67341[m Added Coding_Standard_1 PDF file to the new directory
