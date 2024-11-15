@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +47,24 @@ public class DashboardFragment extends Fragment {
         // Initialize ViewModel
         viewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
+        // Button initialization: Find the 'Show Monthly Bill' button in the view layout
+        Button viewMonthlyBillButton = view.findViewById(R.id.buttonShowMonthlyBill);
+
+        // Set an OnClickListener to handle the button click
+        viewMonthlyBillButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This method is triggered when the 'Show Monthly Bill' button is clicked.
+             * It initiates the navigation to the CreateBillFragment to display the monthly bill.
+             *
+             * @param v The view that was clicked, which is the 'Show Monthly Bill' button in this case.
+             */
+            @Override
+            public void onClick(View v) {
+                // Call the method to navigate to the CreateBillFragment
+                navigateToCreateBillFragment();
+            }
+        });
+
         // Set up RecyclerView for Service Requests
         RecyclerView serviceRecyclerView = view.findViewById(R.id.serviceRecyclerView);
         serviceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -81,4 +100,29 @@ public class DashboardFragment extends Fragment {
 
         return view;
     }
+
+    /**
+     * Navigates from the current fragment (DashboardFragment) to the CreateBillFragment.
+     * Passes a document ID (in this case, a placeholder) as an argument to the CreateBillFragment.
+     * The navigation occurs using the FragmentTransaction to replace the current fragment and add it to the back stack.
+     */
+    private void navigateToCreateBillFragment() {
+        // Create a new Bundle to pass data (documentID) to the CreateBillFragment
+        Bundle bundle = new Bundle();
+        bundle.putString("documentID", "mgrHWE3zkRmVgoIRj7R4");
+
+        // Create a new instance of CreateBillFragment
+        CreateBillFragment fragment = new CreateBillFragment();
+        // Set the arguments (documentID) for the fragment
+        fragment.setArguments(bundle);
+
+        // Begin a FragmentTransaction to replace the current fragment with the CreateBillFragment
+        // The 'fragment_container' is the ID of the container in the activity's layout where the fragment will be placed
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();  // Commit the transaction to complete the fragment transaction
+    }
+
 }
