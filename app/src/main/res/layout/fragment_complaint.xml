@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="LivSmart Complaint Form"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginBottom="16dp"/>
@@ -46,13 +46,13 @@
             android:layout_marginBottom="16dp"
             android:hint="Name of the Resident"
             app:boxStrokeColor="@color/black"
-            app:hintTextColor="#FFFFFF">
+            app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/residentNameInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"/>
+                android:textColor="@color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -67,15 +67,15 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:hint="Name"
-                app:boxStrokeColor="#FFFFFF"
-                app:hintTextColor="#FFFFFF">
+                android:hint="Unit Code"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/nameInput"
+                    android:id="@+id/unitCodeInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -84,16 +84,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="Resident email address*"
-            app:boxStrokeColor="#FFFFFF"
-            app:hintTextColor="#FFFFFF">
+            android:hint="Resident email address"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:textColor="#FFFFFF"/>
+                android:textColor="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Role"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/roleInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:textColor="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Phone Number"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phoneNumberInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:textColor="@color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -102,8 +136,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:hint="Problem Description"
-            app:boxStrokeColor="#FFFFFF"
-            app:hintTextColor="#FFFFFF">
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/problemDescriptionInput"
@@ -112,24 +146,7 @@
                 android:inputType="textMultiLine"
                 android:minLines="3"
                 android:gravity="top"
-                android:textColor="#FFFFFF"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="Complaint date"
-            app:boxStrokeColor="#FFFFFF"
-            app:hintTextColor="#FFFFFF">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ticketDateInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:textColor="#FFFFFF"/>
+                android:textColor="@color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -145,7 +162,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Never submit sensitive information such as passwords."
-            android:textColor="#FFFFFF"
+            android:textColor="@color/black"
             android:gravity="center"
             android:layout_marginTop="16dp"/>
 
