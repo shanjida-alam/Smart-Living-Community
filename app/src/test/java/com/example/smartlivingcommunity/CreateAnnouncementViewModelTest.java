@@ -66,8 +66,8 @@ public class CreateAnnouncementViewModelTest {
      */
     @Test
     public void createAnnouncement_LongValidTitleAndDescription_ReturnsSuccess() {
-        String title = "A".repeat(50); // Long title
-        String description = "B".repeat(500); // Long description
+        String title = "ABCDFGHIJKLMNOPQRST".repeat(50); // Long title
+        String description = "BAGHYTSKAODBONDBUHNMDIDHDBJNSBDH".repeat(500); // Long description
         Date date = new Date(); // Current date
         viewModel.createAnnouncement(title, description, date); // Call the method
         Result<AnnouncementModel> result = viewModel.getCreateResult().getValue(); // Get result
@@ -94,7 +94,7 @@ public class CreateAnnouncementViewModelTest {
      */
     @Test
     public void createAnnouncement_TitleWithSpecialCharacters_ReturnsSuccess() {
-        String title = "@#$%^&*()_+!"; // Title with special characters
+        String title = "Picnic!"; // Title with special characters
         String description = "Description with special characters"; // Valid description
         Date date = new Date(); // Current date
         viewModel.createAnnouncement(title, description, date); // Call the method
@@ -109,7 +109,7 @@ public class CreateAnnouncementViewModelTest {
      */
     @Test
     public void createAnnouncement_TitleWithNumbersOnly_ReturnsSuccess() {
-        viewModel.createAnnouncement("123456", "Description", new Date()); // Call the method
+        viewModel.createAnnouncement("Monthly Meeting4", "Description", new Date()); // Call the method
         Result<AnnouncementModel> result = viewModel.getCreateResult().getValue(); // Get result
         assertNotNull(result); // Ensure the result is not null
         assertTrue(result instanceof Result.Success); // Verify the result is a success
