@@ -19,6 +19,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    // Add this block to enable view binding
+    buildFeatures {
+        viewBinding = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -104,5 +109,7 @@ dependencies {
     // Mockito (if you decide to use mocking)
     testImplementation("org.mockito:mockito-core:5.7.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
+
+
 
 }

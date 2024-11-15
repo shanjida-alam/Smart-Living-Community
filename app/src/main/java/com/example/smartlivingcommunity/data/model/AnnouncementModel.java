@@ -3,10 +3,9 @@ package com.example.smartlivingcommunity.data.model;
 import java.util.Date;
 
 public class AnnouncementModel {
-    private long id;
-    private String title;
-    private String description;
-    private Date date;
+    private final String title;
+    private final String description;
+    private final Date date;
 
     public AnnouncementModel(String title, String description, Date date) {
         this.title = title;
@@ -14,9 +13,15 @@ public class AnnouncementModel {
         this.date = date;
     }
 
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
-    public String getTitle() { return title; }
-    public String getDescription() { return description; }
-    public Date getDate() { return date; }
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Date getDate() {
+        return date;
+    }
 }

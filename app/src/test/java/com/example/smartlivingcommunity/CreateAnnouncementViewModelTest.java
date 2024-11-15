@@ -5,6 +5,12 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.Date;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+
+import com.example.smartlivingcommunity.data.model.AnnouncementModel;
+import com.example.smartlivingcommunity.data.repository.TestAnnouncementRepository;
+import com.example.smartlivingcommunity.domain.model.Result;
+import com.example.smartlivingcommunity.ui.viewmodel.CreateAnnouncementViewModel;
+
 import org.junit.Rule;
 
 public class CreateAnnouncementViewModelTest {
@@ -21,7 +27,7 @@ public class CreateAnnouncementViewModelTest {
         viewModel = new CreateAnnouncementViewModel(repository);
     }
 
-    // Success Cases
+    // Success Case Tests
     @Test
     public void createAnnouncement_ValidInput_ReturnsSuccess() {
         // Arrange
@@ -33,7 +39,7 @@ public class CreateAnnouncementViewModelTest {
         viewModel.createAnnouncement(title, description, date);
 
         // Assert
-        Result<Announcement> result = viewModel.getCreateResult().getValue();
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
         assertTrue(result.isSuccess());
         assertNotNull(result.getData());
         assertEquals(title, result.getData().getTitle());
@@ -44,15 +50,15 @@ public class CreateAnnouncementViewModelTest {
     @Test
     public void createAnnouncement_MinimumValidInput_ReturnsSuccess() {
         // Arrange
-        String title = "A"; // Minimum length title
-        String description = "B"; // Minimum length description
+        String title = "A";
+        String description = "B";
         Date date = new Date();
 
         // Act
         viewModel.createAnnouncement(title, description, date);
 
         // Assert
-        Result<Announcement> result = viewModel.getCreateResult().getValue();
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
         assertTrue(result.isSuccess());
     }
 
@@ -63,7 +69,7 @@ public class CreateAnnouncementViewModelTest {
         viewModel.createAnnouncement("", "Description", new Date());
 
         // Assert
-        Result<Announcement> result = viewModel.getCreateResult().getValue();
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
         assertFalse(result.isSuccess());
         assertEquals("Title cannot be empty", result.getError());
     }
@@ -74,7 +80,7 @@ public class CreateAnnouncementViewModelTest {
         viewModel.createAnnouncement(null, "Description", new Date());
 
         // Assert
-        Result<Announcement> result = viewModel.getCreateResult().getValue();
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
         assertFalse(result.isSuccess());
         assertEquals("Title cannot be empty", result.getError());
     }
@@ -85,7 +91,7 @@ public class CreateAnnouncementViewModelTest {
         viewModel.createAnnouncement("   ", "Description", new Date());
 
         // Assert
-        Result<Announcement> result = viewModel.getCreateResult().getValue();
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
         assertFalse(result.isSuccess());
         assertEquals("Title cannot be empty", result.getError());
     }
@@ -99,7 +105,7 @@ public class CreateAnnouncementViewModelTest {
         viewModel.createAnnouncement(longTitle, "Description", new Date());
 
         // Assert
-        Result<Announcement> result = viewModel.getCreateResult().getValue();
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
         assertFalse(result.isSuccess());
         assertEquals("Title cannot exceed 100 characters", result.getError());
     }
@@ -111,7 +117,7 @@ public class CreateAnnouncementViewModelTest {
         viewModel.createAnnouncement("Title", "", new Date());
 
         // Assert
-        Result<Announcement> result = viewModel.getCreateResult().getValue();
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
         assertFalse(result.isSuccess());
         assertEquals("Description cannot be empty", result.getError());
     }
@@ -122,7 +128,7 @@ public class CreateAnnouncementViewModelTest {
         viewModel.createAnnouncement("Title", null, new Date());
 
         // Assert
-        Result<Announcement> result = viewModel.getCreateResult().getValue();
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
         assertFalse(result.isSuccess());
         assertEquals("Description cannot be empty", result.getError());
     }
@@ -133,7 +139,7 @@ public class CreateAnnouncementViewModelTest {
         viewModel.createAnnouncement("Title", "    ", new Date());
 
         // Assert
-        Result<Announcement> result = viewModel.getCreateResult().getValue();
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
         assertFalse(result.isSuccess());
         assertEquals("Description cannot be empty", result.getError());
     }
@@ -147,36 +153,21 @@ public class CreateAnnouncementViewModelTest {
         viewModel.createAnnouncement("Title", longDescription, new Date());
 
         // Assert
-        Result<Announcement> result = viewModel.getCreateResult().getValue();
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
         assertFalse(result.isSuccess());
         assertEquals("Description cannot exceed 1000 characters", result.getError());
     }
 
-    // Date Validation Tests
+    // Date Validation Test
     @Test
     public void createAnnouncement_NullDate_ReturnsError() {
         // Act
         viewModel.createAnnouncement("Title", "Description", null);
 
         // Assert
-        Result<Announcement> result = viewModel.getCreateResult().getValue();
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
         assertFalse(result.isSuccess());
         assertEquals("Date cannot be null", result.getError());
-    }
-
-    // Repository Error Tests
-    @Test
-    public void createAnnouncement_RepositoryError_ReturnsError() {
-        // Arrange
-        repository.setShouldReturnError(true);
-
-        // Act
-        viewModel.createAnnouncement("Title", "Description", new Date());
-
-        // Assert
-        Result<Announcement> result = viewModel.getCreateResult().getValue();
-        assertFalse(result.isSuccess());
-        assertEquals("Failed to create announcement", result.getError());
     }
 
     // Loading State Tests
@@ -199,5 +190,95 @@ public class CreateAnnouncementViewModelTest {
 
         // Assert
         assertFalse(viewModel.getIsLoading().getValue());
+    }
+
+    @Test
+    public void createAnnouncement_HidesLoadingStateAfterError() {
+        // Act
+        viewModel.createAnnouncement("", "Description", new Date());
+
+        // Assert
+        assertFalse(viewModel.getIsLoading().getValue());
+    }
+
+    @Test
+    public void createAnnouncement_HidesLoadingStateAfterRepositoryError() {
+        // Arrange
+        repository.setShouldReturnError(true);
+
+        // Act
+        viewModel.createAnnouncement("Title", "Description", new Date());
+
+        // Assert
+        assertFalse(viewModel.getIsLoading().getValue());
+    }
+
+    // Repository Tests
+    @Test
+    public void createAnnouncement_RepositorySuccess_ReturnsSuccess() {
+        // Arrange
+        String title = "Test Title";
+        String description = "Test Description";
+        Date date = new Date();
+        AnnouncementModel announcement = new AnnouncementModel(title, description, date);
+
+        // Act
+        viewModel.createAnnouncement(title, description, date);
+
+        // Assert
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
+        assertTrue(result.isSuccess());
+        assertNotNull(result.getData());
+        assertEquals(title, result.getData().getTitle());
+        assertEquals(description, result.getData().getDescription());
+        assertEquals(date, result.getData().getDate());
+    }
+
+    @Test
+    public void createAnnouncement_RepositoryError_ReturnsError() {
+        // Arrange
+        repository.setShouldReturnError(true);
+        String expectedError = "Failed to create announcement";
+
+        // Act
+        viewModel.createAnnouncement("Title", "Description", new Date());
+
+        // Assert
+        Result<AnnouncementModel> result = viewModel.getCreateResult().getValue();
+        assertFalse(result.isSuccess());
+        assertEquals(expectedError, result.getError());
+    }
+
+    @Test
+    public void createAnnouncement_VerifyRepositoryCall() {
+        // Arrange
+        String title = "Test Title";
+        String description = "Test Description";
+        Date date = new Date();
+
+        // Act
+        viewModel.createAnnouncement(title, description, date);
+
+        // Assert
+        assertTrue(repository.wasCreateCalled());
+        AnnouncementModel lastAnnouncement = repository.getLastCreatedAnnouncement();
+        assertNotNull(lastAnnouncement);
+        assertEquals(title, lastAnnouncement.getTitle());
+        assertEquals(description, lastAnnouncement.getDescription());
+        assertEquals(date, lastAnnouncement.getDate());
+    }
+
+    @Test
+    public void createAnnouncement_MultipleCallsTracking() {
+        // Arrange
+        int expectedCalls = 3;
+
+        // Act
+        viewModel.createAnnouncement("Title1", "Description1", new Date());
+        viewModel.createAnnouncement("Title2", "Description2", new Date());
+        viewModel.createAnnouncement("Title3", "Description3", new Date());
+
+        // Assert
+        assertEquals(expectedCalls, repository.getCreateCallCount());
     }
 }
