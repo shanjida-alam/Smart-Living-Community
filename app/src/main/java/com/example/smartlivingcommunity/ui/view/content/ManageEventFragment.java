@@ -1,66 +1,57 @@
 package com.example.smartlivingcommunity.ui.view.content;
 
 import android.os.Bundle;
-
+import android.util.Log;
 import androidx.fragment.app.Fragment;
-
+import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.smartlivingcommunity.R;
+import com.example.smartlivingcommunity.ui.view.board.CreateAnnouncementView;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link ManageEventFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A fragment for managing events in the Smart Living Community app.
+ * Provides functionality to navigate to the Create Announcement screen.
+ *
+ * Author: Irtifa & Tanvir
  */
 public class ManageEventFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ManageEventFragment() {
-        // Required empty public constructor
-    }
-
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * Called to inflate the layout and initialize components for this fragment.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ManageRequestFragment.
+     * @param inflater The LayoutInflater object.
+     * @param container The parent view group.
+     * @param savedInstanceState Previous state information, if any.
+     * @return The root view of the fragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ManageEventFragment newInstance(String param1, String param2) {
-        ManageEventFragment fragment = new ManageEventFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manage_event, container, false);
+        View view = inflater.inflate(R.layout.fragment_manage_event, container, false);
+
+        // Get reference to the "Create Announcement" button
+        Button buttonCreateAnnouncement = view.findViewById(R.id.buttonCreateAnnouncement);
+
+        // Set click listener on the button to handle navigation
+        buttonCreateAnnouncement.setOnClickListener(v -> {
+            Log.d("ManageEventFragment", "Create Announcement button clicked"); // Log the button click
+            try {
+                // Navigate to CreateAnnouncementView fragment
+                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new CreateAnnouncementView()); // Replace the current fragment
+                transaction.addToBackStack(null); // Add transaction to the back stack for navigation
+                transaction.commit(); // Commit the transaction
+                Log.d("ManageEventFragment", "Fragment transaction committed"); // Log successful transaction
+            } catch (Exception e) {
+                Log.e("ManageEventFragment", "Error during fragment transaction", e); // Log any exceptions
+            }
+        });
+
+        return view; // Return the root view
     }
 }
