@@ -60,14 +60,14 @@ public class DirectoryManagementTest implements AutoCloseable {
         // Arrange
         List<DirectoryDataModel> mockResult = createTestData();
         when(mockRepository.getAllEntries()).thenReturn(mockResult);
+        when(networkUtils.isNetworkAvailable()).thenReturn(true); // Assuming network is available
 
         // Act
+        viewModel.getDirectoryEntries().observeForever(directoryObserver);
         viewModel.loadDirectory();
-        List<DirectoryDataModel> result = viewModel.getDirectoryEntries().getValue();
 
         // Assert
-        assertNotNull("Directory entries should not be null", result);
-        assertEquals("Directory should contain all entries", mockResult.size(), result.size());
+        verify(directoryObserver).onChanged(mockResult); // Ensure observer was notified with the correct data
     }
 
     @Test

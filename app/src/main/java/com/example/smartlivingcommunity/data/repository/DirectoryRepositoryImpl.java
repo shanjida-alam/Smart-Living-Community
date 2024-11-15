@@ -2,8 +2,6 @@ package com.example.smartlivingcommunity.data.repository;
 
 import com.example.smartlivingcommunity.data.model.DirectoryDataModel;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,8 +10,7 @@ public class DirectoryRepositoryImpl implements DirectoryRepository {
 
     public DirectoryRepositoryImpl() {
         directoryData = new ArrayList<>();
-        // Initialize with some test data
-        initializeTestData();
+        initializeTestData(); // Example data initialization
     }
 
     private void initializeTestData() {
@@ -54,20 +51,6 @@ public class DirectoryRepositoryImpl implements DirectoryRepository {
                 .filter(member -> member.getId().equals(memberId))
                 .findFirst()
                 .orElse(null);
-    }
-
-    @Override
-    public List<DirectoryDataModel> getPagedEntries(int pageNumber, int pageSize) {
-        int startIndex = (pageNumber - 1) * pageSize;
-        int endIndex = Math.min(startIndex + pageSize, directoryData.size());
-        return new ArrayList<>(directoryData.subList(startIndex, endIndex));
-    }
-
-    @Override
-    public List<DirectoryDataModel> getSortedByName() {
-        List<DirectoryDataModel> sortedData = new ArrayList<>(directoryData);
-        sortedData.sort(Comparator.comparing(DirectoryDataModel::getName));
-        return sortedData;
     }
 
     @Override

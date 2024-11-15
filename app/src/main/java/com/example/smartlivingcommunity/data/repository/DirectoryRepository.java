@@ -9,7 +9,5 @@ public interface DirectoryRepository {
     List<DirectoryDataModel> searchByUnit(String unit);
     List<DirectoryDataModel> filterByRole(String role);
     DirectoryDataModel getMemberDetails(String memberId);
-    List<DirectoryDataModel> getPagedEntries(int pageNumber, int pageSize);
-    List<DirectoryDataModel> getSortedByName();
     List<DirectoryDataModel> filterCombined(String role, String unit);
 }
