@@ -16,6 +16,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -46,6 +47,7 @@ android {
 dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database)
     dokkaPlugin(libs.android.documentation.plugin)
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -90,4 +92,15 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.0") // Check for the latest version
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.0") // For annotation processing
 
+    testImplementation ("junit:junit:4.13.2")
+    testImplementation ("org.mockito:mockito-core:3.12.4")
+    testImplementation ("org.mockito:mockito-inline:3.12.4")
+    testImplementation ("androidx.arch.core:core-testing:2.1.0")
+    testImplementation ("com.google.truth:truth:1.1.3")
+
+    testImplementation ("androidx.arch.core:core-testing:2.2.0")
+    testImplementation ("org.mockito:mockito-core:3.+")
+    testImplementation ("androidx.test.ext:junit:1.1.5")
+
 }
+

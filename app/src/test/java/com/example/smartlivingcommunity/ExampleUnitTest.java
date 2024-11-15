@@ -1,3 +1,4 @@
+
 package com.example.smartlivingcommunity;
 
 import org.junit.Test;

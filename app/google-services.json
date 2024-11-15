@@ -1,8 +1,9 @@
 {
   "project_info": {
     "project_number": "219118674869",
+    "firebase_url": "https://livsmart-f2f5c-default-rtdb.firebaseio.com",
     "project_id": "livsmart-f2f5c",
-    "storage_bucket": "livsmart-f2f5c.appspot.com"
+    "storage_bucket": "livsmart-f2f5c.firebasestorage.app"
   },
   "client": [
     {
@@ -12,7 +13,12 @@
           "package_name": "com.example.smartlivingcommunity"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "219118674869-r598pgafk6tm1li0650t9cf1m05ih3sr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAhD2A1EDIun2GaS3wBwoKlSsNuOrRAXdg"
@@ -20,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "219118674869-r598pgafk6tm1li0650t9cf1m05ih3sr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

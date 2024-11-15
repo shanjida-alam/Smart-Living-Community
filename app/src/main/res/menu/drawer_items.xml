@@ -20,4 +20,10 @@
         android:id="@+id/itemManageEvent"
         android:checkable="true"
         android:title="Manage Event"/>
+
+    <item
+        android:icon="@drawable/complain"
+        android:id="@+id/itemComplaint"
+        android:checkable="true"
+        android:title="Complaint"/>
 </menu>

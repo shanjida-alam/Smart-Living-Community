@@ -108,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragment_container, new ManageEventFragment());
                     setToolbarTitle("Manage Events");
                     bottomNavigationView.setSelectedItemId(R.id.navManageEvent); // Sync with bottom nav
+                } else if (itemId == R.id.itemComplaint) {
+                    setToolbarTitle("Complaint");
+                    fragmentTransaction.replace(R.id.fragment_container, new ComplaintFragment());
                 }
 
                 fragmentTransaction.commit();
