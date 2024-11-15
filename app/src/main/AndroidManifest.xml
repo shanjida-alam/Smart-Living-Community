@@ -15,27 +15,20 @@
         android:theme="@style/Theme.SmartLivingCommunity"
         tools:targetApi="31">
 
-        <!-- Changed LoginActivity to be the launcher -->
         <activity
-            android:name=".ui.view.login.LoginActivity"
-            android:exported="true">  <!-- Changed to true -->
-            <intent-filter>           <!-- Added intent-filter here -->
+            android:name=".ui.view.content.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.content.SecurityLogActivity"
+            android:exported="true">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ui.view.registration.RegistrationActivity"
-            android:exported="false"/>
-
-        <!-- Removed intent-filter from MainActivity -->
-        <activity
-            android:name=".ui.view.content.MainActivity"
-            android:exported="false" /> <!-- Changed to false -->
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 </manifest>
