@@ -6,4 +6,12 @@
         <item>NID</item>
         <item>Birth Certificate</item>
     </string-array>
+
+    //Add user roles for Resident Complaint Form
+    <string-array name="user_roles">
+        <item>Resident</item>
+        <item>Manager</item>
+        <item>Secretary</item>
+        <item>Security Guard</item>
+    </string-array>
 </resources>

@@ -49,7 +49,7 @@
             app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/residentNameInput"
+                android:id="@+id/etUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"/>
@@ -72,7 +72,7 @@
                 app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/unitCodeInput"
+                    android:id="@+id/etUnitCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"/>
@@ -89,13 +89,14 @@
             app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailInput"
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Updated User Role field as TextInputEditText instead of Spinner -->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
@@ -106,10 +107,9 @@
             app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/roleInput"
+                android:id="@+id/etUserRole"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date"
                 android:textColor="@color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -123,10 +123,11 @@
             app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/phoneNumberInput"
+                android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date"
+                android:inputType="phone"
+                android:maxLength="11"
                 android:textColor="@color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,7 +141,7 @@
             app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/problemDescriptionInput"
+                android:id="@+id/etDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
@@ -150,7 +151,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/submitButton"
+            android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SUBMIT FORM"
