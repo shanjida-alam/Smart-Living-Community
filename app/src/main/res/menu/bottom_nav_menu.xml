@@ -17,5 +17,4 @@
         android:id="@+id/navDirectory"
         android:title="Directory" />
 
-
 </menu>

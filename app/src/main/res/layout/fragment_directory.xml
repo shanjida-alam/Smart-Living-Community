@@ -1,36 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start"
-    tools:context=".ui.view.content.MainActivity">
+    android:layout_height="match_parent">
 
-    <!-- Main content frame -->
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content">
 
-    <!-- RecyclerView for Directory List -->
+        <!-- Search View -->
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_red_light"
+            android:hint="Search directory"
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+        <!-- Chip Group for Filtering -->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/filterChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:singleSelection="true">
+
+            <!-- Chips -->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipResident"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Residents" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipSecurity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Security" />
+        </com.google.android.material.chip.ChipGroup>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- RecyclerView for Directory -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/directory_recycler_view"
+        android:id="@+id/directoryRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <!-- Navigation Drawer -->
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/drawer_nav_view"
-        android:layout_width="270dp"
         android:layout_height="match_parent"
-        app:menu="@menu/drawer_items"
-        app:headerLayout="@layout/drawer_header"
-        android:layout_gravity="start"
-        app:itemIconTint="@color/drawer_item_color_state"
-        app:itemTextColor="@color/drawer_item_color_state"
-        app:itemShapeFillColor="@color/background_tint_color_state" />
-</androidx.drawerlayout.widget.DrawerLayout>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

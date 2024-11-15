@@ -1,5 +1,7 @@
 package com.example.smartlivingcommunity.data.repository;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import com.example.smartlivingcommunity.data.model.DirectoryDataModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,16 +9,19 @@ import java.util.stream.Collectors;
 
 public class DirectoryRepositoryImpl implements DirectoryRepository {
     private final List<DirectoryDataModel> directoryData;
+    private final MutableLiveData<List<DirectoryDataModel>> directoryLiveData;
 
     public DirectoryRepositoryImpl() {
         directoryData = new ArrayList<>();
-        initializeTestData(); // Example data initialization
+        directoryLiveData = new MutableLiveData<>();
+        loadInitialData();
     }
 
-    private void initializeTestData() {
+    private void loadInitialData() {
         directoryData.add(new DirectoryDataModel("1", "John Doe", "A101", "resident"));
         directoryData.add(new DirectoryDataModel("2", "Jane Smith", "B202", "resident"));
         directoryData.add(new DirectoryDataModel("3", "Security Team", "NA", "security"));
+        directoryLiveData.setValue(new ArrayList<>(directoryData));
     }
 
     @Override

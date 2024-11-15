@@ -7,47 +7,86 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartlivingcommunity.R;
-import com.example.smartlivingcommunity.data.model.DirectoryDataModel;
-import com.example.smartlivingcommunity.data.repository.DirectoryRepositoryImpl;
+import com.example.smartlivingcommunity.ui.view.content.DirectoryAdapter;
 import com.example.smartlivingcommunity.ui.viewmodel.DirectoryViewModel;
-import com.example.smartlivingcommunity.utils.NetworkUtils;
-import java.util.List;
+import com.google.android.material.chip.ChipGroup;
+import androidx.appcompat.widget.SearchView;
 
 public class DirectoryFragment extends Fragment {
-
     private DirectoryViewModel viewModel;
-    private RecyclerView recyclerView;
     private DirectoryAdapter adapter;
+    private RecyclerView recyclerView;
+    private SearchView searchView;
+    private ChipGroup filterChipGroup;
+    private View progressBar;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the fragment's layout
-        View view = inflater.inflate(R.layout.fragment_directory, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_directory, container, false);
+    }
 
-        // Initialize RecyclerView and set up its LayoutManager
-        recyclerView = view.findViewById(R.id.directory_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initializeViews(view);
+        setupViewModel();
+        setupRecyclerView();
+        setupSearchView();
+        setupFilterChips();
+    }
 
-        // Set up the adapter
+    private void initializeViews(View view) {
+        recyclerView = view.findViewById(R.id.directoryRecyclerView);
+        searchView = view.findViewById(R.id.searchView);
+        filterChipGroup = view.findViewById(R.id.filterChipGroup);
+        progressBar = view.findViewById(R.id.progressBar);
+    }
+
+    private void setupViewModel() {
+        viewModel = new ViewModelProvider(this).get(DirectoryViewModel.class);
+        viewModel.getDirectoryEntries().observe(getViewLifecycleOwner(), members -> {
+            adapter.submitList(members);
+            progressBar.setVisibility(View.GONE);
+        });
+    }
+
+    private void setupRecyclerView() {
         adapter = new DirectoryAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+    }
 
-        // Create ViewModel and observe the data
-        viewModel = new DirectoryViewModel(new DirectoryRepositoryImpl(), new NetworkUtils());
-        viewModel.getDirectoryEntries().observe(getViewLifecycleOwner(), new Observer<List<DirectoryDataModel>>() {
+    private void setupSearchView() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onChanged(List<DirectoryDataModel> directoryDataModels) {
-                // Update the adapter with the new data
-                adapter.submitList(directoryDataModels);
+            public boolean onQueryTextSubmit(String query) {
+                viewModel.searchByName(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.length() >= 2) {
+                    viewModel.searchByName(newText);
+                }
+                return true;
             }
         });
+    }
 
-        return view;
+    private void setupFilterChips() {
+        filterChipGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.chipAll) {
+                viewModel.loadDirectory();
+            } else if (checkedId == R.id.chipResident) {
+                viewModel.filterByRole("resident");
+            } else if (checkedId == R.id.chipSecurity) {
+                viewModel.filterByRole("security");
+            }
+        });
     }
 }
-
