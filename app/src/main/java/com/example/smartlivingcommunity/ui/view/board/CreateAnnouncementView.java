@@ -1,7 +1,6 @@
 package com.example.smartlivingcommunity.ui.view.board;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +13,11 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.smartlivingcommunity.R;
 import com.example.smartlivingcommunity.data.model.AnnouncementModel;
 import com.example.smartlivingcommunity.data.repository.RoomAnnouncementRepository;
 import com.example.smartlivingcommunity.databinding.FragmentCreateAnnouncementBinding;
 import com.example.smartlivingcommunity.ui.viewmodel.CreateAnnouncementViewModel;
 import com.example.smartlivingcommunity.ui.view.content.AnnouncementAdapter;
-import com.example.smartlivingcommunity.domain.model.Result;
 import com.example.smartlivingcommunity.domain.model.Result.Success;
 import com.example.smartlivingcommunity.domain.model.Result.Error;
 
@@ -32,8 +29,7 @@ import java.util.Locale;
 /**
  * A Fragment for creating and displaying announcements in the Smart Living Community app.
  * It integrates with the CreateAnnouncementViewModel to handle business logic and updates.
- *
- * Author: Irtifa
+ * @author Irtifa
  */
 public class CreateAnnouncementView extends Fragment {
     private static final String TAG = "CreateAnnouncementView"; // Logging tag

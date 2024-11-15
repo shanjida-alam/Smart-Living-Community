@@ -13,6 +13,7 @@ import com.example.smartlivingcommunity.utils.DateConverter;
 
 /**
  * Room Database class for the application.
+ * @author Irtifa
  */
 @Database(entities = {AnnouncementModel.class}, version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)

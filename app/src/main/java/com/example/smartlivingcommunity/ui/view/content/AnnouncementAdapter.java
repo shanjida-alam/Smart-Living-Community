@@ -18,8 +18,7 @@ import java.util.Locale;
 /**
  * Adapter for displaying announcements in a RecyclerView.
  * It uses ListAdapter to efficiently manage updates to the list using DiffUtil.
- *
- * Author: Irtifa
+ * @author Irtifa
  */
 public class AnnouncementAdapter extends ListAdapter<AnnouncementModel, AnnouncementAdapter.AnnouncementViewHolder> {
 

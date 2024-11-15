@@ -5,12 +5,12 @@ import androidx.room.PrimaryKey;
 import androidx.room.ColumnInfo;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Represents an Announcement entity for the Smart Living Community app.
  * This class is mapped to the "announcements" table in the Room database.
- *
- * Author: Irtifa
+ * @author Irtifa
  */
 @Entity(tableName = "announcements")
 public class AnnouncementModel {
@@ -42,75 +42,54 @@ public class AnnouncementModel {
 
     // Getters and setters
 
-    /**
-     * Returns the ID of the announcement.
-     *
-     * @return The unique ID of the announcement.
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * Sets the ID of the announcement.
-     *
-     * @param id The unique ID to set.
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * Returns the title of the announcement.
-     *
-     * @return The title of the announcement.
-     */
     public String getTitle() {
         return title;
     }
 
-    /**
-     * Sets the title of the announcement.
-     *
-     * @param title The title to set.
-     */
     public void setTitle(String title) {
         this.title = title;
     }
 
-    /**
-     * Returns the description of the announcement.
-     *
-     * @return The description of the announcement.
-     */
     public String getDescription() {
         return description;
     }
 
-    /**
-     * Sets the description of the announcement.
-     *
-     * @param description The description to set.
-     */
     public void setDescription(String description) {
         this.description = description;
     }
 
-    /**
-     * Returns the date of the announcement.
-     *
-     * @return The date of the announcement.
-     */
     public Date getDate() {
         return date;
     }
 
-    /**
-     * Sets the date of the announcement.
-     *
-     * @param date The date to set.
-     */
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    // Override equals() for meaningful object comparison
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AnnouncementModel that = (AnnouncementModel) o;
+
+        return Objects.equals(title, that.title) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(date, that.date);
+    }
+
+    // Override hashCode() for consistent hashing
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, description, date);
     }
 }

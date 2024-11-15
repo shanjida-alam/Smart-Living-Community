@@ -15,8 +15,8 @@ import com.example.smartlivingcommunity.ui.view.board.CreateAnnouncementView;
 /**
  * A fragment for managing events in the Smart Living Community app.
  * Provides functionality to navigate to the Create Announcement screen.
- *
- * Author: Irtifa & Tanvir
+ * @author Irtifa
+ * @author Tanvir
  */
 public class ManageEventFragment extends Fragment {
 

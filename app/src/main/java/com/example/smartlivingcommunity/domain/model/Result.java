@@ -3,9 +3,7 @@ package com.example.smartlivingcommunity.domain.model;
 /**
  * A generic class that represents the result of an operation.
  * It can either be a success or an error.
- *
- * Author: Irtifa
- *
+ * @author Irtifa
  * @param <T> The type of data associated with the result.
  */
 public abstract class Result<T> {

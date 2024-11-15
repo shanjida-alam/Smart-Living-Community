@@ -5,14 +5,12 @@ import android.content.Context;
 import com.example.smartlivingcommunity.data.model.AnnouncementModel;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * A repository class for managing announcement data in the Smart Living Community app.
  * This class is responsible for retrieving, storing, and managing announcements.
- *
- * Author: Irtifa
+ * @author Irtifa
  */
 public class RoomAnnouncementRepository {
 

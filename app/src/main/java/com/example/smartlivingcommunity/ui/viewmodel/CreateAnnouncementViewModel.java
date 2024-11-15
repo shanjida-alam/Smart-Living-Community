@@ -16,8 +16,7 @@ import java.util.List;
 /**
  * ViewModel for managing announcements in the Smart Living Community app.
  * It interacts with the RoomAnnouncementRepository to fetch, create, and manage announcements.
- *
- * Author: Irtifa
+ * @author Irtifa
  */
 public class CreateAnnouncementViewModel extends ViewModel {
 

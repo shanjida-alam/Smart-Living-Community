@@ -4,12 +4,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import android.content.Context;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import android.content.Context;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import com.example.smartlivingcommunity.data.model.AnnouncementModel;
@@ -22,8 +21,7 @@ import java.util.Date;
 /**
  * Unit tests for the CreateAnnouncementViewModel class.
  * These tests validate the behavior of the createAnnouncement method under various scenarios.
- *
- * Author: Irtifa
+ * @author Irtifa
  */
 public class CreateAnnouncementViewModelTest {
 
