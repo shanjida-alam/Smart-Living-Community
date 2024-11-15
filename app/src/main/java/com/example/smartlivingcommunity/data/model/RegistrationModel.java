@@ -62,6 +62,11 @@ public class RegistrationModel {
     private String unitCode;
 
     /**
+     * Additional unit code assigned to the User.
+     */
+    private String addiionalUnitCode;
+
+    /**
      * Role of the user (e.g., Resident, Manager, Admin).
      */
     private String userRole;
@@ -84,11 +89,12 @@ public class RegistrationModel {
      * @param password User's chosen password
      * @param imageUrl URL of User's profile image
      * @param unitCode Unique unit code assigned to the User
+     * @param addiionalUnitCode Additional unit code assigned to the User
      * @param userRole Role of the user in the community (e.g., Resident, Manager, Admin)
      */
     public RegistrationModel(String name, String email, String contactNumber, String emergencyContact,
                              String nidOrBirthCertificate, String profession, String monthlyIncome,
-                             String password, String imageUrl, String unitCode, String userRole) {
+                             String password, String imageUrl, String unitCode,String addiionalUnitCode, String userRole) {
         this.name = name;
         this.email = email;
         this.contactNumber = contactNumber;
@@ -99,6 +105,7 @@ public class RegistrationModel {
         this.password = password;
         this.imageUrl = imageUrl;
         this.unitCode = unitCode;
+        this.addiionalUnitCode = addiionalUnitCode;
         this.userRole = userRole;
     }
 
@@ -260,6 +267,22 @@ public class RegistrationModel {
      */
     public void setUnitCode(String unitCode) {
         this.unitCode = unitCode;
+    }
+
+    /**
+     * Gets the user's additional unit code.
+     * @return Additional unit code.
+     */
+    public String getAddiionalUnitCode() {
+        return addiionalUnitCode;
+    }
+
+    /**
+     * Sets the user's additional unit code.
+     * @param addiionalUnitCode Additional unit code.
+     */
+    public void setAddiionalUnitCode(String addiionalUnitCode) {
+        this.addiionalUnitCode = addiionalUnitCode;
     }
 
     /**
