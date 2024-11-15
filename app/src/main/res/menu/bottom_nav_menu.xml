@@ -12,4 +12,10 @@
         android:icon="@drawable/manage_event"
         android:id="@+id/navManageEvent"
         android:title="Manage Events"/>
+    <item
+        android:icon="@drawable/directory"
+        android:id="@+id/navDirectory"
+        android:title="Directory" />
+
+
 </menu>

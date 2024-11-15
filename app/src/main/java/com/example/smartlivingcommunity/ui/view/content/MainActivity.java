@@ -77,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragment_container, new ManageEventFragment());
                     setToolbarTitle("Manage Events");
                     drawerNavigationView.setCheckedItem(R.id.itemManageEvent); // Sync with drawer
+                } else if (itemId == R.id.navDirectory) { // Add this block for Directory
+                    fragmentTransaction.replace(R.id.fragment_container, new DirectoryFragment());
+                    setToolbarTitle("Directory");
+                    drawerNavigationView.setCheckedItem(R.id.directory_recycler_view); // Sync with drawer
                 }
 
                 fragmentTransaction.commit();
@@ -108,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragment_container, new ManageEventFragment());
                     setToolbarTitle("Manage Events");
                     bottomNavigationView.setSelectedItemId(R.id.navManageEvent); // Sync with bottom nav
+                } else if (itemId == R.id.directory_recycler_view) { // Add this block for Directory
+                    fragmentTransaction.replace(R.id.fragment_container, new DirectoryFragment());
+                    setToolbarTitle("Directory");
+                    bottomNavigationView.setSelectedItemId(R.id.navDirectory); // Sync with bottom nav
                 }
 
                 fragmentTransaction.commit();
@@ -116,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     // Helper method to set the toolbar title
     private void setToolbarTitle(String title) {

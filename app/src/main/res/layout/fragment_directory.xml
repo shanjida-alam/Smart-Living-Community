@@ -10,17 +10,19 @@
     tools:openDrawer="start"
     tools:context=".ui.view.content.MainActivity">
 
+    <!-- Main content frame -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <!-- RecyclerView for Directory List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/directory_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
+    <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/drawer_nav_view"
         android:layout_width="270dp"
@@ -32,5 +34,3 @@
         app:itemTextColor="@color/drawer_item_color_state"
         app:itemShapeFillColor="@color/background_tint_color_state" />
 </androidx.drawerlayout.widget.DrawerLayout>
-
-

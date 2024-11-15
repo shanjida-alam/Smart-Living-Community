@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,6 +14,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <!-- Member Name TextView -->
         <TextView
             android:id="@+id/member_name"
             android:layout_width="0dp"
@@ -23,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="John Doe" />
 
+        <!-- Member Unit TextView -->
         <TextView
             android:id="@+id/member_unit"
             android:layout_width="wrap_content"
@@ -30,23 +33,31 @@
             android:textAppearance="?attr/textAppearanceBody2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/member_name"
-            tools:text="Unit 5B" />
+            tools:text="Unit A-101" />
 
-        <ImageButton
-            android:id="@+id/contact_button"
+        <!-- Member Role TextView -->
+        <TextView
+            android:id="@+id/member_role"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/contact"
-            android:src="@drawable/ic_call"
+            android:layout_marginStart="16dp"
+            android:textAppearance="?attr/textAppearanceCaption"
+            app:layout_constraintStart_toEndOf="@id/member_unit"
+            app:layout_constraintTop_toBottomOf="@id/member_name"
+            tools:text="Resident" />
+
+        <!-- Contact Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/contact_button"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/contact"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:padding="16dp"
-            android:background="?android:attr/selectableItemBackground" />
-
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </com.google.android.material.card.MaterialCardView>
+
 
 

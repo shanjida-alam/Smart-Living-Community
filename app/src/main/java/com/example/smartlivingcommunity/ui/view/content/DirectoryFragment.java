@@ -18,6 +18,7 @@ import com.example.smartlivingcommunity.utils.NetworkUtils;
 import java.util.List;
 
 public class DirectoryFragment extends Fragment {
+
     private DirectoryViewModel viewModel;
     private RecyclerView recyclerView;
     private DirectoryAdapter adapter;
@@ -25,18 +26,23 @@ public class DirectoryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Inflate the fragment's layout
         View view = inflater.inflate(R.layout.fragment_directory, container, false);
+
+        // Initialize RecyclerView and set up its LayoutManager
         recyclerView = view.findViewById(R.id.directory_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Assuming DirectoryAdapter is implemented
+        // Set up the adapter
         adapter = new DirectoryAdapter();
         recyclerView.setAdapter(adapter);
 
+        // Create ViewModel and observe the data
         viewModel = new DirectoryViewModel(new DirectoryRepositoryImpl(), new NetworkUtils());
         viewModel.getDirectoryEntries().observe(getViewLifecycleOwner(), new Observer<List<DirectoryDataModel>>() {
             @Override
             public void onChanged(List<DirectoryDataModel> directoryDataModels) {
+                // Update the adapter with the new data
                 adapter.submitList(directoryDataModels);
             }
         });
@@ -44,3 +50,4 @@ public class DirectoryFragment extends Fragment {
         return view;
     }
 }
+
