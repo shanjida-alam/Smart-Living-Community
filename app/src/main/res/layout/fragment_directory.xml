@@ -29,18 +29,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="8dp">
 
+        <!-- All Filter Chip -->
         <com.google.android.material.chip.Chip
             android:id="@+id/chipAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All" />
 
+        <!-- Resident Filter Chip -->
         <com.google.android.material.chip.Chip
             android:id="@+id/chipResident"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Residents" />
 
+        <!-- Security Filter Chip -->
         <com.google.android.material.chip.Chip
             android:id="@+id/chipSecurity"
             android:layout_width="wrap_content"
@@ -73,5 +76,6 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 

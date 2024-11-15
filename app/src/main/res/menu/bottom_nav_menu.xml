@@ -14,7 +14,7 @@
         android:title="Manage Events"/>
     <item
         android:icon="@drawable/directory"
-        android:id="@+id/navDirectory"
+        android:id="@+id/directory_menu"
         android:title="Directory" />
 
 </menu>

@@ -53,6 +53,7 @@ public class DirectoryManagementTest implements AutoCloseable {
         viewModel.getDirectoryEntries().removeObserver(directoryObserver);
     }
 
+    // Test Case 1: Test loading directory
     @Test
     public void testLoadDirectory() {
         // Arrange
@@ -68,10 +69,11 @@ public class DirectoryManagementTest implements AutoCloseable {
         verify(directoryObserver).onChanged(mockResult); // Ensure observer was notified with the correct data
     }
 
+    // Test Case 2: Test search by name with valid input
     @Test
     public void testSearchByName() {
         // Arrange
-        String searchQuery = "John";
+        String searchQuery = "John"; // Valid input: "John"
         List<DirectoryDataModel> expectedResults = filterByName(testData, searchQuery);
         when(mockRepository.searchByName(searchQuery)).thenReturn(expectedResults);
 
@@ -85,10 +87,11 @@ public class DirectoryManagementTest implements AutoCloseable {
                         member.getName().toLowerCase().contains(searchQuery.toLowerCase())));
     }
 
+    // Test Case 3: Test search by unit with valid input
     @Test
     public void testSearchByUnit() {
         // Arrange
-        String unitNumber = "A101";
+        String unitNumber = "A101"; // Valid input: "A101"
         List<DirectoryDataModel> expectedResults = filterByUnit(testData, unitNumber);
         when(mockRepository.searchByUnit(unitNumber)).thenReturn(expectedResults);
 
@@ -101,10 +104,11 @@ public class DirectoryManagementTest implements AutoCloseable {
                 results.stream().allMatch(member -> member.getUnit().equals(unitNumber)));
     }
 
+    // Test Case 4: Test filter by role with valid input
     @Test
     public void testFilterByRole() {
         // Arrange
-        String role = "resident";
+        String role = "resident"; // Valid input: "resident"
         List<DirectoryDataModel> expectedResults = filterByRole(testData, role);
         when(mockRepository.filterByRole(role)).thenReturn(expectedResults);
 
@@ -117,10 +121,11 @@ public class DirectoryManagementTest implements AutoCloseable {
                 results.stream().allMatch(member -> member.getRole().equals(role)));
     }
 
+    // Test Case 5: Test viewing member details with valid input
     @Test
     public void testViewMemberDetails() {
         // Arrange
-        String memberId = "1";
+        String memberId = "1"; // Valid input: "1"
         DirectoryDataModel expectedMember = testData.get(0);
         when(mockRepository.getMemberDetails(memberId)).thenReturn(expectedMember);
 
@@ -132,9 +137,10 @@ public class DirectoryManagementTest implements AutoCloseable {
         assertEquals("Member details should match", expectedMember.getId(), result.getId());
     }
 
+    // Test Case 6: Test empty search results for non-existent query
     @Test
     public void testEmptySearchResults() {
-        String searchQuery = "NonExistent";
+        String searchQuery = "NonExistent"; // Valid input: "NonExistent"
         when(mockRepository.searchByName(searchQuery)).thenReturn(new ArrayList<>());
 
         List<DirectoryDataModel> results = viewModel.searchByName(searchQuery);
@@ -142,10 +148,11 @@ public class DirectoryManagementTest implements AutoCloseable {
         assertTrue(results.isEmpty());
     }
 
+    // Test Case 7: Test combined filter by role and unit with valid input
     @Test
     public void testCombinedFilters() {
-        String role = "resident";
-        String unit = "A101";
+        String role = "resident"; // Valid input: "resident"
+        String unit = "A101"; // Valid input: "A101"
         List<DirectoryDataModel> filteredList = filterCombined(testData, role, unit);
         when(mockRepository.filterCombined(role, unit)).thenReturn(filteredList);
 
@@ -155,9 +162,10 @@ public class DirectoryManagementTest implements AutoCloseable {
                 member.getRole().equals(role) && member.getUnit().equals(unit)));
     }
 
+    // Test Case 8: Test search with special characters in the query
     @Test
     public void testSearchWithSpecialCharacters() {
-        String searchQuery = "John@Doe";
+        String searchQuery = "John@Doe"; // Valid input: "John@Doe"
         when(mockRepository.searchByName(searchQuery)).thenReturn(new ArrayList<>());
 
         List<DirectoryDataModel> results = viewModel.searchByName(searchQuery);

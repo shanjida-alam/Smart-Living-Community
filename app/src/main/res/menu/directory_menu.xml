@@ -2,12 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- Refresh Action Item -->
     <item
         android:id="@+id/action_refresh"
         android:icon="@drawable/ic_refresh"
         android:title="@string/menu_refresh"
         app:showAsAction="ifRoom"/>
 
+    <!-- Sort Action Item -->
     <item
         android:id="@+id/action_sort"
         android:icon="@drawable/ic_sort"

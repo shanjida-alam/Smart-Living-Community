@@ -1,6 +1,12 @@
 package com.example.smartlivingcommunity.utils;
 
+/**
+ * @author solaimi
+ * Utility class that contains constant values used across the application.
+ * This includes roles, error messages, and UI-related constants.
+ */
 public class Constants {
+
     // Directory related constants
     public static final String ROLE_RESIDENT = "resident";
     public static final String ROLE_SECURITY = "security";

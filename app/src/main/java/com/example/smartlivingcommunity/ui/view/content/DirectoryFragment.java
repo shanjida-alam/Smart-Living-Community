@@ -15,6 +15,11 @@ import com.example.smartlivingcommunity.ui.viewmodel.DirectoryViewModel;
 import com.google.android.material.chip.ChipGroup;
 import androidx.appcompat.widget.SearchView;
 
+/**
+ * @author solaimi
+ * DirectoryFragment displays a list of directory entries using a RecyclerView.
+ * It supports search and filtering functionalities using a SearchView and ChipGroup.
+ */
 public class DirectoryFragment extends Fragment {
     private DirectoryViewModel viewModel;
     private DirectoryAdapter adapter;
@@ -23,11 +28,26 @@ public class DirectoryFragment extends Fragment {
     private ChipGroup filterChipGroup;
     private View progressBar;
 
+    /**
+     * Inflates the fragment layout and returns the root view.
+     *
+     * @param inflater  The LayoutInflater object that can be used to inflate views in the fragment.
+     * @param container The parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return The root View for the fragment's layout.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_directory, container, false);
     }
 
+    /**
+     * Called immediately after onCreateView(). Initializes views, sets up the ViewModel, RecyclerView,
+     * and handles search and filter events.
+     *
+     * @param view               The View returned by onCreateView().
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -38,6 +58,11 @@ public class DirectoryFragment extends Fragment {
         setupFilterChips();
     }
 
+    /**
+     * Initializes all views used in the fragment.
+     *
+     * @param view The root view of the fragment.
+     */
     private void initializeViews(View view) {
         recyclerView = view.findViewById(R.id.directoryRecyclerView);
         searchView = view.findViewById(R.id.searchView);
@@ -45,6 +70,10 @@ public class DirectoryFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
     }
 
+    /**
+     * Sets up the ViewModel and observes data changes for directory entries.
+     * Updates the adapter when data changes and hides the progress bar.
+     */
     private void setupViewModel() {
         viewModel = new ViewModelProvider(this).get(DirectoryViewModel.class);
         viewModel.getDirectoryEntries().observe(getViewLifecycleOwner(), members -> {
@@ -53,12 +82,18 @@ public class DirectoryFragment extends Fragment {
         });
     }
 
+    /**
+     * Configures the RecyclerView with a DirectoryAdapter and a LinearLayoutManager.
+     */
     private void setupRecyclerView() {
         adapter = new DirectoryAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Sets up the SearchView to listen for query input and filter directory entries by name.
+     */
     private void setupSearchView() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -77,6 +112,9 @@ public class DirectoryFragment extends Fragment {
         });
     }
 
+    /**
+     * Configures the ChipGroup to filter directory entries based on selected chips (role-based filtering).
+     */
     private void setupFilterChips() {
         filterChipGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
             if (checkedIds.contains(R.id.chipAll)) {
@@ -88,5 +126,4 @@ public class DirectoryFragment extends Fragment {
             }
         });
     }
-
 }
