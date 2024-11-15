@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.smartlivingcommunity.data.model.DirectoryDataModel;
 import com.example.smartlivingcommunity.data.repository.DirectoryRepository;
 import com.example.smartlivingcommunity.utils.NetworkUtils;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DirectoryViewModel extends ViewModel {
@@ -17,14 +18,15 @@ public class DirectoryViewModel extends ViewModel {
     public DirectoryViewModel(DirectoryRepository repository, NetworkUtils networkUtils) {
         this.repository = repository;
         this.networkUtils = networkUtils;
-        this.directoryEntries = new MutableLiveData<>();
+        this.directoryEntries = new MutableLiveData<>(new ArrayList<>());
         this.error = new MutableLiveData<>();
+        loadDirectory();
     }
 
     public void loadDirectory() {
         try {
-            LiveData<List<DirectoryDataModel>> result = repository.getAllEntries();
-            directoryEntries.setValue(result.getValue());
+            List<DirectoryDataModel> result = repository.getAllEntries();
+            directoryEntries.setValue(result);
         } catch (Exception e) {
             error.setValue("Failed to load directory: " + e.getMessage());
         }
@@ -64,5 +66,22 @@ public class DirectoryViewModel extends ViewModel {
 
     public LiveData<String> getError() {
         return error;
+    }
+
+    public List<DirectoryDataModel> getPagedEntries(int pageNumber, int pageSize) {
+        List<DirectoryDataModel> allEntries = new ArrayList<>(directoryEntries.getValue());
+        int startIndex = (pageNumber - 1) * pageSize;
+        int endIndex = Math.min(startIndex + pageSize, allEntries.size());
+        return allEntries.subList(startIndex, endIndex);
+    }
+
+    public List<DirectoryDataModel> getSortedByName() {
+        List<DirectoryDataModel> entries = new ArrayList<>(directoryEntries.getValue());
+        entries.sort((a, b) -> a.getName().compareTo(b.getName()));
+        return entries;
+    }
+
+    public List<DirectoryDataModel> filterCombined(String role, String unit) {
+        return repository.filterCombined(role, unit);
     }
 }

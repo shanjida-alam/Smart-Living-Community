@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.example.smartlivingcommunity.data.model.DirectoryDataModel;
@@ -59,8 +58,7 @@ public class DirectoryManagementTest implements AutoCloseable {
     @Test
     public void testLoadDirectory() {
         // Arrange
-        MutableLiveData<List<DirectoryDataModel>> mockResult = new MutableLiveData<>();
-        mockResult.setValue(testData);
+        List<DirectoryDataModel> mockResult = createTestData();
         when(mockRepository.getAllEntries()).thenReturn(mockResult);
 
         // Act
@@ -69,7 +67,7 @@ public class DirectoryManagementTest implements AutoCloseable {
 
         // Assert
         assertNotNull("Directory entries should not be null", result);
-        assertEquals("Directory should contain all entries", testData.size(), result.size());
+        assertEquals("Directory should contain all entries", mockResult.size(), result.size());
     }
 
     @Test
@@ -136,6 +134,39 @@ public class DirectoryManagementTest implements AutoCloseable {
         assertEquals("Member details should match", expectedMember.getId(), result.getId());
     }
 
+    @Test
+    public void testEmptySearchResults() {
+        String searchQuery = "NonExistent";
+        when(mockRepository.searchByName(searchQuery)).thenReturn(new ArrayList<>());
+
+        List<DirectoryDataModel> results = viewModel.searchByName(searchQuery);
+
+        assertTrue(results.isEmpty());
+    }
+
+    @Test
+    public void testCombinedFilters() {
+        String role = "resident";
+        String unit = "A101";
+        List<DirectoryDataModel> filteredList = filterCombined(testData, role, unit);
+        when(mockRepository.filterCombined(role, unit)).thenReturn(filteredList);
+
+        List<DirectoryDataModel> results = viewModel.filterCombined(role, unit);
+
+        assertTrue(results.stream().allMatch(member ->
+                member.getRole().equals(role) && member.getUnit().equals(unit)));
+    }
+
+    @Test
+    public void testSearchWithSpecialCharacters() {
+        String searchQuery = "John@Doe";
+        when(mockRepository.searchByName(searchQuery)).thenReturn(new ArrayList<>());
+
+        List<DirectoryDataModel> results = viewModel.searchByName(searchQuery);
+
+        assertTrue(results.isEmpty());
+    }
+
     private List<DirectoryDataModel> createTestData() {
         List<DirectoryDataModel> data = new ArrayList<>();
         data.add(new DirectoryDataModel("1", "John Doe", "A101", "resident"));
@@ -159,6 +190,12 @@ public class DirectoryManagementTest implements AutoCloseable {
     private List<DirectoryDataModel> filterByRole(List<DirectoryDataModel> data, String role) {
         return data.stream()
                 .filter(member -> member.getRole().equals(role))
+                .collect(Collectors.toList());
+    }
+
+    private List<DirectoryDataModel> filterCombined(List<DirectoryDataModel> data, String role, String unit) {
+        return data.stream()
+                .filter(member -> member.getRole().equals(role) && member.getUnit().equals(unit))
                 .collect(Collectors.toList());
     }
 
