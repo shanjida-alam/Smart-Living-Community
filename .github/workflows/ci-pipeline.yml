@@ -2,81 +2,135 @@ name: Android CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: gradle
 
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
+      uses: android-actions/setup-android@v3
 
-    - name: Install Android SDK tools
+    - name: Install Android SDK Tools
       run: |
-        echo "y" | sdkmanager "platform-tools" "platforms;android-30" "emulator"
-        echo "y" | sdkmanager --install "system-images;android-30;google_apis;x86_64"
-
-    - name: Create AVD and cache
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.android/avd/*
-          ~/.android/adb*
-        key: avd-30
+        # Update SDK manager
+        yes | sdkmanager --update
+        
+        # Install necessary components
+        yes | sdkmanager "platform-tools" 
+        yes | sdkmanager "platforms;android-34"
+        yes | sdkmanager "build-tools;34.0.0"
+        yes | sdkmanager "emulator"
+        yes | sdkmanager "system-images;android-34;google_apis;x86_64"
 
     - name: Create AVD
       run: |
-        echo "no" | avdmanager create avd --force \
+        echo "Creating Android Virtual Device"
+        echo "no" | avdmanager create avd \
           -n test_emulator \
-          -k "system-images;android-30;google_apis;x86_64" \
-          -d "Pixel 4"
+          -k "system-images;android-34;google_apis;x86_64" \
+          -d "pixel_6"
 
-    - name: Grant execute permission for gradlew
+    - name: Configure Emulator Settings
+      run: |
+        echo "hardware.ramSize=4096" >> ~/.android/avd/test_emulator.avd/config.ini
+        echo "hw.ramSize=4096" >> ~/.android/avd/test_emulator.avd/config.ini
+        echo "vm.heapSize=256" >> ~/.android/avd/test_emulator.avd/config.ini
+
+    - name: Grant Execute Permission
       run: chmod +x gradlew
+
+    - name: Decode Google Services JSON
+      env:
+        FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+      run: |
+        echo "$FIREBASE_CONFIG" > app/google-services.json
 
     - name: Run Android Instrumentation Tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: 30
+        api-level: 34
         target: google_apis
         arch: x86_64
-        profile: Pixel 4
+        profile: pixel_6
+        ram-size: 4096M
+        disk-size: 8G
         script: |
-          echo "Waiting for emulator to be ready"
+          # Start emulator and wait for boot
+          echo "Waiting for emulator to boot completely"
           adb wait-for-device
+          
+          # Disable animations
           adb shell settings put global window_animation_scale 0
           adb shell settings put global transition_animation_scale 0
           adb shell settings put global animator_duration_scale 0
           
-          # Ensure device is fully booted
+          # Wait for system to be ready
           timeout 300 sh -c 'until adb shell getprop sys.boot_completed; do sleep 1; done'
           
-          # Run instrumentation tests
-          ./gradlew connectedCheck
+          # Check device status
+          adb devices
+          adb shell input keyevent 82
+          
+          # Run instrumentation tests with additional logging
+          ./gradlew connectedCheck \
+            -Pandroid.testInstrumentationRunnerArguments.listener=com.example.CustomTestListener \
+            --info --stacktrace
 
-    - name: Upload test reports
-      uses: actions/upload-artifact@v3
+    - name: Upload Test Reports
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: test-reports
         path: |
           app/build/reports/androidTests/connected/
           app/build/outputs/androidTest-results/
-
+          
     - name: Publish Test Report
-      uses: mikepenz/action-junit-report@v3
+      uses: mikepenz/action-junit-report@v4
       if: success() || failure()
       with:
         report_paths: '**/build/test-results/testDebugUnitTest/**.xml'
+        detailed_summary: true
+
+    - name: Send Slack Notification
+      if: failure()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        fields: repo,message,commit,author,action,eventName,ref,workflow
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+
+    - name: Clean up
+      if: always()
+      run: |
+        adb kill-server
+        pkill -f "qemu"
+
+# Optional: Add code coverage and additional checks
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run Ktlint
+      run: |
+        ./gradlew ktlintCheck
+    
+    - name: Run Detekt
+      run: |
+        ./gradlew detekt
