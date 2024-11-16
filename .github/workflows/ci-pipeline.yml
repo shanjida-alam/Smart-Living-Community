@@ -1,56 +1,55 @@
-name: Android Instrumentation Tests
+name: Android CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  android-instrumentation-tests:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17' # Match the version used in your project
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
 
-      - name: Configure Android environment
-        uses: actions/setup-android@v2
-        with:
-          # Choose the correct API level for your project
-          api-level: 34
-          # Use the default Android SDK
-          sdk-root: "$HOME/android-sdk"
-          # Install necessary packages
-          # (Adjust this to your project's needs)
-          packages: build-tools;platform-tools;cmake;ndk-bundle;platform-34
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
 
-      - name: Cache Gradle dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
 
-      - name: Run instrumentation tests
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { exec } = require('child_process');
-            exec('./gradlew connectedAndroidTest', { cwd: '.' }, (error, stdout, stderr) => {
-              if (error) {
-                console.error(`Error: ${error}`);
-                core.setFailed('Instrumentation tests failed');
-              } else {
-                console.log('Instrumentation tests successful!');
-              }
-            });
+    - name: Run Android Instrumentation Tests
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 30
+        script: |
+          # Start the emulator and wait for it to be ready
+          echo "Waiting for emulator to be ready"
+          adb wait-for-device
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
+          
+          # Run instrumentation tests
+          ./gradlew connectedCheck
+
+    - name: Upload test reports
+      uses: actions/upload-artifact@v3
+      if: failure()
+      with:
+        name: test-reports
+        path: app/build/reports/androidTests/connected/
+
+    - name: Publish Test Report
+      uses: mikepenz/action-junit-report@v3
+      if: success() || failure()
+      with:
+        report_paths: '**/build/test-results/testDebugUnitTest/**.xml'
