@@ -8,7 +8,8 @@ on:
 
 jobs:
   test:
-    runs-on: macos-latest  # Changed to macos-latest for better emulator support
+    runs-on: macos-latest
+    timeout-minutes: 45  # Added timeout
 
     steps:
       - uses: actions/checkout@v4
@@ -23,11 +24,25 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses
+
+      - name: Install Android SDK components
+        run: |
+          sdkmanager "platform-tools" "platforms;android-29" "system-images;android-29;default;x86_64" "emulator"
+          sdkmanager --install "system-images;android-29;default;x86_64"
+          echo "no" | avdmanager create avd -n test_device -k "system-images;android-29;default;x86_64" --force
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Run Unit Tests
         run: ./gradlew test
+
+      - name: Kill existing emulators
+        run: |
+          adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done || true
+          adb kill-server || true
 
       - name: Run Instrumentation Tests
         uses: reactivecircus/android-emulator-runner@v2
@@ -35,12 +50,18 @@ jobs:
           api-level: 29
           target: default
           arch: x86_64
-          profile: pixel_2
+          profile: Nexus 6
+          cores: 2
+          ram-size: 4096M
+          emulator-boot-timeout: 900
           script: |
-            adb logcat *:E &
-            ./gradlew connectedAndroidTest --info
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -writable-system -no-snapshot
-          disable-animations: true
+            adb devices
+            adb wait-for-device
+            adb shell input keyevent 82
+            adb shell settings put global window_animation_scale 0
+            adb shell settings put global transition_animation_scale 0
+            adb shell settings put global animator_duration_scale 0
+            ./gradlew connectedDebugAndroidTest --info
 
       - name: Upload Test Results
         if: always()
