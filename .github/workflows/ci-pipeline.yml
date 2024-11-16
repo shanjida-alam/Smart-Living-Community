@@ -7,30 +7,9 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build with Gradle
-        run: ./gradlew build
-
   test:
-    needs: build
-    runs-on: macos-latest  # Required for Android Emulator
-    
+    runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -49,13 +28,40 @@ jobs:
       - name: Run Unit Tests
         run: ./gradlew test
 
+      - name: AVD cache
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
+
+      - name: Create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          force-avd-creation: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          arch: x86_64
+          target: google_apis
+          ram-size: 4096M
+          heap-size: 2048M
+          disk-size: 8000M
+          script: echo "Generated AVD snapshot for caching."
+
       - name: Run Instrumentation Tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          target: google_apis
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           arch: x86_64
-          profile: Nexus 6
+          target: google_apis
+          ram-size: 4096M
+          heap-size: 2048M
+          disk-size: 8000M
           script: ./gradlew connectedAndroidTest
 
       - name: Upload Test Results
@@ -63,14 +69,11 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: |
-            app/build/reports/tests/
-            app/build/reports/androidTests/
+          path: app/build/reports/androidTests/connected/
 
-  dependency-submission:
+  build:
+    needs: test
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -80,5 +83,5 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Generate and submit dependency graph
-        uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582
+      - name: Build with Gradle
+        run: ./gradlew build

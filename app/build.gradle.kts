@@ -37,14 +37,47 @@ android {
     }
     packaging {
         resources {
-            excludes += "META-INF/NOTICE.md"
-            excludes += "META-INF/LICENSE.md"
+            excludes += setOf(
+                "META-INF/NOTICE.md",
+                "META-INF/LICENSE.md",
+                "META-INF/DEPENDENCIES",
+                "META-INF/LICENSE",
+                "META-INF/LICENSE.txt",
+                "META-INF/license.txt",
+                "META-INF/NOTICE",
+                "META-INF/NOTICE.txt",
+                "META-INF/notice.txt",
+                "META-INF/ASL2.0"
+            )
         }
     }
     buildFeatures {
         viewBinding = true
         buildConfig = true
     }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+
+        // Add these configurations
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        animationsDisabled = true
+
+        // Configure the Android emulator
+        managedDevices {
+            devices {
+                maybeCreate<com.android.build.api.dsl.ManagedVirtualDevice>("pixel2api29").apply {
+                    device = "Pixel 2"
+                    apiLevel = 29
+                    systemImageSource = "google"
+                }
+            }
+        }
+    }
+
 }
 
 dependencies {
@@ -117,5 +150,7 @@ dependencies {
     androidTestImplementation("com.google.truth:truth:1.1.5")
     androidTestImplementation("com.google.android.gms:play-services-tasks:18.0.2")
 
+    // For CI Pipeling test
+    androidTestUtil("androidx.test:orchestrator:1.4.2")
 
 }
