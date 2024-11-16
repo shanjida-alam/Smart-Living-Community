@@ -15,6 +15,7 @@ import com.example.smartlivingcommunity.utils.Resource;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,6 +28,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.clearInvocations;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -44,133 +47,61 @@ public class ParkingViewModelTest {
     private ParkingRepository mockRepository;
 
     private ParkingViewModel viewModel;
-    private CountDownLatch latch;
-
-    private LifecycleOwner getTestLifecycleOwner() {
-        return new LifecycleOwner() {
-            private LifecycleRegistry lifecycle = new LifecycleRegistry(this);
-            {
-                lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
-            }
-            @Override
-            public Lifecycle getLifecycle() {
-                return lifecycle;
-            }
-        };
-    }
+    private AutoCloseable mockCloseable;
 
     @Before
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
+    public void setup() throws Exception {
+        mockCloseable = MockitoAnnotations.openMocks(this);
         viewModel = new ParkingViewModel(mockRepository);
-        latch = new CountDownLatch(1);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        mockCloseable.close();
+        clearInvocations(mockRepository);
+        reset(mockRepository);
+    }
+
+    private void waitForAsyncOperation(Task<?> task) throws Exception {
+        CountDownLatch latch = new CountDownLatch(1);
+        task.addOnCompleteListener(t -> latch.countDown());
+        if (!latch.await(5, TimeUnit.SECONDS)) {
+            throw new RuntimeException("Task did not complete within 5 seconds");
+        }
     }
 
     @Test
     public void testInstantBookingSuccess() throws Exception {
-        // Arrange
         InstantBookingModel booking = new InstantBookingModel(
                 "123", "456", "John Doe", "Car", "2024-01-01", "10:00-11:00", "PENDING"
         );
         Task<Void> successTask = Tasks.forResult(null);
         when(mockRepository.bookInstantly(any(InstantBookingModel.class))).thenReturn(successTask);
 
-        // Act
         viewModel.bookInstantly(booking);
+        waitForAsyncOperation(successTask);
 
-        // Wait for async operation
-        Tasks.await(successTask, 5, TimeUnit.SECONDS);
-
-        // Get final value after async completion
         Resource<String> result = TestUtils.getOrAwaitValue(viewModel.getBookingStatus());
-
-        // Assert
         assertEquals(Resource.Status.SUCCESS, result.status);
         assertEquals("Booking successful", result.data);
     }
 
     @Test
     public void testInstantBookingFailure() throws Exception {
-        // Arrange
         InstantBookingModel booking = new InstantBookingModel(
                 "123", "456", "John Doe", "Car", "2024-01-01", "10:00-11:00", "PENDING"
         );
-        Exception mockException = new Exception("Network error");
-        Task<Void> failureTask = Tasks.forException(mockException);
+        Task<Void> failureTask = Tasks.forException(new Exception("Network error"));
         when(mockRepository.bookInstantly(any(InstantBookingModel.class))).thenReturn(failureTask);
 
-        // Add observer to handle async state changes
-        viewModel.getBookingStatus().observeForever(result -> {
-            if (result.status != Resource.Status.LOADING) {
-                latch.countDown();
-            }
-        });
-
-        // Act
         viewModel.bookInstantly(booking);
-
-        // Wait for non-loading state
-        latch.await(5, TimeUnit.SECONDS);
-
-        // Get final value
-        Resource<String> result = TestUtils.getOrAwaitValue(viewModel.getBookingStatus());
-
-        // Assert
-        assertEquals(Resource.Status.ERROR, result.status);
-        assertEquals("Booking failed", result.message);
-    }
-
-    @Test
-    public void testSubmitParkingRegistration() {
-        // Arrange
-        ParkingRegistrationModel registration = new ParkingRegistrationModel();
-        Task<Void> successTask = Tasks.forResult(null);
-        when(mockRepository.submitParkingRegistration(any(ParkingRegistrationModel.class)))
-                .thenReturn(successTask);
-
-        // Act
-        viewModel.submitParkingRegistration(registration);
-
-        // Assert
-        Resource<String> result = TestUtils.getOrAwaitValue(viewModel.getRegistrationStatus());
-        assertNotNull(result);
-        assertEquals(Resource.Status.SUCCESS, result.status);
-        assertEquals("Registration submitted successfully", result.data);
-    }
-
-    @Test
-    public void testLoadRecentBookings_Success() throws Exception {
-        List<BookingModel> mockBookings = Arrays.asList(
-                new BookingModel("1", "user123", "John Doe", "Car", "2024-01-01", "10:00-11:00", "Pending"),
-                new BookingModel("2", "user456", "Jane Smith", "Bike", "2024-01-02", "14:00-15:00", "Confirmed")
-        );
-        Task<List<BookingModel>> successTask = Tasks.forResult(mockBookings);
-        when(mockRepository.getRecentBookings(anyString())).thenReturn(successTask);
-
-        viewModel.loadRecentBookings("userId");
-        Tasks.await(successTask, 5, TimeUnit.SECONDS);
-
-        Resource<List<BookingModel>> result = TestUtils.getOrAwaitValue(viewModel.getRecentBookings());
-        assertEquals(Resource.Status.SUCCESS, result.status);
-        assertEquals(2, result.data.size());
-        assertEquals("John Doe", result.data.get(0).getResidentName());
-        assertEquals("2024-01-02", result.data.get(1).getDate());
-    }
-
-    @Test
-    public void testLoadRecentBookings_Error() throws Exception {
-        Task<List<BookingModel>> failureTask = Tasks.forException(new Exception("Network error"));
-        when(mockRepository.getRecentBookings(anyString())).thenReturn(failureTask);
-
-        viewModel.loadRecentBookings("userId");
         try {
-            Tasks.await(failureTask, 5, TimeUnit.SECONDS);
+            waitForAsyncOperation(failureTask);
         } catch (Exception ignored) {}
 
-        Resource<List<BookingModel>> result = TestUtils.getOrAwaitValue(viewModel.getRecentBookings());
+        Resource<String> result = TestUtils.getOrAwaitValue(viewModel.getBookingStatus());
         assertEquals(Resource.Status.ERROR, result.status);
-        assertEquals("Network error", result.message);
-        assertNull(result.data);
+        assertEquals("Booking failed", result.message);
     }
 
     @Test
@@ -185,7 +116,7 @@ public class ParkingViewModelTest {
                 .thenReturn(successTask);
 
         viewModel.submitParkingRegistration(registration);
-        Tasks.await(successTask, 5, TimeUnit.SECONDS);
+        waitForAsyncOperation(successTask);
 
         Resource<String> result = TestUtils.getOrAwaitValue(viewModel.getRegistrationStatus());
         assertEquals(Resource.Status.SUCCESS, result.status);
@@ -199,14 +130,13 @@ public class ParkingViewModelTest {
                 "PENDING", "2024-01-01", null, null
         );
 
-        Exception mockException = new Exception("Network error");
-        Task<Void> failureTask = Tasks.forException(mockException);
+        Task<Void> failureTask = Tasks.forException(new Exception("Network error"));
         when(mockRepository.submitParkingRegistration(any(ParkingRegistrationModel.class)))
                 .thenReturn(failureTask);
 
         viewModel.submitParkingRegistration(registration);
         try {
-            Tasks.await(failureTask, 5, TimeUnit.SECONDS);
+            waitForAsyncOperation(failureTask);
         } catch (Exception ignored) {}
 
         Resource<String> result = TestUtils.getOrAwaitValue(viewModel.getRegistrationStatus());
@@ -214,21 +144,37 @@ public class ParkingViewModelTest {
         assertEquals("Failed to submit registration", result.message);
     }
 
+    @Test
+    public void testLoadRecentBookings_Success() throws Exception {
+        List<BookingModel> mockBookings = Arrays.asList(
+                new BookingModel("1", "user123", "John Doe", "Car", "2024-01-01", "10:00-11:00", "Pending"),
+                new BookingModel("2", "user456", "Jane Smith", "Bike", "2024-01-02", "14:00-15:00", "Confirmed")
+        );
+        Task<List<BookingModel>> successTask = Tasks.forResult(mockBookings);
+        when(mockRepository.getRecentBookings(anyString())).thenReturn(successTask);
+
+        viewModel.loadRecentBookings("userId");
+        waitForAsyncOperation(successTask);
+
+        Resource<List<BookingModel>> result = TestUtils.getOrAwaitValue(viewModel.getRecentBookings());
+        assertEquals(Resource.Status.SUCCESS, result.status);
+        assertNotNull(result.data);
+        assertEquals(2, result.data.size());
+        assertEquals("John Doe", result.data.get(0).getResidentName());
+        assertEquals("2024-01-02", result.data.get(1).getDate());
+    }
 
     @Test
     public void testLoadRecentBookings_Failure() throws Exception {
-        // Arrange
         String errorMessage = "Network error";
         Task<List<BookingModel>> failureTask = Tasks.forException(new Exception(errorMessage));
         when(mockRepository.getRecentBookings(anyString())).thenReturn(failureTask);
 
-        // Act
         viewModel.loadRecentBookings("userId");
         try {
-            Tasks.await(failureTask, 5, TimeUnit.SECONDS);
+            waitForAsyncOperation(failureTask);
         } catch (Exception ignored) {}
 
-        // Assert
         Resource<List<BookingModel>> result = TestUtils.getOrAwaitValue(viewModel.getRecentBookings());
         assertEquals(Resource.Status.ERROR, result.status);
         assertEquals(errorMessage, result.message);
@@ -244,7 +190,7 @@ public class ParkingViewModelTest {
         when(mockRepository.bookPermanently(any(PermanentBookingModel.class))).thenReturn(successTask);
 
         viewModel.bookPermanently(booking);
-        Tasks.await(successTask, 5, TimeUnit.SECONDS);
+        waitForAsyncOperation(successTask);
 
         Resource<String> result = TestUtils.getOrAwaitValue(viewModel.getBookingStatus());
         assertEquals(Resource.Status.SUCCESS, result.status);
@@ -261,7 +207,7 @@ public class ParkingViewModelTest {
 
         viewModel.bookPermanently(booking);
         try {
-            Tasks.await(failureTask, 5, TimeUnit.SECONDS);
+            waitForAsyncOperation(failureTask);
         } catch (Exception ignored) {}
 
         Resource<String> result = TestUtils.getOrAwaitValue(viewModel.getBookingStatus());
