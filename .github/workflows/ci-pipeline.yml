@@ -20,23 +20,48 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-
     - name: Setup Android SDK
       uses: android-actions/setup-android@v2
+
+    - name: Install Android SDK tools
+      run: |
+        echo "y" | sdkmanager "platform-tools" "platforms;android-30" "emulator"
+        echo "y" | sdkmanager --install "system-images;android-30;google_apis;x86_64"
+
+    - name: Create AVD and cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.android/avd/*
+          ~/.android/adb*
+        key: avd-30
+
+    - name: Create AVD
+      run: |
+        echo "no" | avdmanager create avd --force \
+          -n test_emulator \
+          -k "system-images;android-30;google_apis;x86_64" \
+          -d "Pixel 4"
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
 
     - name: Run Android Instrumentation Tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 30
+        target: google_apis
+        arch: x86_64
+        profile: Pixel 4
         script: |
-          # Start the emulator and wait for it to be ready
           echo "Waiting for emulator to be ready"
           adb wait-for-device
           adb shell settings put global window_animation_scale 0
           adb shell settings put global transition_animation_scale 0
           adb shell settings put global animator_duration_scale 0
+          
+          # Ensure device is fully booted
+          timeout 300 sh -c 'until adb shell getprop sys.boot_completed; do sleep 1; done'
           
           # Run instrumentation tests
           ./gradlew connectedCheck
@@ -46,7 +71,9 @@ jobs:
       if: failure()
       with:
         name: test-reports
-        path: app/build/reports/androidTests/connected/
+        path: |
+          app/build/reports/androidTests/connected/
+          app/build/outputs/androidTest-results/
 
     - name: Publish Test Report
       uses: mikepenz/action-junit-report@v3
