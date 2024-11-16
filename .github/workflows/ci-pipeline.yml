@@ -2,14 +2,15 @@ name: Android CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ "main", "develop" ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ "main", "develop" ]
+  workflow_dispatch:
 
 jobs:
-  test:
+  build:
+    name: Build and Test
     runs-on: ubuntu-latest
-    timeout-minutes: 30
 
     steps:
     - name: Checkout Repository
@@ -25,112 +26,59 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
-    - name: Install Android SDK Tools
-      run: |
-        # Update SDK manager
-        yes | sdkmanager --update
-        
-        # Install necessary components
-        yes | sdkmanager "platform-tools" 
-        yes | sdkmanager "platforms;android-34"
-        yes | sdkmanager "build-tools;34.0.0"
-        yes | sdkmanager "emulator"
-        yes | sdkmanager "system-images;android-34;google_apis;x86_64"
-
-    - name: Create AVD
-      run: |
-        echo "Creating Android Virtual Device"
-        echo "no" | avdmanager create avd \
-          -n test_emulator \
-          -k "system-images;android-34;google_apis;x86_64" \
-          -d "pixel_6"
-
-    - name: Configure Emulator Settings
-      run: |
-        echo "hardware.ramSize=4096" >> ~/.android/avd/test_emulator.avd/config.ini
-        echo "hw.ramSize=4096" >> ~/.android/avd/test_emulator.avd/config.ini
-        echo "vm.heapSize=256" >> ~/.android/avd/test_emulator.avd/config.ini
-
-    - name: Grant Execute Permission
+    - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Decode Google Services JSON
+    - name: Create google-services.json
       env:
-        FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-      run: |
-        echo "$FIREBASE_CONFIG" > app/google-services.json
+        GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+      run: echo $GOOGLE_SERVICES_JSON > app/google-services.json
 
-    - name: Run Android Instrumentation Tests
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug --stacktrace
+
+    - name: Build Debug Android Test APK
+      run: ./gradlew assembleDebugAndroidTest --stacktrace
+
+    - name: Run Unit Tests
+      run: ./gradlew testDebugUnitTest --stacktrace
+
+    - name: Run Instrumented Tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: 34
-        target: google_apis
+        api-level: 29
+        target: default
         arch: x86_64
-        profile: pixel_6
-        ram-size: 4096M
-        disk-size: 8G
+        profile: pixel_2
+        emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
+        disable-animations: true
         script: |
-          # Start emulator and wait for boot
-          echo "Waiting for emulator to boot completely"
+          adb devices
           adb wait-for-device
-          
-          # Disable animations
           adb shell settings put global window_animation_scale 0
           adb shell settings put global transition_animation_scale 0
           adb shell settings put global animator_duration_scale 0
-          
-          # Wait for system to be ready
-          timeout 300 sh -c 'until adb shell getprop sys.boot_completed; do sleep 1; done'
-          
-          # Check device status
-          adb devices
-          adb shell input keyevent 82
-          
-          # Run instrumentation tests with additional logging
-          ./gradlew connectedCheck \
-            -Pandroid.testInstrumentationRunnerArguments.listener=com.example.CustomTestListener \
-            --info --stacktrace
+          ./gradlew connectedDebugAndroidTest -x lint --stacktrace
 
-    - name: Upload Test Reports
-      uses: actions/upload-artifact@v4
-      if: failure()
+    - name: Upload Build Reports
+      if: always()
+      uses: actions/upload-artifact@v3
       with:
-        name: test-reports
+        name: build-reports
         path: |
-          app/build/reports/androidTests/connected/
+          app/build/reports/
           app/build/outputs/androidTest-results/
-          
-    - name: Publish Test Report
-      uses: mikepenz/action-junit-report@v4
-      if: success() || failure()
-      with:
-        report_paths: '**/build/test-results/testDebugUnitTest/**.xml'
-        detailed_summary: true
+        retention-days: 7
 
-    - name: Send Slack Notification
-      if: failure()
-      uses: 8398a7/action-slack@v3
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
       with:
-        status: ${{ job.status }}
-        fields: repo,message,commit,author,action,eventName,ref,workflow
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        name: app-debug
+        path: app/build/outputs/apk/debug/app-debug.apk
+        retention-days: 7
 
-    - name: Clean up
+    - name: Clean Up
       if: always()
       run: |
-        adb kill-server
-        pkill -f "qemu"
-
-# Optional: Add code coverage and additional checks
-  code-quality:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Run Ktlint
-      run: |
-        ./gradlew ktlintCheck
-    
-    - name: Run Detekt
-      run: |
-        ./gradlew detekt
+        rm -f app/google-services.json
+        ./gradlew clean
