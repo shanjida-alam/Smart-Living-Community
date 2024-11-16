@@ -65,17 +65,6 @@ android {
         // Add these configurations
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
-
-        // Configure the Android emulator
-        managedDevices {
-            devices {
-                maybeCreate<com.android.build.api.dsl.ManagedVirtualDevice>("pixel2api29").apply {
-                    device = "Pixel 2"
-                    apiLevel = 29
-                    systemImageSource = "google"
-                }
-            }
-        }
     }
 
 }
