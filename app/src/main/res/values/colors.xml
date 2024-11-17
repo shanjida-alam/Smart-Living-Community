@@ -7,4 +7,13 @@
     <color name="redish_tint">#FF0000</color> <!-- Adjust the color as needed -->
     <color name="default_nav_color">#666666</color> <!-- Default unselected color -->
     <color name="bg_tint">#F7E5E5</color>
+
+    <color name="status_pending">#FFA000</color>  <!-- Amber -->
+    <color name="status_approved">#4CAF50</color> <!-- Green -->
+    <color name="status_rejected">#F44336</color> <!-- Red -->
+    <color name="gray">#757575</color>
+
+    <color name="status_confirmed">#4CAF50</color>
+    <color name="status_cancelled">#F44336</color>
+    <color name="status_default">#757575</color>
 </resources>

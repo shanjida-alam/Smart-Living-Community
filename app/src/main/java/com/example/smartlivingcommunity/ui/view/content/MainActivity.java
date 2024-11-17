@@ -108,10 +108,15 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragment_container, new ManageEventFragment());
                     setToolbarTitle("Manage Events");
                     bottomNavigationView.setSelectedItemId(R.id.navManageEvent); // Sync with bottom nav
+                } else if (itemId == R.id.itemManageParking) {
+                    setToolbarTitle("Manage Parking");
+                    fragmentTransaction.replace(R.id.fragment_container, new ParkingFragment());
                 }
 
                 fragmentTransaction.commit();
                 drawerLayout.close();
+
+
                 return true;
             }
         });
@@ -121,4 +126,6 @@ public class MainActivity extends AppCompatActivity {
     private void setToolbarTitle(String title) {
         toolbarTitle.setText(title);
     }
+
+
 }

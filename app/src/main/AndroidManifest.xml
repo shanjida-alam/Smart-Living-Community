@@ -32,7 +32,8 @@
         <!-- Removed intent-filter from MainActivity -->
         <activity
             android:name=".ui.view.content.MainActivity"
-            android:exported="false" /> <!-- Changed to false -->
+            android:exported="false">
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

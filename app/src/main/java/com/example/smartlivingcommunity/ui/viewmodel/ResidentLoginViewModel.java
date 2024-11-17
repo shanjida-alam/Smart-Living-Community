@@ -15,12 +15,27 @@ import com.google.firebase.firestore.FirebaseFirestore;
  */
 public class ResidentLoginViewModel extends ViewModel {
 
+
+
     /** LiveData holding the login result status and associated message */
     private final MutableLiveData<Resource<Boolean>> loginResult = new MutableLiveData<>();
 
     /** Firestore instance for accessing the database */
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db;
 
+    public ResidentLoginViewModel() {
+        this.db = FirebaseFirestore.getInstance();
+    }
+
+    // Add this protected method for testing
+    protected FirebaseFirestore getFirebaseInstance() {
+        return FirebaseFirestore.getInstance();
+    }
+
+    // Constructor now accepts a FirebaseFirestore instance for dependency injection
+    public ResidentLoginViewModel(FirebaseFirestore db) {
+        this.db = db;
+    }
     /**
      * Returns the login result as LiveData, which indicates the success or failure
      * of a login attempt with an optional message.
@@ -68,4 +83,6 @@ public class ResidentLoginViewModel extends ViewModel {
                     }
                 });
     }
+
+    // Removed the abstract method since FirebaseFirestore is already initialized in the class
 }

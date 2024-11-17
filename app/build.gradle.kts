@@ -17,6 +17,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Add test orchestrator
+        testInstrumentationRunnerArguments += mapOf(
+            "clearPackageData" to "true"
+        )
     }
 
     buildTypes {
@@ -29,29 +33,56 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     packaging {
         resources {
-            excludes += "META-INF/NOTICE.md"
-            excludes += "META-INF/LICENSE.md"
+            excludes += setOf(
+                "META-INF/NOTICE.md",
+                "META-INF/LICENSE.md",
+                "META-INF/DEPENDENCIES",
+                "META-INF/LICENSE",
+                "META-INF/LICENSE.txt",
+                "META-INF/license.txt",
+                "META-INF/NOTICE",
+                "META-INF/NOTICE.txt",
+                "META-INF/notice.txt",
+                "META-INF/ASL2.0"
+            )
         }
     }
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+
+        // Add these configurations
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        animationsDisabled = true
+    }
+
 }
 
 dependencies {
     implementation(libs.navigation.fragment.ktx)
-    implementation(libs.firebase.firestore)
+    implementation(libs.recyclerview)
+    implementation(libs.firebase.auth)
+    implementation(libs.gridlayout)
     dokkaPlugin(libs.android.documentation.plugin)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
@@ -86,8 +117,33 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
 
+    // Firebase Firestore for database testing (ensures Firestore integration works as expected)
+    androidTestImplementation("com.google.firebase:firebase-firestore:24.0.0")
+
+    // Google Tasks for Task API (used in Firebase query operations)
+    androidTestImplementation("com.google.android.gms:play-services-tasks:18.0.2")
 //    fetching image url from firebase
     implementation("com.github.bumptech.glide:glide:4.15.0") // Check for the latest version
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.0") // For annotation processing
+
+
+
+    // Testing Dependancies
+    // Testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("org.mockito:mockito-inline:5.2.0")
+
+    // Android Testing
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("org.mockito:mockito-android:5.7.0")
+    androidTestImplementation("com.google.truth:truth:1.1.5")
+    androidTestImplementation("com.google.android.gms:play-services-tasks:18.0.2")
+
+    // For CI Pipeling test
+    androidTestUtil("androidx.test:orchestrator:1.4.2")
 
 }
